@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\App.xaml
-11519003739
+21233440052
 
-91722595224
+14-2036654839
 200-1527298552
-Views\Hauptfenster.xaml;
+Views\ArtikelAnlegen.xaml;Views\Hauptfenster.xaml;
 
-False
+True
 

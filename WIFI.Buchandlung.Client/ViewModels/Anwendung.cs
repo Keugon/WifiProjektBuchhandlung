@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WIFI.Windows;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
     public class Anwendung :WIFI.Windows.ViewModel
     {
-        #region Hauptview
-
-
-        //Unötiger Kommentar gelöscht
+        #region Hauptview       
         /// <summary>
         /// Ruft einen Wahrheitswert ab
         /// oder legt diesen fest, mit dem
@@ -96,5 +94,45 @@ namespace WIFI.Buchandlung.Client.ViewModels
         }
 
         #endregion Hauptview
+        #region Commands
+
+        public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen());
+
+        #endregion Commands
+        #region Artikel Manager
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private ArtikelManager _ArtikelManager = null!;
+        /// <summary>
+        /// Ruft den Dienst zum Verarbeiten von Aktikel bereit
+        /// </summary>
+        public ArtikelManager ArtikelManager
+        {
+            get
+            {
+                if(this._ArtikelManager == null)
+                {
+                    this._ArtikelManager = this.Kontext.Produziere<ArtikelManager>();
+                }
+                return this._ArtikelManager;
+            }
+        }
+        #endregion Artikel Manager
+        private System.Windows.Controls.Control _AktuelleView = null!;
+        /// <summary>
+        /// Ruft die Aktuell Angezeigte View ab
+        /// </summary>
+        public System.Windows.Controls.Control AktuelleView
+        {
+            get
+            {
+                this._AktuelleView
+            }
+        }
+        public void MenüPunktAnzeigen(string viewToDisplay)
+        {
+            System.Windows.Controls.Control = Views.ArtikelAnlegen;
+        }
     }
 }

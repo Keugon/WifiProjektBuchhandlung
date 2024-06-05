@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("© 2024 WIFI OÖ GmbH")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Stellt die Infrastruktur für eine WIFI .Net Anwendung bereit")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2024.5.2.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e749e559e3777ee2bac3f8ce1f322169215052f4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b4a1fe82e7bfda8fbe098330f8f5e6e08dfd44b2")]
 [assembly: System.Reflection.AssemblyProductAttribute("3881 C# Entwicklung")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WIFI.Anwendung")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2024.5.2.0")]

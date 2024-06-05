@@ -35,3 +35,6 @@ C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandl
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\WIFI.Buchandlung.Client.Views.Texte.de.resources
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\WIFI.Buchandlung.Client.csproj.GenerateResource.cache
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\de\WIFI.Buchandlung.Client.resources.dll
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\ArtikelAnlegen.g.cs
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\ArtikelAnlegen.baml
