@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WIFI.Buchandlung.Client", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WIFI.Anwendung", "WIFI.Anwendung\WIFI.Anwendung.csproj", "{7203BDFA-5997-4B00-AA22-6AE55BC3F352}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WIFI.Windows", "Wifi.Windows\WIFI.Windows.csproj", "{4CA7594E-DFC6-4B97-A1BC-0326D141B671}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7203BDFA-5997-4B00-AA22-6AE55BC3F352}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7203BDFA-5997-4B00-AA22-6AE55BC3F352}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7203BDFA-5997-4B00-AA22-6AE55BC3F352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA7594E-DFC6-4B97-A1BC-0326D141B671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA7594E-DFC6-4B97-A1BC-0326D141B671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA7594E-DFC6-4B97-A1BC-0326D141B671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA7594E-DFC6-4B97-A1BC-0326D141B671}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

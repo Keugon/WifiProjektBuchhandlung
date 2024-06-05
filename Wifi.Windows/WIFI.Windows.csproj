@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Title>WIFI WPF Anwendung</Title>
+		<Authors>WIFI OÖ GmbH</Authors>
+		<Company>WIFI OÖ GmbH</Company>
+		<Product>3881 C# Entwicklung</Product>
+		<Description>Stellt Dienste zum Entwickeln von Windows WPF Anwendungen bereit</Description>
+		<Copyright>© 2024 WIFI OÖ GmbH</Copyright>
+		<AssemblyVersion>2024.3.0.0</AssemblyVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\WIFI.Anwendung\WIFI.Anwendung.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Controls\UITexte.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>UITexte.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Controls\UITexte.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>UITexte.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Controls\UITexte.de.resx">
+	    <LastGenOutput>UITexte.de.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
+	
+</Project>

@@ -53,3 +53,4 @@ C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Anwendun
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Anwendung\obj\Debug\net8.0\WIFI.Anwendung.xml
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Anwendung\obj\Debug\net8.0\WIFI.Anwendung.pdb
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Anwendung\obj\Debug\net8.0\ref\WIFI.Anwendung.dll
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Anwendung\obj\Debug\net8.0\WIFI.Anwendung.sourcelink.json

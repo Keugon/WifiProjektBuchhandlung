@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Administrator\Source\Repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\
 WIFI.Buchandlung.Client
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\Administrator\Source\Repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\App.xaml
-11407045341
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\App.xaml
+11519003739
 
-6-2080976426
-198-1509178875
-MainWindow.xaml;
+91722595224
+200-1527298552
+Views\Hauptfenster.xaml;
 
-True
+False
 

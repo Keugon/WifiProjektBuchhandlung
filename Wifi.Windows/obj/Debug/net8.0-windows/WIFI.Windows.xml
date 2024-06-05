@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WIFI.Windows</name>
+    </assembly>
+    <members>
+        <member name="T:WIFI.Windows.Befehl">
+            <summary>
+            Kapselt eine Methode für
+            die WPF Command Bindung
+            </summary>
+        </member>
+        <member name="E:WIFI.Windows.Befehl.CanExecuteChanged">
+            <summary>
+            Wird ausgelöst, wenn sich die
+            Voraussetzung für CanExecute geändert hat
+            </summary>
+            <remarks>
+            Die Bahandler methode wird an den
+            Windows-BefehlsManager weitergegeben</remarks>
+        </member>
+        <member name="F:WIFI.Windows.Befehl.IstBefehlErlaubt">
+            <summary>
+            Internes Feld für die Methode
+            zum Prüfen, ob der Befehl aktuell
+            zulässig ist.
+            </summary>
+        </member>
+        <member name="M:WIFI.Windows.Befehl.CanExecute(System.Object)">
+            <summary>
+            Gibt einen Wahrheitswert zurück,
+            der angibt, ob die Methode des
+            Befehls aktuell zulässig ist oder nicht.
+            </summary>
+            <param name="parameter">Zusatzdaten der Datenbindung</param>
+            <returns>True, wenn der Befehl gültig ist</returns>
+            <remarks>Sollte keine Prüfmethode vorhanden sein,
+            wird True als Standard zurückgegeben</remarks>
+        </member>
+        <member name="F:WIFI.Windows.Befehl.Befehlsmethode">
+            <summary>
+            Internes Feld für die Speicheradresse
+            der Methode, die in diesem Befehl versteckt ist
+            </summary>
+        </member>
+        <member name="M:WIFI.Windows.Befehl.Execute(System.Object)">
+            <summary>
+            Führt die Methode dieses Befehls aus
+            </summary>
+            <param name="parameter">Zusatzdaten der Datenbindung</param>
+        </member>
+        <member name="M:WIFI.Windows.Befehl.#ctor(System.Action{System.Object})">
+            <summary>
+            Initialisiert einen neuen Befehl
+            für die Command WPF Datenbindung
+            </summary>
+            <param name="befehlsmethode">Speicheradresse
+            der Methode, die bei diesem Befehl
+            ausgeführt werden soll</param>
+            <remarks>Dieser Befehl ist immer gültig</remarks>
+        </member>
+        <member name="M:WIFI.Windows.Befehl.#ctor(System.Action{System.Object},System.Predicate{System.Object})">
+            <summary>
+            Initialisiert einen neuen Befehl
+            für die Command WPF Datenbindung
+            </summary>
+            <param name="befehlsmethode">Speicheradresse
+            der Methode, die bei diesem Befehl
+            ausgeführt werden soll</param>
+            <param name="istBefehlErlaubt">Speicheradresse
+            der Methode, die prüft, ob der
+            Befehl aktuell zulässig ist</param>
+        </member>
+        <member name="T:WIFI.Windows.Controls.Kugel">
+            <summary>
+            Eine Ganzzahl in einem 
+            eingefärbten Kreis
+            </summary>
+            <summary>
+            Kugel
+            </summary>
+        </member>
+        <member name="M:WIFI.Windows.Controls.Kugel.#ctor">
+            <summary>
+            Initialisiert ein neues Kugel Objekt
+            </summary>
+        </member>
+        <member name="P:WIFI.Windows.Controls.Kugel.Zahl">
+            <summary>
+            Ruft den Wert dieser Kugel 
+            ab oder legt diesen fest
+            </summary>
+        </member>
+        <member name="F:WIFI.Windows.Controls.Kugel.ZahlProperty">
+            <summary>
+            Veröffentlicht die Zahl Eigenschaft 
+            für die WPF Datenbindung
+            </summary>
+        </member>
+        <member name="M:WIFI.Windows.Controls.Kugel.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:WIFI.Windows.Controls.TextBox">
+            <summary>
+            Stellt ein Steuerelement zum 
+            Anzeigen oder bearbeiten eines 
+            unformatierten Textes bereit
+            </summary>
+            <remarks>Erweitert die
+            System.Windows.Controls.TextBox
+            um ein Wasserzeichen und weitere
+            möglichkeiten</remarks>
+        </member>
+        <member name="F:WIFI.Windows.Controls.TextBox.WasserzeichenProperty">
+            <summary>
+            Veröffentlicht die WasserzeichenEigenschaft 
+            für die Datenbindung.
+            </summary>
+        </member>
+        <member name="M:WIFI.Windows.Controls.TextBox.WasserzeichenGeändert(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Rückruf Mehtode für die Datenbindung
+            zum Aktualisiseren vom Hintergrund
+            </summary>
+            <param name="d">TextBox wo das 
+            Wasserzeichen geändert wurde</param>
+            <param name="e">Zusatzdaten</param>
+        </member>
+        <member name="P:WIFI.Windows.Controls.TextBox.Wasserzeichen">
+            <summary>
+            Ruft den Text, der bei einer Leeren Textbox
+            benutzt werden soll ab
+            oder legt ihn fest.
+            </summary>
+            <remarks>Standart "Enter Here" oder eine
+            entsprechende Lokalisierung</remarks>
+        </member>
+        <member name="P:WIFI.Windows.Controls.TextBox.OriginalHintergrund">
+            <summary>
+            Ruft die Background Eigenschaft dieser
+            Textbox beim erstellen ab
+            oder legt diese fest
+            </summary>
+            <remarks>
+            wird zum entfernen des Wasserzeichens benötigt
+            </remarks>
+        </member>
+        <member name="M:WIFI.Windows.Controls.TextBox.OnInitialized(System.EventArgs)">
+            <summary>
+            Löst das Initialized Erreignis aus
+            </summary>
+            <param name="e">Zusatzdaten</param>
+            <remarks>Wird um das cachen vom OriginalHintergrund
+            erweitert</remarks>
+        </member>
+        <member name="M:WIFI.Windows.Controls.TextBox.ErzeugeWasserZeichenGrafik">
+            <summary>
+            Gibt ein Visual Brush objekt für
+            einen Label mit dem Wasserzeichen 
+            zurück
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WIFI.Windows.Controls.TextBox.OnTextChanged(System.Windows.Controls.TextChangedEventArgs)">
+            <summary>
+            löst das TextChanged Ereignis aus
+            </summary>
+            <param name="e">Zusatzdaten</param>
+            <remarks>Wird um das Ein/Abschalten 
+            des Wasserzeichens ergänzt</remarks>
+        </member>
+        <member name="M:WIFI.Windows.Controls.TextBox.OnKeyUp(System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Löst das Key Up Ereignis aus
+            </summary>
+            <param name="e">Zusatzdaten</param>
+            <remarks>Verschiebt beim los lassen der Eingabe Taste
+            den Focus auf das nächste Steuerelement
+            in der Reihenfolge</remarks>
+        </member>
+        <member name="M:WIFI.Windows.Controls.TextBox.OnGotKeyboardFocus(System.Windows.Input.KeyboardFocusChangedEventArgs)">
+            <summary>
+            Löst das GotKeyboardFocus Ereignis aus
+            </summary>
+            <param name="e">Zusatzdaten</param>
+            <remarks>Wird um das makieren des 
+            gesammten Inhalts erweitert</remarks>
+        </member>
+        <member name="M:WIFI.Windows.Controls.TextBox.OnMouseDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Löst das Rooted OnMouseDown Ereignis aus
+            </summary>
+            <param name="e">Zusatzdaten</param>
+            <remarks>Falls diese Textbox noch nicht
+            hat, den Focus einstellen und
+            die Weitergabe vom Ereignis beenden</remarks>
+        </member>
+        <member name="T:WIFI.Windows.Controls.UITexte">
+            <summary>
+              Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+            </summary>
+        </member>
+        <member name="P:WIFI.Windows.Controls.UITexte.ResourceManager">
+            <summary>
+              Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+            </summary>
+        </member>
+        <member name="P:WIFI.Windows.Controls.UITexte.Culture">
+            <summary>
+              Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+              Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+            </summary>
+        </member>
+        <member name="P:WIFI.Windows.Controls.UITexte.WasserzeichenStandard">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Enter here ähnelt.
+            </summary>
+        </member>
+        <member name="T:WIFI.Windows.ViewModel">
+            <summary>
+            Stellt Basisfunktionalitäten für
+            ein MVVM ViewModel bereit
+            </summary>
+        </member>
+        <member name="P:WIFI.Windows.ViewModel.IstBeschäftigtZähler">
+            <summary>
+            Ruft die IstBeschäftigt Stufe ab
+            oder legt diese Fest
+            </summary>
+        </member>
+        <member name="P:WIFI.Windows.ViewModel.IstBeschäftigt">
+            <summary>
+            Ruft einen Wahrheitswert ab 
+            oder legt diesen, über den der
+            Aktuelle zustand festgestellt werden 
+            kann
+            </summary>
+        </member>
+        <member name="E:WIFI.Windows.ViewModel.PropertyChanged">
+            <summary>
+            Wird ausgelöst, wenn sich der Inhalt
+            einer Eigenschaft geändert hat
+            </summary>
+        </member>
+        <member name="M:WIFI.Windows.ViewModel.OnPropertyChanged(System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Löst das Ereignis PropertyChanged aus
+            </summary>
+            <param name="e">Ereignisdaten mit
+            dem Namen der geänderten Eigenschaft</param>
+        </member>
+        <member name="M:WIFI.Windows.ViewModel.OnPropertyChanged(System.String)">
+            <summary>
+            Löst das Ereignis PropertyChanged aus
+            </summary>
+            <param name="nameEigenschaft">optional; Die Bezeichnung
+            der Eigenschaft, deren Inhalt geändert wurde</param>
+            <remarks>Fehlt der Name der Eigenschaft,
+            wird der Name vom Aufrufer eingesetzt</remarks>
+        </member>
+        <member name="M:WIFI.Windows.ViewModel.PositionHinterlegen(System.Windows.Window)">
+            <summary>
+            Übergibt die aktuellen Größendaten
+            an den Fensterdienst der Infrastruktur
+            </summary>
+            <param name="fenster">Ein WPF Fenster
+            dessen Koordinaten an den Fensterdienst
+            übergeben werden sollen</param>
+            <remarks>Der Name des Fensters wird
+            als Schlüssel benutzt</remarks>
+        </member>
+        <member name="M:WIFI.Windows.ViewModel.PositionWiederherstellen(System.Windows.Window)">
+            <summary>
+            Stellt mit dem Fensterdienst der
+            Infrastruktur gespeicherte Zustände
+            und Größen wiederher
+            </summary>
+            <param name="fenster">Ein WPF Fenster,
+            von dem die alte Größe benötigt wird</param>
+            <remarks>Der Name vom Fenster dient als Schlüssel</remarks>
+        </member>
+    </members>
+</doc>
