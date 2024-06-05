@@ -9,7 +9,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
     public class Anwendung :WIFI.Windows.ViewModel
     {
         #region Hauptview
-        //neuer komentar
+
+
+        //Unötiger Kommentar gelöscht
         /// <summary>
         /// Ruft einen Wahrheitswert ab
         /// oder legt diesen fest, mit dem

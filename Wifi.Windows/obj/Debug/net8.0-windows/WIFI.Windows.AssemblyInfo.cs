@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("© 2024 WIFI OÖ GmbH")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Stellt Dienste zum Entwickeln von Windows WPF Anwendungen bereit")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2024.3.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2cdc48024090f5612b654d2d4bb5d6cf62a7218")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e749e559e3777ee2bac3f8ce1f322169215052f4")]
 [assembly: System.Reflection.AssemblyProductAttribute("3881 C# Entwicklung")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WIFI.Windows")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2024.3.0.0")]

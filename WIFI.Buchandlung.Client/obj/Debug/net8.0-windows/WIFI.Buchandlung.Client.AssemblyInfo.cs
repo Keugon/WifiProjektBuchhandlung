@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WIFI.Buchandlung.Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2cdc48024090f5612b654d2d4bb5d6cf62a7218")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e749e559e3777ee2bac3f8ce1f322169215052f4")]
 [assembly: System.Reflection.AssemblyProductAttribute("WIFI.Buchandlung.Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WIFI.Buchandlung.Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
