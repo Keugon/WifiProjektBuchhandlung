@@ -46,7 +46,7 @@ namespace WIFI.Buchandlung.Client {
         /// </summary>
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "8.0.5.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "8.0.2.0")]
         public static void Main() {
             WIFI.Buchandlung.Client.App app = new WIFI.Buchandlung.Client.App();
             app.Run();

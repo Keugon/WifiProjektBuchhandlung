@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\WIFI.Buchandlung.Client.csproj": {}
+    "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\WIFI.Buchandlung.Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj": {
+    "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj",
         "projectName": "WIFI.Anwendung",
-        "projectPath": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -65,18 +64,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\WIFI.Buchandlung.Client.csproj": {
+    "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\WIFI.Buchandlung.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\WIFI.Buchandlung.Client.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\WIFI.Buchandlung.Client.csproj",
         "projectName": "WIFI.Buchandlung.Client",
-        "projectPath": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\WIFI.Buchandlung.Client.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\WIFI.Buchandlung.Client.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Buchandlung.Client\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -91,18 +90,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj"
+              "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj"
               },
-              "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj"
+              "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj"
               }
             }
           }
@@ -140,18 +138,18 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj": {
+    "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj",
         "projectName": "WIFI.Windows",
-        "projectPath": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\WIFI.Windows.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\Wifi.Windows\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -166,15 +164,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\source\\repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj"
+              "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\Keugon\\WifiProjektBuchhandlung\\WIFI.Anwendung\\WIFI.Anwendung.csproj"
               }
             }
           }
@@ -212,7 +209,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

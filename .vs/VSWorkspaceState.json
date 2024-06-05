@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WIFI.Buchandlung.Client"
   ],
+  "SelectedNode": "\\WIFI.Buchandlung.Client\\App.xaml",
   "PreviewInSolutionExplorer": false
 }
