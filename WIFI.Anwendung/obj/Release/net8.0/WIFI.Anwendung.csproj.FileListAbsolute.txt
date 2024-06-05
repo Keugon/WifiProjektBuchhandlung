@@ -1,0 +1,16 @@
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\bin\Release\net8.0\WIFI.Anwendung.deps.json
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\bin\Release\net8.0\WIFI.Anwendung.dll
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\bin\Release\net8.0\WIFI.Anwendung.xml
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\bin\Release\net8.0\de\WIFI.Anwendung.resources.dll
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\WIFI.Anwendung.Properties.Resources.resources
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\WIFI.Anwendung.Properties.Resources.de.resources
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\WIFI.Anwendung.csproj.GenerateResource.cache
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\WIFI.Anwendung.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\WIFI.Anwendung.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\WIFI.Anwendung.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\WIFI.Anwendung.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\de\WIFI.Anwendung.resources.dll
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\WIFI.Anwendung.dll
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\refint\WIFI.Anwendung.dll
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\WIFI.Anwendung.xml
+C:\Users\Administrator\Desktop\WIFI.CSharp.2024-2\WIFI.Anwendung\obj\Release\net8.0\ref\WIFI.Anwendung.dll

@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Anwendungsprotokoll Model">
+    <Position X="6" Y="0.5" Height="0.354" Width="3.241" />
+  </Comment>
+  <Comment CommentText="Unterstützung für DatenTransferObjekte">
+    <Position X="1.01" Y="0.521" Height="0.354" Width="4.232" />
+  </Comment>
+  <Comment CommentText="Zum Vermeiden von Speicherlöcher">
+    <Position X="9.718" Y="0.5" Height="0.354" Width="1.811" />
+  </Comment>
+  <Class Name="WIFI.Anwendung.Daten.Protokolleinträge">
+    <Position X="7.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Daten\Protokoll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.Daten.Protokolleintrag">
+    <Position X="6" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Daten\Protokoll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.Daten.InToStringAttribute">
+    <Position X="1" Y="1" Width="1.75" />
+    <Members>
+      <Field Name="_Position" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Daten\DatenObjekt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.Daten.DatenObjekt">
+    <Position X="3" Y="1" Width="2.25" />
+    <Members>
+      <Field Name="_AnalysierteTypen" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="WIFI.Anwendung.Daten.DatenObjekt.InToStringEigenschaften">
+        <TypeIdentifier>
+          <NewMemberFileName>Daten\DatenObjekt.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="WIFI.Anwendung.Daten.DatenObjekt.InToStringWörterbuch">
+        <TypeIdentifier>
+          <NewMemberFileName>Daten\DatenObjekt.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIAAAAEAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Daten\DatenObjekt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.ProtokollManager">
+    <Position X="6" Y="3" Width="1.5" />
+    <Members>
+      <Field Name="_Einträge" Hidden="true" />
+      <Field Name="_EnthältFehler" Hidden="true" />
+      <Field Name="_Rückrufe" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CAACAgAAAAACAAAABAgCEAHAAAQAAAAgAAAAAAEAAAA=</HashCode>
+      <FileName>ProtokollManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.Daten.SchwacherMethodenVerweisListe">
+    <Position X="9.75" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Daten\SchwacherMethodenVerweis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.Daten.SchwacherMethodenVerweis">
+    <Position X="9.75" Y="3" Width="1.75" />
+    <Members>
+      <Field Name="_Methode" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAQA=</HashCode>
+      <FileName>Daten\SchwacherMethodenVerweis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.Daten.GuidDatenObjekt">
+    <Position X="3.25" Y="5.75" Width="1.75" />
+    <Members>
+      <Field Name="_ID" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Daten\GuidDatenObjekt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.Werkzeuge.Allgemeines">
+    <Position X="12" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Werkzeuge\Allgemeines.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.Werkzeuge.AssemblyInfos">
+    <Position X="12" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAABAAAAAAAAQBAAAAAAAAAAAA=</HashCode>
+      <FileName>Werkzeuge\AssemblyInfos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="WIFI.Anwendung.Daten.ProtokolleintragTyp">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Daten\Protokoll.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,1052 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WIFI.Anwendung</name>
+    </assembly>
+    <members>
+        <member name="T:WIFI.Anwendung.AppObjekt">
+            <summary>
+            Unterstützt sämtliche 
+            WIFI Anwendungsobjekte
+            mit der Infrastruktur und 
+            weiteren Basisfunktionalitäten
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.AppObjekt.Kontext">
+            <summary>
+            Ruft das Objekt mit der Infrastruktur
+            einer WIFI Anwendung ab oder legt
+            dieses fest
+            </summary>
+        </member>
+        <member name="E:WIFI.Anwendung.AppObjekt.FehlerAufgetreten">
+            <summary>
+            Wird ausgelöst, wenn im Objekt
+            ein Problem eingetreten ist
+            </summary>
+            <remarks>Die Ursache befindet sich
+            in den Ereignisdaten</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.AppObjekt.OnFehlerAufgetreten(System.Exception)">
+            <summary>
+            Löst das Ereignis FehlerAufgetreten aus
+            </summary>
+            <param name="ex">Die Ausnahme, die
+            den Fehler beschreibt</param>
+        </member>
+        <member name="M:WIFI.Anwendung.AppObjekt.OnFehlerAufgetreten(WIFI.Anwendung.FehlerAufgetretenEventArgs)">
+            <summary>
+            Löst das Ereignis FehlerAufgetreten aus
+            </summary>
+            <param name="e">Ereignisdaten mit der Ursache</param>
+        </member>
+        <member name="F:WIFI.Anwendung.AppObjekt._Anwendungspfad">
+            <summary>
+            Anwendungsweiter Cache für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.AppObjekt.Anwendungspfad">
+            <summary>
+            Ruft die vollständige Pfadangabe ab,
+            aus der die Anwendung gestartet wurde
+            </summary>
+        </member>
+        <member name="F:WIFI.Anwendung.AppObjekt._Datenpfad">
+            <summary>
+            Anwendungsweiter Cache für
+            die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.AppObjekt.Datenpfad">
+            <summary>
+            Ruft das Verzeichnis ab, wo
+            ungefragt mit dem Serverprofil synchronisierte
+            Daten gespeichert werden dürfen
+            </summary>
+            <remarks>Die Existenz des
+            Verzeichnis wird sichergestellt</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.AppObjekt._LokalerDatenpfad">
+            <summary>
+            Anwendungsweiter Cache für
+            die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.AppObjekt.LokalerDatenpfad">
+            <summary>
+            Ruft das Verzeichnis ab, wo
+            ungefragt Computer bezogene
+            Daten gespeichert werden dürfen
+            </summary>
+            <remarks>Die Existenz des
+            Verzeichnis wird sichergestellt</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.AppObjekt._HttpClient">
+            <summary>
+            Internes Singleton Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.AppObjekt.HttpClient">
+            <summary>
+            Ruft den Anwendungsweiten Dienst zum
+            Arbeiten mit dem HTTPInternetProtokoll ab
+            </summary>
+            <remarks>
+            Das Accept Language Header Feld ist
+            auf die aktuelle Anwendungssprache 
+            voreingestellt</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Controller.FensterdatenController">
+            <summary>
+            Stellt ein Dienst zum Lesen
+            und Schreiben von Fensterpositionen
+            der Anwendung bereit
+            </summary>
+            <remarks>Es wird die Xml Serialisierung benutzt</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Controller.SprachenController">
+            <summary>
+            Stellt einen Dienst zum 
+            Lesen und Schreiben von
+            Anwendungssprachen bereit
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.Controller.SprachenController.HoleAusRessourcen">
+            <summary>
+            Gibt die Sprachen aus der Sprachen Xml Datei
+            in den Ressourcen zurück.
+            </summary>
+            <exception cref="T:System.Exception">Tritt auf,
+            wenn beim Laden ein Fehler war</exception>
+        </member>
+        <member name="T:WIFI.Anwendung.Controller.Generisch.XmlController`1">
+            <summary>
+            Stellt ein Dienst zum Lesen und
+            Schreiben von Daten im Xml Format bereit
+            </summary>
+            <remarks>Es wird die Xml Serialisierung benutzt</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.Controller.Generisch.XmlController`1.Schreiben(System.String,`0)">
+            <summary>
+            Serialisiert die Daten in die 
+            angegebene Datei
+            </summary>
+            <param name="pfad">Der vollständige Name
+            der Datei, die zum Serialisieren benutzt werden soll</param>
+            <param name="daten">Die Liste mit den Informationen,
+            die im Xml Format geschrieben werden sollen</param>
+            <exception cref="T:System.Exception">Tritt auf,
+            wenn beim Serialisieren ein Fehler war</exception>
+        </member>
+        <member name="M:WIFI.Anwendung.Controller.Generisch.XmlController`1.Lesen(System.String)">
+            <summary>
+            Gibt die deserialisierten Daten
+            aus der Datei zurück
+            </summary>
+            <param name="pfad">Der vollständige Name
+            der Datei, die zum Deserialisieren benutzt werden soll</param>
+            <returns>Die Liste mit den Informationen,
+            die sich in der Datei im Xml Format befinden</returns>
+            <exception cref="T:System.Exception">Tritt auf,
+            wenn beim Serialisieren ein Fehler war</exception>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.InToStringAttribute">
+            <summary>
+            Kennzeichnet eine Eigenschaft 
+            deren Inhalt im 
+            ToString() Ergebnis angeführt werden soll
+            </summary>
+            <remarks>Mit Hilfe der Position Eigenschaft
+            kan die Reihenfolge gesteuert werden
+            sollte die Position nicht angegeben werden 
+            befinden sich diese am Ende(int.maxValue)</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.Daten.InToStringAttribute.#ctor">
+            <summary>
+            Initialisiert ein neues leeres InToStringAttribute 
+            objekt
+            </summary>
+        </member>
+        <member name="F:WIFI.Anwendung.Daten.InToStringAttribute._Position">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.InToStringAttribute.Position">
+            <summary>
+            Ruft die Stelle ab wo die
+            gekennzeichnete Eigenschaft im
+            ToString Ergebniss platziert werden
+            soll
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.Daten.InToStringAttribute.#ctor(System.Int32)">
+            <summary>
+            Initialisiert ein neues InToStringAttribute 
+            mit Prioritäts angabe (ReihenFolge)
+            </summary>
+            <param name="position">Wird zum 
+            Sortieren des ToString Ergebnisses benutzt
+            </param>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.DatenObjekt">
+            <summary>
+            Unterstützt semtliche WIFI DTOs
+            mit einer Basislogik
+            </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.DatenObjekt.InToStringEigenschaften">
+            <summary>
+            Stellt eine Typsichere auflistung
+            von Eigenschaften bereit, deren Inhalt im ToString() 
+            Ergebnis angeführt sein soll.
+            </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.DatenObjekt.InToStringWörterbuch">
+            <summary>
+            Stellt eine typsichere Hashtable
+            zum Sammeln der Eigenschaften für
+            die ToString Ausgabe je Typ bereit
+            </summary>
+        </member>
+        <member name="F:WIFI.Anwendung.Daten.DatenObjekt._AnalysierteTypen">
+            <summary>
+            Interner Singelton Cache zum Sammeln der Analysergebnisse
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.DatenObjekt.AnalysierteTypen">
+            <summary>
+            Ruft die Liste mit den bereis 
+            bekannten Typen ab
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.Daten.DatenObjekt.FindeInToStingEigenschaft">
+            <summary>
+            Gibt für den Aktuellen Typ die Liste
+            der Eigenschaften zurück die mit 
+            InToStringAttribute gekennzeichnet sind
+            </summary>
+            <returns>Die Liste mit den PropertyInfo
+            Objekten der gekennzeichneten Eigenschaften</returns>
+            <remarks>Falls die Liste Leer ist
+            sind keine Eigenschaften mit InToStringAttribute makiert
+            </remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.Daten.DatenObjekt.ToString">
+            <summary>
+            Gibt eine lesbare Beschreibung dieses Subjekts 
+            als text zurück
+            </summary>
+            <remarks>Das Ergebnis kann mit dem
+            InToStringAttribute gesteuert werden</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.Fensterinfos">
+            <summary>
+            Stellt ein typsicheres dynamisches 
+            Array für Fensterinfo - Objekte bereit
+            </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.Fensterinfo">
+            <summary>
+            Beschreibt die Größe, die Position
+            und den Zustand eines Anwendungsfensters
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Fensterinfo.Name">
+            <summary>
+            Ruft den Schlüssel für diese Fensterinfo
+            ab oder legt diesen fest
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Fensterinfo.Zustand">
+            <summary>
+            Ruft den Fensterzustand (Normal,
+            Maximiert bzw. Minimiert) ab
+            oder legt diesen fest
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Fensterinfo.Links">
+            <summary>
+            Ruft die linke Position
+            des Fensters ab oder legt
+            diese fest
+            </summary>
+            <remarks>Null, wenn kein
+            Wert vorliegt</remarks>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Fensterinfo.Oben">
+            <summary>
+            Ruft die obere Position
+            des Fensters ab oder legt
+            diese fest
+            </summary>
+            <remarks>Null, wenn kein
+            Wert vorliegt</remarks>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Fensterinfo.Breite">
+            <summary>
+            Ruft die Breite
+            des Fensters ab oder legt
+            diese fest
+            </summary>
+            <remarks>Null, wenn kein
+            Wert vorliegt</remarks>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Fensterinfo.Höhe">
+            <summary>
+            Ruft die Höhe
+            des Fensters ab oder legt
+            diese fest
+            </summary>
+            <remarks>Null, wenn kein
+            Wert vorliegt</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.GuidDatenObjekt">
+            <summary>
+            Stellt ein DatenTransferObjekt mit einer
+            Weltweit eindeutigen 
+            Identifikationsnummer bereit.
+            </summary>
+        </member>
+        <member name="F:WIFI.Anwendung.Daten.GuidDatenObjekt._ID">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.GuidDatenObjekt.ID">
+            <summary>
+            Ruft den Weltweit eindeutigen
+            Schlüssel für das Objekt ab
+            oder legt diesen fest
+            </summary>
+            <remarks>Existiert seit 
+            2024.5.0.0</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.Protokolleinträge">
+            <summary>
+            Stellt eine Typsichere liste von
+            Protokolleintrag Objekt bereit
+            </summary>
+            <remarks>Kann für die WPF Datenbindung
+            benutzt werden(INotifyCollectionChanged)</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.ProtokolleintragTyp">
+            <summary>
+            Ermöglicht das Unterscheiden
+            von Protokolleinträgen
+            </summary>
+            <remarks>Beim Casten aufpassen dass
+            System.Byte als grundlage benutzt ist. 
+            damit beim Speichern von Einträgen in eine Datenbank
+            weniger Speicher verschwendet wird.</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.Daten.ProtokolleintragTyp.Normal">
+            <summary>
+            Kennzeichnet eine Information
+            </summary>
+        </member>
+        <member name="F:WIFI.Anwendung.Daten.ProtokolleintragTyp.Warnung">
+            <summary>
+            Kennzeichnet eine Information der
+            Beachtung geschenkt werden soll
+            </summary>
+        </member>
+        <member name="F:WIFI.Anwendung.Daten.ProtokolleintragTyp.Fehler">
+            <summary>
+            Kennzeichnet eine Information
+            die eine Ausnahme beschreibt
+            </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.Protokolleintrag">
+            <summary>
+            Stellt die Daten für eine Zeile 
+            des Anwendungsprotokolls bereit
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Protokolleintrag.Zeitpunkt">
+            <summary>
+            Ruft den Zeitstempel ab,
+            wann dieser Eintrag erstellt wurde oder
+            legt diesen fest.
+            </summary>
+            <remarks>Standartwert die Aktuellezeit</remarks>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Protokolleintrag.Typ">
+            <summary>
+            Ruft die Informaitions stufe dieses Eintrags
+            ab oder legt diese fest
+            </summary>
+            <remarks>Standartwert Normal</remarks>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Protokolleintrag.Text">
+            <summary>
+            Ruft die lesbare Information des Eintrags ab 
+            oder legt diese fest.
+            </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.SchwacherMethodenVerweisListe">
+            <summary>
+            Stellt eine typsichere Liste für Schwacher
+            MethodenVerweis Objekte bereit.
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.Daten.SchwacherMethodenVerweisListe.AlleAufrufen">
+            <summary>
+            Fürt alle hinterlegten Methoden aus, wenn die Besitzer
+            noch existieren.
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.SchwacherMethodenVerweisListe.ToteBesitzer">
+            <summary>
+            ruft die Anzahl der Methoden 
+            ab wo die Besitzer nicht mehr
+            existieren
+            </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.SchwacherMethodenVerweis">
+            <summary>
+            Kapselt die Speicheradresse einer Methode ohne 
+            die GarbageCollection am entfernen des Besitzers
+            zu verhindern
+            </summary>
+            <remarks>Notwendig um in bstimmten Situationen 
+            Speicherlöcher zu verhindern.
+            (Ergänzt in 2024.4.0.0)</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.Daten.SchwacherMethodenVerweis.#ctor(System.Action)">
+            <summary>
+            Initialisiert ein neues SchwacherMethodenVerweis
+            Objekt
+            </summary>
+            <param name="methode">Die Speicheradresse der Methode,
+            die ohne die GarbageCollection zu blockieren
+            gekapselt werden soll</param>
+        </member>
+        <member name="F:WIFI.Anwendung.Daten.SchwacherMethodenVerweis._Methode">
+            <summary>
+            Internes Feld für die Eigenschaft, 
+            ohne die GarbageCollection am 
+            entfernen des Besitzter Objekts zu hindern
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.SchwacherMethodenVerweis.Methode">
+            <summary>
+            Ruft die gekapselte Methode ab
+            </summary>
+            <remarks>Null falls das Besitzer
+            objekt nicht mehr existiert</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.Sprachen">
+            <summary>
+            Stellt ein typsicheres dynamisches
+            Array für Sprache - Objekte bereit
+            </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.Daten.Sprache">
+            <summary>
+            Beschreibt eine Anwendungssprache
+            </summary>
+            <remarks>Datentransfer</remarks>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Sprache.Code">
+            <summary>
+            Ruft das CultureInfo Kürzel
+            der Sprache ab oder legt dieses fest
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Daten.Sprache.Name">
+            <summary>
+            Ruft die lesbare Bezeichnung
+            dieser Sprache ab oder legt
+            diese fest.
+            </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.FehlerAufgetretenEventArgs">
+            <summary>
+            Stellt die Daten für das
+            FehlerAufgetreten Ereignis bereit
+            </summary>
+            <remarks>Solche Klassen müssen
+            System.EventArgs erweitern und
+            im Namen auf EventArgs enden</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.FehlerAufgetretenEventArgs.#ctor(System.Exception)">
+            <summary>
+            Initialisiert ein FehlerAufgetretenEventArgs Objekt
+            </summary>
+            <param name="ursache">Die Ausnahme,
+            die den Fehler beschreibt</param>
+        </member>
+        <member name="F:WIFI.Anwendung.FehlerAufgetretenEventArgs._Ursache">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.FehlerAufgetretenEventArgs.Ursache">
+            <summary>
+            Ruft das Ausnahme-Objekt ab
+            mit dem der Fehler beschrieben ist
+            </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.FehlerAufgetretenEventHandler">
+            <summary>
+            Stellt die Methode dar, die das
+            FehlerAufgetreten Ereignis behandelt.
+            </summary>
+            <param name="sender">Immer der erste Parameter.
+            Der Verweis auf das Objekt, von dem diese
+            Methode aufgerufen wird</param>
+            <param name="e">Immer der zweite Parameter.
+            Der Verweis auf das Objekt mit den Daten
+            für das Ereignis. Falls keine Daten 
+            geliefert werden, System.EventArgs alleine</param>
+        </member>
+        <member name="T:WIFI.Anwendung.FensterManager">
+            <summary>
+            Stellt einen Dienst bereit
+            zum Verwalten der Positionen
+            von Anwendungsfenstern
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.FensterManager.GetSystemMetrics(System.Int32)">
+            <summary>
+            Gibt eine gewünschte Information
+            über die Bildschirmkonfiguration
+            zurück.
+            </summary>
+            <param name="info">Eine Ganzzahl mit der
+            die Rückgabe gesteuert wird</param>
+            <returns></returns>
+            <remarks>Details im Handbuch 
+            https://learn.microsoft.com/de-de/windows/win32/api/winuser/nf-winuser-getsystemmetrics
+            </remarks>
+        </member>
+        <member name="P:WIFI.Anwendung.FensterManager.Monitorschlüssel">
+            <summary>
+            Ruft eine Zusatzinformation zum
+            unterscheiden der Fensternamen 
+            bezogen auf die Bildschirm 
+            konfiguration ab.
+            </summary>
+            <remarks>Die Information ist nicht
+            gecached weil sich zur Laufzeit die 
+            Konfiguration ändern kann</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.FensterManager._Liste">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.FensterManager.Liste">
+            <summary>
+            Ruft die verwalteten Fensterinfos ab
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.FensterManager.Hinterlegen(WIFI.Anwendung.Daten.Fensterinfo)">
+            <summary>
+            Fügt dem FensterManager ein neues
+            Fenster hinzu oder aktualisiert die Daten
+            </summary>
+            <param name="fenster">Ein Fensterinfo Objekt
+            mit den Daten eines Fensters</param>
+            <remarks>Als Schlüssel wird die Name-Eigenschaft
+            vom Fensterinfo Objekt benutzt</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.FensterManager.Abrufen(System.String)">
+            <summary>
+            Gibt die Positionsdaten für 
+            das gewünschte Fenster zurück
+            </summary>
+            <param name="fensterName">Der Schlüssel
+            des Fensters, von dem die Positionsdaten
+            benötigt werden</param>
+            <returns>Null, falls das Fenster
+            nicht vorhanden ist</returns>
+        </member>
+        <member name="F:WIFI.Anwendung.FensterManager._Controller">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.FensterManager.Controller">
+            <summary>
+            Ruft den Dienst zum Schreiben
+            und Lesen der verwalteten Fensterposition ab
+            </summary>
+            <remarks>Es wird ein Xml Serialisierer benutzt</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.FensterManager._Standardpfad">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.FensterManager.Standardpfad">
+            <summary>
+            Ruft den vollständigen Dateinamen
+            zum Speichern und Öffnen der
+            verwalteten Fenster ab.
+            </summary>
+            <remarks>Er befindet sich im 
+            Lokalen Datenpfad des Benutzerprofils
+            und wird um den Firmennamen, den
+            Produktnamen und die Version aus
+            der Anwendung ergänzt</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.FensterManager.Speichern">
+            <summary>
+            Schreibt die verwalteten Fenster
+            in eine Datei.
+            </summary>
+            <remarks>Als Speicherort wird der Standardpfad benutzt</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.FensterManager.Öffnen">
+            <summary>
+            Gibt die Liste mit den
+            verwalteten Fenstern aus
+            der mit Speichern erstellten
+            Datei zurück
+            </summary>
+            <returns>Den Inhalt der gespeicherten Fenster
+            oder eine leere Liste, wenn die
+            Datei nicht vorhanden war</returns>
+            <remarks>Als Speicherort wird der
+            Standardpfad benutzt</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Infrastruktur">
+            <summary>
+            Stellt den Anwendungskontext
+            für eine WIFI Anwendung bereit
+            </summary>
+            <remarks>In der Infrastruktur
+            befinden sich Informationen,
+            die überall bekannt sein müssen.
+            Bei einer neuen WIFI Anwendung
+            mit einem Objekt dieser Klasse beginnen
+            und alle anderen Objekte der Anwendung
+            mit Produziere&lt;T&gt; erstellen,
+            damit diese Infrastruktur überall
+            bekannt ist.</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.Infrastruktur._Log">
+            <summary>
+            Cache für Internes Feld
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Infrastruktur.Log">
+            <summary>
+            Ruft den Dienst zum Verwalten 
+            des Anwendungsprotokoll ab
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Infrastruktur.Sprachen">
+            <summary>
+            Ruft den Dienst zum Verwalten
+            der Anwendungssprachen ab
+            </summary>
+        </member>
+        <member name="F:WIFI.Anwendung.Infrastruktur._Sprachen">
+            <summary>
+            Interner Cache für den Dienst
+            zum Verwalten der Anwendungssprachen
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.Infrastruktur.Produziere(System.Type)">
+            <summary>
+            Gibt ein initialisiertes Anwendungsobjekt zurück
+            </summary>
+            <param name="typ">Eine Type, der AppObjekt 
+            erweitert und einen öffentlichen Konstruktor
+            ohne Parameter besitzt</param>
+            <returns>Ein Objekt mit eingestellter
+            Infrastruktur</returns>
+            <remarks>Ergänzt in 2024.5.2.0</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.Infrastruktur.Produziere``1">
+            <summary>
+            Gibt ein initialisiertes Anwendungsobjekt zurück
+            </summary>
+            <typeparam name="T">Eine Klasse, die AppObjekt 
+            erweitert und einen öffentlichen Konstruktor
+            ohne Parameter besitzt</typeparam>
+            <returns>Ein Objekt mit eingestellter
+            Infrastruktur</returns>
+        </member>
+        <member name="F:WIFI.Anwendung.Infrastruktur._Fenster">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Infrastruktur.Fenster">
+            <summary>
+            Ruft den Dienst zum Verwalten
+            der Anwendungsfenster ab
+            </summary>
+        </member>
+        <member name="F:WIFI.Anwendung.Infrastruktur._Verbindungszeichenfolge">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Infrastruktur.Verbindungszeichenfolge">
+            <summary>
+            Ruft den ConnectionString der Anwendungsdatenbank ab 
+            oder legt diesen fest
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.Infrastruktur.VerbindungszeichenfolgePrüfen(System.String)">
+            <summary>
+            Gibt einen geprüften SQL Server ConnectionString 
+            zurück
+            </summary>
+            <param name="einstellung">Die Verbindungszeichenfolge
+            die geprüft werden soll</param>
+            <returns>Relative Pfadangaben werden bezogen
+            auf das Anwendungsverzeichniss absolut 
+            eingestellt</returns>
+            <exception cref="T:System.Exception">
+            Tritt auf wenn Fehler in der Konfigurationsangabe vorliegt
+            </exception>
+        </member>
+        <member name="T:WIFI.Anwendung.Properties.Resources">
+            <summary>
+              Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Properties.Resources.ResourceManager">
+            <summary>
+              Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Properties.Resources.Culture">
+            <summary>
+              Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+              Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.Properties.Resources.Sprachen">
+             <summary>
+               Sucht eine lokalisierte Zeichenfolge, die &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+            &lt;Sprachen&gt;
+            	&lt;Sprache name=&quot;English&quot; code=&quot;EN&quot; /&gt;
+            	&lt;Sprache code=&quot;DE&quot; name=&quot;German&quot; /&gt;
+            &lt;/Sprachen&gt; ähnelt.
+             </summary>
+        </member>
+        <member name="T:WIFI.Anwendung.ProtokollManager">
+            <summary>
+            Stellt einne Dienst zum Verwalten 
+            eines Anwendungsprotokolls bereit
+            </summary><remarks>
+            seit 2024.5.2.0 wird
+            Für WPF wird die Threadsicherheit gewährleistet 
+            wenn ein Dispatcher eingestellt wird.</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.ProtokollManager._Einträge">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.ProtokollManager.Einträge">
+            <summary>
+            Ruf die Liste mit den
+            Protokollzeilen ab
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.Erstellen(WIFI.Anwendung.Daten.Protokolleintrag)">
+            <summary>
+            Fügt dem Protokoll eine neue
+            Zeile hinzu.
+            </summary>
+            <param name="eintrag">Protokolleintrag Objekt zum Hinzufügen.</param>
+            <remarks>Die Threadsicherheit ist nicht gewährleistet, 
+            außer es ist ein WPF Dispatcher vorhanden</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.Erstellen(WIFI.Anwendung.Daten.Protokolleintrag,System.Boolean)">
+            <summary>
+            Fügt dem Protokoll eine neue
+            Zeile hinzu.
+            </summary>
+            <param name="eintrag">Protokolleintrag Objekt zum Hinzufügen.</param>
+            <param name="rekursiv">für interne Zwecke</param>
+            <remarks>Die Threadsicherheit ist nicht gewährleistet, 
+            außer es ist ein WPF Dispatcher vorhanden</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.Erstellen(System.String)">
+            <summary>
+            Fügt dem Protokoll am Ende einen
+            normalen Eintrag hinzu
+            </summary>
+            <param name="text">Die Information die als normaler 
+            Eintrag hinzugefügt werden soll</param>
+            <remarks>Die Threadsicherheit ist nicht gewährleistet</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.Erstellen(System.String,WIFI.Anwendung.Daten.ProtokolleintragTyp)">
+            <summary>
+            Fügt dem Protokoll am Ende einen
+            Eintrag hinzu
+            </summary>
+            <param name="text">Die Information die für
+            Eintrag benutzt werden soll</param>
+            <param name="typ">ProtkolleintragTyp Bestimmt
+            die Art des Eintrags</param>
+            <remarks>Die Threadsicherheit ist nicht gewährleistet</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.StartMelden(System.String)">
+            <summary>
+            Erstellt im Protokoll eine Eintrag dass
+            eine methode zu laufen beginnt
+            </summary>
+            <param name="aufruferName">Optional; Falls nicht angegeben 
+            wird automatisch der Name vom aufrufer benutzt</param>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.EndeMelden(System.String)">
+            <summary>
+            Erstellt im Protokoll eine Eintrag dass
+            eine methode beendet ist.
+            </summary>
+            <param name="aufruferName">Optional; Falls nicht angegeben 
+            wird automatisch der Name vom aufrufer benutzt</param>
+        </member>
+        <member name="E:WIFI.Anwendung.ProtokollManager.EnthältFehlerGeändert">
+            <summary>
+            Wird ausgelöst wenn sich die
+            Eigenschaft EnthältFehler
+            geändert hat
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.OnEnthältFehlerGeändert(System.EventArgs)">
+            <summary>
+            Löst das Ereignis EnthältFehlerGeändert 
+            aus
+            </summary>
+            <param name="e">Zusatzdaten</param>
+        </member>
+        <member name="F:WIFI.Anwendung.ProtokollManager._EnthältFehler">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.ProtokollManager.EnthältFehler">
+            <summary>
+            Ruft True ab wenn im Protokoll
+            Fehler einträge enthalten sind
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.ProtokollManager.HatRückrufe">
+            <summary>
+            Ruft True ab wenn Rückrufe gebucht sind,
+            sonst False
+            </summary>
+            <remarks>Damit bei keinen Rückrufen
+            die Liste nicht initialisiert wird,
+            wird mit dem Feld und nicht der Eigenschaft
+            gearbeitet</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.RückrufStornieren(System.Action)">
+            <summary>Entfernt eine Methode die
+            ausgeführt wurde wenn ein neue Protokolleintrag
+            erstellt wird
+            hinterlegen einer Methode die 
+            ausgeführt wird wenn ein neuer
+            Protokolleintrag erstellt wurde
+            </summary>
+            <param name="methode">Speicheradresse der 
+            Methode die bei einem neuen Eintrag von
+            ProtokollManager nicht mehr aufgerufen werden soll</param>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.RückrufBuchen(System.Action)">
+            <summary>
+            Ermöglicht beim benutzen des Protokolls
+            dass hinterlegen einer Methode die 
+            ausgeführt wird wenn ein neuer
+            Protokolleintrag erstellt wurde
+            </summary>
+            <param name="methode">Speicheradresse der 
+            Methode die bei einem neuen Eintrag von
+            ProtokollManager aufgerufen werden soll</param>
+        </member>
+        <member name="F:WIFI.Anwendung.ProtokollManager._Rückrufe">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.ProtokollManager.Rückrufe">
+            <summary>
+            Ruft die Liste mit den Mehtoden ab, 
+            die bei einem neuen Eintrag aufgerufen werden
+            sollen
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.Zusammenräumen">
+            <summary>
+            Bennent existierende Protokolldateien um
+            , damit eine neue Protokolldatei erstellt wird.
+            </summary>
+            <remarks>Es wird am Ende eine Erweiterung ".1" bis
+            ".4" benutzt, d.h vier Generationen werden aufgehoben.</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.ProtokollManager._Pfad">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.ProtokollManager.Pfad">
+            <summary>
+            Ruft den Vollständigen Namen der Datei
+            ab in die die Einträge als unformatierter Text
+            geschrieben werden sollen oder legt diesen Fest
+            </summary>
+            <remarks>Leer lassen, wenn keine Protokolldatei
+            erstellt werden soll</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.ProtokollManager.Speichern(WIFI.Anwendung.Daten.Protokolleintrag)">
+            <summary>
+            Versucht den Eintrag in die Datei aus der
+            Pfad Eigenschaft am Ende einzutragen
+            </summary>
+            <param name="eintrag">Protokolleintrag der 
+            gespeichert werden soll</param>
+            <remarks>Sollte das Speichern nach mehrmaligen
+            versuch nicht gelingen wird die Protokollierung
+            abgeschaltet.
+            d.h. die Pfad Eigenschaft auf einene String.empty 
+            eingestellt, als trennzeichen wird ein Tabulator benutzt
+            damit die Datei in unterschiedlichen Spracheinstellungen 
+            geöffnet werden kann</remarks>
+        </member>
+        <member name="P:WIFI.Anwendung.ProtokollManager.Dispatcher">
+            <summary>
+            Ruft das Objekt für die Threadverwaltung 
+            einer WPF Anwendung ab oder Legt dieses fest
+            </summary>
+            <remarks>
+            Sollte ein Dispatcher vorhanden sein,
+            wird die Threadsicherheit gewährleistet</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.SprachenManager">
+            <summary>
+            Stellt einen Dienst zum
+            Verwalten der Anwendungssprachen bereit
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.SprachenManager.Aktualisieren">
+            <summary>
+            Stellt sicher, dass die Inhalte
+            zur gewählten aktuellen Sprache passen
+            </summary>
+        </member>
+        <member name="F:WIFI.Anwendung.SprachenManager._Liste">
+            <summary>
+            Interner Cache für die Liste
+            der unterstützten Sprachen
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.SprachenManager.Liste">
+            <summary>
+            Ruft die unterstützten
+            Anwendungssprachen ab
+            </summary>
+            <remarks>Seit 20240403 werden die
+            Sprachen alphabetisch sortiert</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.SprachenManager._Controller">
+            <summary>
+            Interner Cache (Feld) für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.SprachenManager.Controller">
+            <summary>
+            Ruft den Dienst zum Lesen und Schreiben
+            der Anwendungssprachen ab
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.SprachenManager.Festlegen(System.String)">
+            <summary>
+            Stellt im Betriebssystem die
+            gewünschte Sprache der Anwendung ein
+            </summary>
+            <param name="iso2code">Das 2stellige
+            .Net CultureInfo Kürzel der gewünschten Sprache
+            case-insensitiv</param>
+            <remarks>Sollte die Sprache nicht gefunden werden,
+            wird Englisch benutzt. Die Sprache wird
+            auch in der Eigenschaft AktuelleSprache festgelegt.
+            Die Sprache der Zahlenformatierung wird nicht
+            geändert und weiterhin aus dem Betriebssystem bezogen</remarks>
+        </member>
+        <member name="F:WIFI.Anwendung.SprachenManager._AktuelleSprache">
+            <summary>
+            Internes Feld für die Eigenschaft
+            </summary>
+        </member>
+        <member name="P:WIFI.Anwendung.SprachenManager.AktuelleSprache">
+            <summary>
+            Ruft die derzeit ausgewählte
+            Anwendungssprache der Oberfläche ab oder 
+            legt diese fest
+            </summary>
+            <remarks>Als Standard wird die
+            Sprache aus dem Betriebssystem
+            benutzt, falls diese nicht vorhanden
+            ist, Englisch</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Werkzeuge.Allgemeines">
+            <summary>
+            Stellt diverse Erweiterungsmethoden
+            zur Unterstützung der Entwicklung bereit
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.Werkzeuge.Allgemeines.HoleLokalisiertenOrdner(System.String)">
+            <summary>
+            Ergänzt den Pfad um das gefundene Sprachkürzel
+            </summary>
+            <param name="pfad">Eine Verzeichnisangabe, wo
+            die Existenz eines Unterverzeichnisses mit dem
+            Sprachkürzel der aktuellen Anwendungssprache
+            geprüft werden soll</param>
+            <returns>Der Pfad mit dem Sprachkürzel oder
+            der unveränderte Pfad, wenn keine Lokalisierung
+            gefunden wurde</returns>
+            <remarks>Es wird die "Fall-Back-Technik" benutzt</remarks>
+        </member>
+        <member name="T:WIFI.Anwendung.Werkzeuge.AssemblyInfos">
+            <summary>
+            Stellt Erweiterungsmethoden zum Abrufen
+            von Assembly Einstellungen bereit
+            </summary>
+        </member>
+        <member name="M:WIFI.Anwendung.Werkzeuge.AssemblyInfos.HoleFirmenname(System.Object)">
+            <summary>
+            Gibt die Einstellung vom 
+            AssemblyCompanyAttribute zurück
+            </summary>
+            <param name="fürObjekt">Verweis auf
+            das Objekt, wo diese Erweiterung benutzt wird</param>
+        </member>
+        <member name="M:WIFI.Anwendung.Werkzeuge.AssemblyInfos.HoleProdukt(System.Object)">
+            <summary>
+            Gibt die Einstellung vom 
+            AssemblyProductAttribute zurück
+            </summary>
+            <param name="fürObjekt">Verweis auf
+            das Objekt, wo diese Erweiterung benutzt wird</param>
+        </member>
+        <member name="M:WIFI.Anwendung.Werkzeuge.AssemblyInfos.HoleVersion(System.Object)">
+            <summary>
+            Gibt die Einstellung vom 
+            Assembly Version zurück
+            </summary>
+            <param name="fürObjekt">Verweis auf
+            das Objekt, wo diese Erweiterung benutzt wird</param>
+            <remarks>Es wird die Haupt- und Subnummer geliefert</remarks>
+        </member>
+        <member name="M:WIFI.Anwendung.Werkzeuge.AssemblyInfos.HoleCopyright(System.Object)">
+            <summary>
+            Gibt die Einstellung vom 
+            AssemblyCopyrightAttribute zurück
+            </summary>
+            <param name="fürObjekt">Verweis auf
+            das Objekt, wo diese Erweiterung benutzt wird</param>
+        </member>
+    </members>
+</doc>
