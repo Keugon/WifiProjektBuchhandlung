@@ -38,3 +38,11 @@ C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandl
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\ArtikelAnlegen.g.cs
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\ArtikelAnlegen.baml
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\ArtikelSuche.g.cs
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\PersonAnlegen.g.cs
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\ArtikelSuche.baml
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\PersonAnlegen.baml
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\PersonenSuche.g.cs
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\PersonenSuche.baml
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\PersonenKarteiView.g.cs
+C:\Users\Administrator\source\repos\Keugon\WifiProjektBuchhandlung\WIFI.Buchandlung.Client\obj\Debug\net8.0-windows\Views\PersonenKarteiView.baml

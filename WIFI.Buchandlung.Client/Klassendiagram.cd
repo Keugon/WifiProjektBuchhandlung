@@ -1,30 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="WIFI.Buchandlung.Client.Models.ArtikelListe" Collapsed="true">
-    <Position X="3.25" Y="2.75" Width="1.5" />
+    <Position X="2.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Artikel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WIFI.Buchandlung.Client.Models.Artikel" Collapsed="true">
-    <Position X="1.5" Y="2.75" Width="1.5" />
+  <Class Name="WIFI.Buchandlung.Client.Models.Artikel">
+    <Position X="1.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAQAAA=</HashCode>
       <FileName>Models\Artikel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WIFI.Buchandlung.Client.Models.Personen" Collapsed="true">
-    <Position X="3.5" Y="3.75" Width="1.5" />
+  <Class Name="WIFI.Buchandlung.Client.Models.Personen">
+    <Position X="2.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Person.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WIFI.Buchandlung.Client.Models.Person" Collapsed="true">
-    <Position X="1.75" Y="3.75" Width="1.5" />
+  <Class Name="WIFI.Buchandlung.Client.Models.Person">
+    <Position X="1.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAAAAAABAAAAAQgAAAAA=</HashCode>
       <FileName>Models\Person.cs</FileName>
     </TypeIdentifier>
   </Class>

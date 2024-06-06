@@ -13,7 +13,7 @@ namespace WIFI.Buchandlung.Client.Models
     /// </summary>
     /// <remarks>Der ConnectionString wird aus der
     /// Infrastruktur bezogen</remarks>
-    internal class SqlServerController
+    public class SqlServerController
         : WIFI.Anwendung.AppObjekt
     {
         /// <summary>
@@ -80,6 +80,43 @@ namespace WIFI.Buchandlung.Client.Models
             });
 */
             return null!;
+        }
+        /// <summary>
+        /// Holt die Passenden Personne aus 
+        /// der Datenbank mit den angegeben parameter
+        /// </summary>
+        /// <returns>Liste von Personen</returns>
+        public Personen HolePersonenAsync()
+        {
+            Personen personen = new Personen()
+            {
+                new Person()
+                {
+                    Vorname ="Florian",
+                    Nachname= "Jemand",
+                    Adresse="Irgendwo",
+                    Email= "florian@email.at",
+                    Telefonnummer = 0900666666
+                },
+                 new Person()
+                {
+                    Vorname ="Markus",
+                    Nachname= "AuchJemand",
+                    Adresse="IrgendIrgendwo",
+                    Email= "florian@guugle.at",
+                    Telefonnummer = 0200666666
+                }
+            };
+
+
+            return personen;
+        }
+        /// <summary>
+        /// Neuen Artikel in der Datenbank anlegen
+        /// </summary>
+        public void ArtikelAnlegen()
+        {
+
         }
 
     }

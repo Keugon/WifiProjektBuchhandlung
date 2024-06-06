@@ -39,7 +39,7 @@ namespace WIFI.Buchandlung.Client.Views {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WIFI.CSharp.Teil1.Views.Texte", typeof(Texte).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WIFI.Buchandlung.Client.Views.Texte", typeof(Texte).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -10,7 +10,10 @@ namespace WIFI.Buchandlung.Client.Models
     {
 
     }
-    public class Artikel
+    public class Artikel :WIFI.Anwendung.Daten.GuidDatenObjekt
     {
+        string? Titel;
+        int? ArtikelNummer;
+       
     }
 }

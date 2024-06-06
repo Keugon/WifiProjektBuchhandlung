@@ -1,0 +1,61 @@
+﻿<Window x:Class="WIFI.Buchandlung.Client.Views.PersonenKarteiView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
+        xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:PersonenKarteiViewModel}"
+        DataContext="{Binding PersonenKarteiVW}"
+        mc:Ignorable="d"
+        Title="PersonenKarteiView" Height="400" Width="400">
+    <Grid
+        >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--row0-->
+           <StackPanel
+                Orientation="Horizontal"
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="2">
+                 <Label Content="Vorname"/>
+            <Label Content="{Binding AktuellePerson.Vorname}"/>
+               <Label Content="Nachname"/>
+            <Label Content="{Binding AktuellePerson.Nachname}"/>
+            </StackPanel>
+        <!--row1-->
+            <StackPanel
+                Orientation="Horizontal"
+                Grid.Row="1"
+                Grid.Column="0"
+Grid.ColumnSpan="2">
+                 <Label Content="Adresse"/>
+            <Label Content="{Binding AktuellePerson.Adresse}"/>
+            <Label Content="Telefonnummer"/>
+            <Label Content="{Binding AktuellePerson.Telefonnummer}"/>
+            </StackPanel>
+        <!--row2-->
+        <StackPanel 
+            Orientation="Horizontal"
+             Grid.Row="2"
+ Grid.Column="0"
+ Grid.ColumnSpan="2">
+            <Label Content="Email"/>
+            <Label Content="{Binding AktuellePerson.Email}"/>
+        </StackPanel>
+            <!--row3-->
+<!--Listview ausgeliehenes-->            
+            
+        
+        
+    </Grid>
+</Window>

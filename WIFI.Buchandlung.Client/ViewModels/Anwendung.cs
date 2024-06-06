@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WIFI.Windows;
+using WIFI.Buchandlung.Client;
+using WIFI.Buchandlung.Client.Views;
+using WIFI.Buchandlung.Client.Models;
+using System.Collections.ObjectModel;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
-    public class Anwendung :WIFI.Windows.ViewModel
+    public class Anwendung : WIFI.Windows.ViewModel
     {
         #region Hauptview       
         /// <summary>
@@ -96,9 +100,62 @@ namespace WIFI.Buchandlung.Client.ViewModels
         #endregion Hauptview
         #region Commands
 
-        public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen());
+        public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen(p as string));
+        public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche(p as string));
+        public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
 
         #endregion Commands
+        #region Bindings
+
+        private ObservableCollection<Person> _PersonenListe = null!;
+        public ObservableCollection<Person> PersonenListe
+        {
+            get
+            {
+                if (this._PersonenListe == null)
+                {
+                    this._PersonenListe = new ObservableCollection<Person>();
+                }
+                return this._PersonenListe;
+            }
+            set
+            {
+                this._PersonenListe = value;
+                OnPropertyChanged();
+            }
+        }
+        private Person _SelectedPerson = null!;
+        public Person SelectedPerson
+        {
+            get
+            {
+                if (this._SelectedPerson == null)
+                {
+                    this._SelectedPerson = new Person();
+                }
+                return this._SelectedPerson;
+            }
+            set
+            {
+                this._SelectedPerson = value;
+                OnPropertyChanged();
+            }
+        }
+        private PersonenKarteiViewModel  _PersonenKarteiVM = null!;
+        public PersonenKarteiViewModel PersonenKarteiVM
+        {
+            get
+            {
+                if (this._PersonenKarteiVM == null)
+                {
+                    this._PersonenKarteiVM = this.Kontext.Produziere<PersonenKarteiViewModel>();
+                }           
+                return this._PersonenKarteiVM;
+            }
+        }
+            
+
+        #endregion
         #region Artikel Manager
         /// <summary>
         /// Internes Feld für die Eigenschaft
@@ -127,12 +184,53 @@ namespace WIFI.Buchandlung.Client.ViewModels
         {
             get
             {
-                this._AktuelleView
+                return this._AktuelleView;
+            }
+            set
+            {
+                this._AktuelleView = value;
+                OnPropertyChanged();
             }
         }
-        public void MenüPunktAnzeigen(string viewToDisplay)
+        /// <summary>
+        /// Methode um die Controls per Button Click zu wechseln
+        /// </summary>
+        /// <param name="viewToDisplay"></param>
+        public void MenüPunktAnzeigen(string? viewName)
         {
-            System.Windows.Controls.Control = Views.ArtikelAnlegen;
+            
+            switch (viewName)
+            {
+                case nameof(ArtikelAnlegen):
+                    AktuelleView = new Views.ArtikelAnlegen();
+                    break;
+                case nameof(ArtikelSuche):
+                    AktuelleView = new Views.ArtikelSuche();
+                    break;
+                case nameof(PersonAnlegen):
+                    AktuelleView = new Views.PersonAnlegen();
+                    break;
+                    case nameof(PersonenSuche):
+                    AktuelleView = new Views.PersonenSuche();
+                    break;
+
+            }
+
+        }
+        public void PersonenSuche(string? name)
+        {
+            this.PersonenListe = new ObservableCollection<Person>(this.ArtikelManager.SqlServerController.HolePersonenAsync());
+        }
+        public void PersonenKarteiÖffnen(object? person)
+        {
+            if(person is WIFI.Buchandlung.Client.Models.Person)
+            {
+                System.Diagnostics.Debug.WriteLine(person.ToString());
+                var PersonenKarteiFenster = new PersonenKarteiView();
+                PersonenKarteiFenster.DataContext = this.PersonenKarteiVM;
+                this.PersonenKarteiVM.AktuellePerson = (person as Person)!;
+                PersonenKarteiFenster.Show();
+            }
         }
     }
 }

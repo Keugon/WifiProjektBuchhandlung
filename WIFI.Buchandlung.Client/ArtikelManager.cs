@@ -16,13 +16,13 @@ namespace WIFI.Buchandlung.Client
         /// Stellt einen Dienst zum abrufen von Daten
         /// eines SQL Servers bereit
         /// </summary>
-        private Models.SqlServerController SqlServerController
+        public Models.SqlServerController SqlServerController
         {
             get
             {
                 if(this._SqlServerController == null)
                 {
-                    
+                 this._SqlServerController =   this.Kontext.Produziere<Models.SqlServerController>();
                 }
                 return this._SqlServerController!;
             }
