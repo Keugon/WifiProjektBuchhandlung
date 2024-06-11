@@ -5,3 +5,5 @@
 *WIFI.Anwendung/obj/
 *Wifi.Windows/bin/
 *Wifi.Windows/obj/
+*Wifi.Windows/obj/Debug/
+*Wifi.Windows/obj/Debug/net8.0
