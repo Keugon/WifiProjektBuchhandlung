@@ -1,1 +1,7 @@
 *.vs/
+*WIFI.Buchandlung.Client/bin/
+*WIFI.Buchandlung.Client/obj/
+*WIFI.Anwendung/bin/
+*WIFI.Anwendung/obj/
+*Wifi.Windows/bin/
+*Wifi.Windows/obj/
