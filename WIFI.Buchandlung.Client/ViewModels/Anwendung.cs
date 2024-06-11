@@ -32,7 +32,6 @@ namespace WIFI.Buchandlung.Client.ViewModels
             // die Einstellungen gespeichert werden (Exit-Ereignis)
             set => Properties.Settings.Default.BeimBeendenFragen = value;
         }
-
         /// <summary>
         /// Öffnet die Hauptoberfläche 
         /// der Anwendung
@@ -54,7 +53,6 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
             f.Show();
         }
-
         /// <summary>
         /// Bereitet die View für die Anzeige vor
         /// und bindet Ereignisse zur Kontrolle
@@ -99,15 +97,19 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
         #endregion Hauptview
         #region Commands
-
         public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen(p as string));
         public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche(p as string));
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
-
         #endregion Commands
         #region Bindings
-
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
         private ObservableCollection<Person> _PersonenListe = null!;
+        /// <summary>
+        /// Ruft ab oder legt die Liste an Personen die an der
+        /// PersonenSuche seite angezeigt werden soll fest
+        /// </summary>
         public ObservableCollection<Person> PersonenListe
         {
             get
@@ -124,7 +126,14 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
         private Person _SelectedPerson = null!;
+        /// <summary>
+        /// Ruft ab oder legt die Selectierten 
+        /// PersonenListen Eintrag fest
+        /// </summary>
         public Person SelectedPerson
         {
             get
@@ -141,7 +150,13 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
-        private PersonenKarteiViewModel  _PersonenKarteiVM = null!;
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private PersonenKarteiViewModel _PersonenKarteiVM = null!;
+        /// <summary>
+        /// Ruft das ViewModel für den PersonenKarteiView ab
+        /// </summary>
         public PersonenKarteiViewModel PersonenKarteiVM
         {
             get
@@ -149,33 +164,13 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 if (this._PersonenKarteiVM == null)
                 {
                     this._PersonenKarteiVM = this.Kontext.Produziere<PersonenKarteiViewModel>();
-                }           
+                }
                 return this._PersonenKarteiVM;
             }
         }
-            
-
-        #endregion
-        #region Artikel Manager
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
-        private ArtikelManager _ArtikelManager = null!;
-        /// <summary>
-        /// Ruft den Dienst zum Verarbeiten von Aktikel bereit
-        /// </summary>
-        public ArtikelManager ArtikelManager
-        {
-            get
-            {
-                if(this._ArtikelManager == null)
-                {
-                    this._ArtikelManager = this.Kontext.Produziere<ArtikelManager>();
-                }
-                return this._ArtikelManager;
-            }
-        }
-        #endregion Artikel Manager
         private System.Windows.Controls.Control _AktuelleView = null!;
         /// <summary>
         /// Ruft die Aktuell Angezeigte View ab
@@ -192,13 +187,34 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion Bindings
+        #region Artikel Manager
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private ArtikelManager _ArtikelManager = null!;
+        /// <summary>
+        /// Ruft den Dienst zum Verarbeiten von Aktikel bereit
+        /// </summary>
+        public ArtikelManager ArtikelManager
+        {
+            get
+            {
+                if (this._ArtikelManager == null)
+                {
+                    this._ArtikelManager = this.Kontext.Produziere<ArtikelManager>();
+                }
+                return this._ArtikelManager;
+            }
+        }
+        #endregion Artikel Manager
         /// <summary>
         /// Methode um die Controls per Button Click zu wechseln
         /// </summary>
         /// <param name="viewToDisplay"></param>
         public void MenüPunktAnzeigen(string? viewName)
         {
-            
+
             switch (viewName)
             {
                 case nameof(ArtikelAnlegen):
@@ -210,20 +226,37 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 case nameof(PersonAnlegen):
                     AktuelleView = new Views.PersonAnlegen();
                     break;
-                    case nameof(PersonenSuche):
+                case nameof(PersonenSuche):
                     AktuelleView = new Views.PersonenSuche();
                     break;
 
             }
 
         }
+        /// <summary>
+        /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
+        /// </summary>
+        /// <param name="name">Name der Gesucht wird</param>
         public void PersonenSuche(string? name)
         {
-            this.PersonenListe = new ObservableCollection<Person>(this.ArtikelManager.SqlServerController.HolePersonenAsync());
+            try
+            {
+                this.PersonenListe = new ObservableCollection<Person>(this.ArtikelManager.SqlServerController.HolePersonenAsync());
+            }
+            catch (Exception ex)
+            {
+                OnFehlerAufgetreten(ex);
+            }
+
         }
+        /// <summary>
+        /// Öffnet die PersonenKartei des 
+        /// gewählten PersonenListen eintrag
+        /// </summary>
+        /// <param name="person"></param>
         public void PersonenKarteiÖffnen(object? person)
         {
-            if(person is WIFI.Buchandlung.Client.Models.Person)
+            if (person is WIFI.Buchandlung.Client.Models.Person)
             {
                 System.Diagnostics.Debug.WriteLine(person.ToString());
                 var PersonenKarteiFenster = new PersonenKarteiView();
