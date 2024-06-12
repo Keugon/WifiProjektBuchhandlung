@@ -99,9 +99,12 @@ namespace WIFI.Buchandlung.Client.ViewModels
         #region Commands
         public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen(p as string));
         public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche(p as string));
+        public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche(p as string));
+        public Befehl ArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegen());
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
         #endregion Commands
         #region Bindings
+        public string ArtikelTitel { get; set; }
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -123,6 +126,23 @@ namespace WIFI.Buchandlung.Client.ViewModels
             set
             {
                 this._PersonenListe = value;
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<Artikel> _ArtikelListe = null!;
+        public ObservableCollection<Artikel> ArtikelListe
+        {
+            get
+            {
+                if(this._ArtikelListe == null)
+                {
+                    this._ArtikelListe= new ObservableCollection<Artikel>();
+                }
+                return this._ArtikelListe;
+            }
+            set
+            {
+                this._ArtikelListe = value;
                 OnPropertyChanged();
             }
         }
@@ -188,26 +208,26 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
         }
         #endregion Bindings
-        #region Artikel Manager
+        #region Daten Manager
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
-        private ArtikelManager _ArtikelManager = null!;
+        private DatenManager _DatenManager = null!;
         /// <summary>
-        /// Ruft den Dienst zum Verarbeiten von Aktikel bereit
+        /// Ruft den Dienst zum Verarbeiten von Daten bereit
         /// </summary>
-        public ArtikelManager ArtikelManager
+        public DatenManager DatenManager
         {
             get
             {
-                if (this._ArtikelManager == null)
+                if (this._DatenManager == null)
                 {
-                    this._ArtikelManager = this.Kontext.Produziere<ArtikelManager>();
+                    this._DatenManager = this.Kontext.Produziere<DatenManager>();
                 }
-                return this._ArtikelManager;
+                return this._DatenManager;
             }
         }
-        #endregion Artikel Manager
+        #endregion ADaten Manager
         /// <summary>
         /// Methode um die Controls per Button Click zu wechseln
         /// </summary>
@@ -237,11 +257,42 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
         /// </summary>
         /// <param name="name">Name der Gesucht wird</param>
+        public void ArtikelSuche(string? name)
+        {
+            try
+            {
+                this.ArtikelListe = new ObservableCollection<Artikel>(this.DatenManager.SqlServerController.HoleArtikelListeAsync());
+            }
+            catch (Exception ex)
+            {
+                OnFehlerAufgetreten(ex);
+            }
+
+        }
+        /// <summary>
+        /// Legt einen neuen Artigel in der Datenbank an
+        /// </summary>
+        public void ArtikelAnlegen()
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"Rückmeldung aus der SQL Artikel Anlegen:{this.DatenManager.SqlServerController.ArtikelAnlegen().Result}");
+            }
+            catch (Exception ex)
+            {
+
+                System.Diagnostics.Debug.WriteLine($"{ex.Message}");
+            }
+        }
+        /// <summary>
+        /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
+        /// </summary>
+        /// <param name="name">Name der Gesucht wird</param>
         public void PersonenSuche(string? name)
         {
             try
             {
-                this.PersonenListe = new ObservableCollection<Person>(this.ArtikelManager.SqlServerController.HolePersonenAsync());
+                this.PersonenListe = new ObservableCollection<Person>(this.DatenManager.SqlServerController.HolePersonenAsync());
             }
             catch (Exception ex)
             {

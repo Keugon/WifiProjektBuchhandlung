@@ -41,7 +41,12 @@ namespace WIFI.Buchandlung.Client
             // Die zuletzt benutzte Sprache wiederherstellen
             this.Kontext.Sprachen.Festlegen(
                 Client.Properties.Settings.Default.LetzterSprachcode);
-
+            //Im offlinebtrieb die Datenbankverbindung-- es gibt keinen online betrieb
+            //einstellen
+               this.Kontext.Verbindungszeichenfolge
+                           = WIFI.Buchandlung.Client.Properties.Settings
+                           .Default.Verbindungszeichenfolge;
+            
             // Das ViewModel initialisieren
             var vm = this.Kontext.Produziere<ViewModels.Anwendung>();
             

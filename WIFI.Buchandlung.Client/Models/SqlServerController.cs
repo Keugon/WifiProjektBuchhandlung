@@ -23,8 +23,23 @@ namespace WIFI.Buchandlung.Client.Models
         /// für die Lokalisierung</param>
         /// <returns>Liste mit Länder aus der
         /// DatenQuelle</returns>
-        public Task<WIFI.Buchandlung.Client.Models.ArtikelListe> HoleArtikelListeAsync()
+        public ArtikelListe HoleArtikelListeAsync()
         {
+            ArtikelListe artikelliste = new ArtikelListe()
+            {
+                new Artikel()
+                {
+                    ID = Guid.NewGuid(),
+                  Titel = "Herr der Ringe",
+                  ArtikelNummer = 1111
+                },
+                 new Artikel()
+                {
+                     ID = Guid.NewGuid(),
+                  Titel = "Harry Potter",
+                  ArtikelNummer = 1112
+                }
+            };
             /*
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<WIFI.Lotto.Daten.Länder>.Run(() =>
@@ -79,7 +94,7 @@ namespace WIFI.Buchandlung.Client.Models
                 return Länder;
             });
 */
-            return null!;
+            return artikelliste;
         }
         /// <summary>
         /// Holt die Passenden Personne aus 
@@ -114,9 +129,53 @@ namespace WIFI.Buchandlung.Client.Models
         /// <summary>
         /// Neuen Artikel in der Datenbank anlegen
         /// </summary>
-        public void ArtikelAnlegen()
+        public Task<int> ArtikelAnlegen()
         {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<int>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                int Rückmeldung = 0;
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("ArtikelSpeichern", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
 
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@IDguid", Guid.NewGuid());
+                Befehl.Parameters.AddWithValue("@inventarNr", 11118);
+                Befehl.Parameters.AddWithValue("@bezeichnung", "TestHarry2");
+                Befehl.Parameters.AddWithValue("@beschaffungspreis", 25);
+                Befehl.Parameters.AddWithValue("@zustand", 1);
+                Befehl.Parameters.AddWithValue("@typ", 1);
+                //Rückmeldung
+                var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                Befehl.Parameters.Add(rückmeldungParameter);
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                Rückmeldung = (int)rückmeldungParameter.Value;            
+                this.Kontext.Log.EndeMelden();
+                                return Rückmeldung;
+            });
         }
 
     }

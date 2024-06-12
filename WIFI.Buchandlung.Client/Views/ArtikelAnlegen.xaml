@@ -19,8 +19,10 @@
             
             <ucontrol:TextBox 
                 Wasserzeichen="Artikel Titel"
-                Width="80"/>
-            <Button Content="Anlegen"/>
+                Width="80"
+                Text="{Binding ArtikelTitel}"/>
+            <Button Content="Anlegen"
+                    Command="{Binding ArtikelAnlegenCommand }"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WIFI.Buchandlung.Client
 {
-    public class ArtikelManager :WIFI.Anwendung.AppObjekt
+    public class DatenManager :WIFI.Anwendung.AppObjekt
     {
         /// <summary>
         /// Internes Feld für die Eigenschaft

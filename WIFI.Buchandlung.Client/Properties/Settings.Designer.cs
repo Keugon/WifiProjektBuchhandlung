@@ -46,5 +46,19 @@ namespace WIFI.Buchandlung.Client.Properties {
                 this["BeimBeendenFragen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=(localdb)\\mssqllocaldb;AttachDbFilename=..\\..\\..\\..\\WIFI.Buchandlung.Clien" +
+            "t\\Datenbank\\WIFIBuchhaltung.mdf;Database=WIFIBuchhaltung;Trusted_Connection=Yes;" +
+            "")]
+        public string Verbindungszeichenfolge {
+            get {
+                return ((string)(this["Verbindungszeichenfolge"]));
+            }
+            set {
+                this["Verbindungszeichenfolge"] = value;
+            }
+        }
     }
 }

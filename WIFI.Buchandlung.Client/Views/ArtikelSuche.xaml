@@ -12,28 +12,37 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <!--ArtikelSuche-->
+        
         <StackPanel
-            Orientation="Horizontal">
-            <Label
-                Content="Artikel:"/>
-            <ucontrol:TextBox 
-                Wasserzeichen="Artikel Titel Suche" 
-                Width="80"/>
-            <Button Content="Artikel Suche Starten"/>
-        </StackPanel>
-        <StackPanel>
-            <ListView>
-                <ListView.ItemTemplate >
-                    <DataTemplate DataType="models:Artikel">
-                        <StackPanel Orientation="Horizontal">
-                         <Label Content="Artikel Nr:"/>
-                            <Label Content="{Binding }"/>
-                            <Label Content="Artikel Titel:"/>   
-                        </StackPanel>
-                        
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+     Orientation="Vertical">
+            <!--Such Formular-->
+            <StackPanel
+         Orientation="Horizontal"
+         HorizontalAlignment="Left"
+         VerticalAlignment="Top">
+                <Label
+             Content="Artikel:"/>
+                <ucontrol:TextBox 
+             Wasserzeichen="Artikel Suche" 
+             Width="80"/>
+                <Button Content="Artikel Suche Starten"
+                 Command="{Binding ArtikelSucheCommand}"/>
+            </StackPanel>
+            <!--Such Ergebnis Liste-->
+            <!--Es müssen Daten in einer Classe als Eigenschaft 
+     mit Getter bereit stehen public alleine reicht nicht-->
+            <StackPanel
+         Orientation="Vertical">
+                <Label Content="Diese daten sind Sampels nur zur Funktions darstellung nicht vom SQL Server"/>
+                <DataGrid
+             ItemsSource="{Binding ArtikelListe}"
+             AutoGenerateColumns="False">
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Artikel Nr." Binding="{Binding ArtikelNummer}"/>
+                        <DataGridTextColumn Header="Titel" Binding="{Binding Titel}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

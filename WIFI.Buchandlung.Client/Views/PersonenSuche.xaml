@@ -20,11 +20,11 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
                 <Label
-                    Content="Artikel:"/>
+                    Content="Person:"/>
                 <ucontrol:TextBox 
-                    Wasserzeichen="Artikel Titel Suche" 
+                    Wasserzeichen="Person Suche" 
                     Width="80"/>
-                <Button Content="Artikel Suche Starten"
+                <Button Content="Personen Suche Starten"
                         Command="{Binding PersonenSucheCommand}"/>
             </StackPanel>
             <!--Such Ergebnis Liste-->
