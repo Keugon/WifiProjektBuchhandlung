@@ -15,12 +15,17 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
             <Label 
-                Content="Artikel Titel"/>
+                Content="Artikel Anlagen"/>
             
             <ucontrol:TextBox 
-                Wasserzeichen="Artikel Titel"
+                Wasserzeichen="Artikel Bezeichnung"
                 Width="80"
-                Text="{Binding ArtikelTitel}"/>
+                Text="{Binding ArtikelBezeichnung}"/>
+            <ucontrol:TextBox 
+                Wasserzeichen="Beschaffungspreis"
+                Width="80"
+                Text="{Binding ArtikelBeschaffungspreis}"/>
+            
             <Button Content="Anlegen"
                     Command="{Binding ArtikelAnlegenCommand }"/>
         </StackPanel>

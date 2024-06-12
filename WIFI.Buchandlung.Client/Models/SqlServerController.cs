@@ -129,7 +129,7 @@ namespace WIFI.Buchandlung.Client.Models
         /// <summary>
         /// Neuen Artikel in der Datenbank anlegen
         /// </summary>
-        public Task<int> ArtikelAnlegen()
+        public Task<int> ArtikelAnlegen(Guid guid, string bezeichnung, int inventarNr = 0, decimal beschaffungspreis = 0, int zustand = 1, int typ = 1)
         {
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<int>.Run(() =>
@@ -146,12 +146,12 @@ namespace WIFI.Buchandlung.Client.Models
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
 
                 //Damit wir SQL Injection sicher sind..
-                Befehl.Parameters.AddWithValue("@IDguid", Guid.NewGuid());
-                Befehl.Parameters.AddWithValue("@inventarNr", 11118);
-                Befehl.Parameters.AddWithValue("@bezeichnung", "TestHarry2");
-                Befehl.Parameters.AddWithValue("@beschaffungspreis", 25);
-                Befehl.Parameters.AddWithValue("@zustand", 1);
-                Befehl.Parameters.AddWithValue("@typ", 1);
+                Befehl.Parameters.AddWithValue("@IDguid", guid);
+                Befehl.Parameters.AddWithValue("@inventarNr", inventarNr);
+                Befehl.Parameters.AddWithValue("@bezeichnung", bezeichnung);
+                Befehl.Parameters.AddWithValue("@beschaffungspreis", beschaffungspreis);
+                Befehl.Parameters.AddWithValue("@zustand", zustand);
+                Befehl.Parameters.AddWithValue("@typ", typ);
                 //Rückmeldung
                 var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
                 {
@@ -172,9 +172,9 @@ namespace WIFI.Buchandlung.Client.Models
                         .CloseConnection);
                 //Die Daten vom Reader in unsere 
                 //Datentransferobjekte "mappen"
-                Rückmeldung = (int)rückmeldungParameter.Value;            
+                Rückmeldung = (int)rückmeldungParameter.Value;
                 this.Kontext.Log.EndeMelden();
-                                return Rückmeldung;
+                return Rückmeldung;
             });
         }
 

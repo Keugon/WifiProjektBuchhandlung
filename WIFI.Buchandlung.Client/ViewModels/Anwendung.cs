@@ -104,7 +104,27 @@ namespace WIFI.Buchandlung.Client.ViewModels
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
         #endregion Commands
         #region Bindings
-        public string ArtikelTitel { get; set; }
+
+        private string _ArtikelBezeichnung = null!;
+        public string ArtikelBezeichnung
+        {
+            get => this._ArtikelBezeichnung;
+            set
+            {
+                this._ArtikelBezeichnung = value;
+                OnPropertyChanged();
+            }
+        }
+        private decimal _ArtikelBeschaffungspreis;
+        public decimal ArtikelBeschaffungspreis
+        {
+            get => this._ArtikelBeschaffungspreis;
+            set
+            {
+                this._ArtikelBeschaffungspreis = value;
+                OnPropertyChanged();
+            }
+        }
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -134,9 +154,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
         {
             get
             {
-                if(this._ArtikelListe == null)
+                if (this._ArtikelListe == null)
                 {
-                    this._ArtikelListe= new ObservableCollection<Artikel>();
+                    this._ArtikelListe = new ObservableCollection<Artikel>();
                 }
                 return this._ArtikelListe;
             }
@@ -276,7 +296,13 @@ namespace WIFI.Buchandlung.Client.ViewModels
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine($"Rückmeldung aus der SQL Artikel Anlegen:{this.DatenManager.SqlServerController.ArtikelAnlegen().Result}");
+                System.Diagnostics.Debug.WriteLine($"Rückmeldung aus der SQL Artikel Anlegen:{
+                    this.DatenManager.SqlServerController
+                    .ArtikelAnlegen(
+                        Guid.NewGuid(),
+                        bezeichnung:ArtikelBezeichnung,
+                        beschaffungspreis:ArtikelBeschaffungspreis
+                        ).Result}");
             }
             catch (Exception ex)
             {
