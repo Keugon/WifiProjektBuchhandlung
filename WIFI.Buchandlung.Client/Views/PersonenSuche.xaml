@@ -26,6 +26,8 @@
                     Width="80"/>
                 <Button Content="Personen Suche Starten"
                         Command="{Binding PersonenSucheCommand}"/>
+                <Button Content="Person Anlegen"
+                        Command="{Binding PersonAnlegenCommand}"/>
             </StackPanel>
             <!--Such Ergebnis Liste-->
             <!--Es müssen Daten in einer Classe als Eigenschaft 

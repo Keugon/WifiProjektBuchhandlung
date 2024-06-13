@@ -29,9 +29,6 @@
             <Button Content="ArtikelSuche"
                     Command="{Binding MenüPunktAnzeigenCommand}"
                     CommandParameter="ArtikelSuche"/>
-            <Button Content="PersonAnlegen"
-                    Command="{Binding MenüPunktAnzeigenCommand}"
-                    CommandParameter="PersonAnlegen"/>
             <Button Content="PersonenSuche"
         Command="{Binding MenüPunktAnzeigenCommand}"
         CommandParameter="PersonenSuche"/>

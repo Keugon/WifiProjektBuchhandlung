@@ -1,0 +1,69 @@
+﻿<Window x:Class="WIFI.Buchandlung.Client.Views.PersonAnlegenView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
+        xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+        xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
+        d:DataContext="{d:DesignInstance Type=viewmodels:PersonAnlegenViewModel}"
+        DataContext="{Binding PersonAnlegenVM}"
+        mc:Ignorable="d"
+        Title="PersonAnlegenView" Height="450" Width="800">
+    <Grid>
+        <StackPanel
+            Orientation="Vertical">
+            <Label Content="ich mag züge"/>
+            <!--Stackpanel Name-->
+            <StackPanel
+                Orientation="Horizontal">
+                 <ucontrol:TextBox
+                Wasserzeichen="Vorname"
+                Text="{Binding Vorname}"
+                Width="80"/>
+            <ucontrol:TextBox
+                Wasserzeichen="Nachname"
+                Text="{Binding Nachname}"
+                Width="80"/>
+            </StackPanel>
+            <!--Stackpanel Adresse-->
+            <StackPanel
+                Orientation="Horizontal">
+                 <ucontrol:TextBox
+                    Wasserzeichen="PLZ"
+                    Text="{Binding PLZ}"
+                    Width="80"/>
+                <ucontrol:TextBox
+                    Wasserzeichen="Ort"
+                    Text="{Binding Ort}"
+                    Width="80"/>        
+                <ucontrol:TextBox
+                    Wasserzeichen="Straße"
+                    Text="{Binding Straße}"
+                    Width="80"/>
+            </StackPanel>
+           <!--Stackpanel Tel Email Erreichbarkeit-->
+            <StackPanel
+                Orientation="Horizontal">
+                 <ucontrol:TextBox
+                    Wasserzeichen="TelefonNr"
+                    Text="{Binding TelNr}"
+                    Width="80"/>
+            <ucontrol:TextBox
+                    Wasserzeichen="Email"
+                    Text="{Binding Email}"
+                    Width="80"/>    
+            </StackPanel>
+               
+            <ucontrol:TextBox
+                Wasserzeichen="AusweisNr"
+                Text="{Binding AusweisNr}"
+                Width="80"/>
+                <Button Content="Person Anlegen"
+                Width="100"
+                Command="{Binding PersonAnlegenCommand}"/>
+        </StackPanel>
+       
+        
+    </Grid>
+</Window>

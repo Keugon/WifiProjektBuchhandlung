@@ -114,7 +114,12 @@ Befehl.Parameters.Add(rückmeldungParameter);
         /// <summary>
         /// Neuen Artikel in der Datenbank anlegen
         /// </summary>
-        public Task<int> ArtikelAnlegen(Guid guid, string bezeichnung, int inventarNr = 0, decimal beschaffungspreis = 0, int zustand = 1, int typ = 1)
+        public Task<int> ArtikelAnlegen(
+            Guid guid, 
+            string bezeichnung, 
+            int inventarNr = 0, 
+            decimal beschaffungspreis = 0, 
+            int zustand = 1, int typ = 1)
         {
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<int>.Run(() =>
@@ -137,6 +142,68 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 Befehl.Parameters.AddWithValue("@beschaffungspreis", beschaffungspreis);
                 Befehl.Parameters.AddWithValue("@zustand", zustand);
                 Befehl.Parameters.AddWithValue("@typ", typ);
+                //Rückmeldung
+                var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                Befehl.Parameters.Add(rückmeldungParameter);
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+        }
+
+        public Task<int> PersonAnlegen(
+            Guid guid,
+            string vorname="Max",
+            string nachname="Musterman",
+            int plz=0000,
+            string ort="Musterhausen",
+            string straße="Musterstraße",
+            int telefonNr=0800,
+            string email="maxmusterman@mustermail.muster",
+            string ausweisNr="09897fg89g8769dsg6-Austria"
+            )
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<int>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                int Rückmeldung = 0;
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("PersonSpeichern", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@IDguid", guid);
+                Befehl.Parameters.AddWithValue("@vorname", vorname);
+                Befehl.Parameters.AddWithValue("@nachname", nachname);
+                Befehl.Parameters.AddWithValue("@plz", plz);
+                Befehl.Parameters.AddWithValue("@ort", ort);
+                Befehl.Parameters.AddWithValue("@straße", straße);
+                Befehl.Parameters.AddWithValue("@telNr", telefonNr);
+                Befehl.Parameters.AddWithValue("@email", email);
+                Befehl.Parameters.AddWithValue("@ausweisNr", ausweisNr);
                 //Rückmeldung
                 var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
                 {

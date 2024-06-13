@@ -102,6 +102,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche(p as string));
         public Befehl ArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegen());
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
+        public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegenÖffnen());
         #endregion Commands
         #region Bindings
         #region Artikel Anlegen Bindings
@@ -208,7 +209,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// </summary>
         private PersonenKarteiViewModel _PersonenKarteiVM = null!;
         /// <summary>
-        /// Ruft das ViewModel für den PersonenKarteiView ab
+        /// Ruft das ViewModel für den PersonAnlegenView ab
         /// </summary>
         public PersonenKarteiViewModel PersonenKarteiVM
         {
@@ -219,6 +220,22 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     this._PersonenKarteiVM = this.Kontext.Produziere<PersonenKarteiViewModel>();
                 }
                 return this._PersonenKarteiVM;
+            }
+        }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private PersonAnlegenViewModel _PersonAnlegenVM = null!;
+        /// <summary>
+        /// Ruft das Viewmodel zum Anlegen einer neuen Person ab
+        /// </summary>
+        public PersonAnlegenViewModel PersonAnlegenVM
+        {
+            get
+            {
+                this._PersonAnlegenVM = this.Kontext.Produziere<PersonAnlegenViewModel>();
+                this._PersonAnlegenVM.DatenManager = this.DatenManager;
+                return this._PersonAnlegenVM;
             }
         }
         /// <summary>
@@ -276,15 +293,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 case nameof(ArtikelSuche):
                     AktuelleView = new Views.ArtikelSuche();
                     break;
-                case nameof(PersonAnlegen):
-                    AktuelleView = new Views.PersonAnlegen();
-                    break;
-                case nameof(PersonenSuche):
+                               case nameof(PersonenSuche):
                     AktuelleView = new Views.PersonenSuche();
                     break;
-
             }
-
         }
         /// <summary>
         /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
@@ -354,6 +366,19 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 this.PersonenKarteiVM.AktuellePerson = (person as Person)!;
                 PersonenKarteiFenster.Show();
             }
+        }
+        /// <summary>
+        /// Öffnet das Fenster zum Anlegen einer neuen Person
+        /// die mindestens 8 Jahre alt sein muss und das mit einem 
+        /// Ausweis prüft
+        /// </summary>
+        public void PersonAnlegenÖffnen()
+        {
+            var PersonAnlegenFenster = new PersonAnlegenView();
+            this.PersonAnlegenVM.DatenManager = this.DatenManager;
+            PersonAnlegenFenster.DataContext = this.PersonAnlegenVM;
+            
+            PersonAnlegenFenster.Show();
         }
     }
 }

@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WIFI.Buchandlung.Client.Views
 {
     /// <summary>
-    /// Interaktionslogik für PersonAnlegen.xaml
+    /// Interaktionslogik für PersonAnlegenView.xaml
     /// </summary>
-    public partial class PersonAnlegen : UserControl
+    public partial class PersonAnlegenView : Window
     {
-        public PersonAnlegen()
+        public PersonAnlegenView()
         {
             InitializeComponent();
         }

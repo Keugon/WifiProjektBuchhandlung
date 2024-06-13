@@ -16,10 +16,7 @@
     <Compile Update="Views\Hauptfenster.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\PersonAnlegen.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\PersonenKarteiView.xaml.cs">
+    <Compile Update="Views\PersonAnlegenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\PersonenSuche.xaml.cs">
@@ -36,10 +33,7 @@
     <Page Update="Views\Hauptfenster.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\PersonAnlegen.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\PersonenKarteiView.xaml">
+    <Page Update="Views\PersonAnlegenView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\PersonenSuche.xaml">
