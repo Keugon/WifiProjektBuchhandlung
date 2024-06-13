@@ -202,7 +202,11 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
         }
-
+        /// <summary>
+        /// Legt eine neue Person in der Datenbank an
+        /// </summary>
+        /// <returns>return 1 oder 2 für update
+        /// oder neu angelegt</returns>
         public Task<int> PersonAnlegen(
             Guid guid,
             string vorname,

@@ -95,12 +95,16 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     this.PositionHinterlegen(fenster);
                 };
         }
+                #endregion Hauptview
 
-        #endregion Hauptview
         #region Commands
         public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen(p as string));
         public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche());
         public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche(p as string));
+        /// <summary>
+        /// CanExecute:Prüft zusätzlich ob alle notwendigen
+        /// Textfelder nicht leer sind und gibt den Button frei
+        /// </summary>
         public Befehl ArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegen(), p =>
         {
 
@@ -113,9 +117,17 @@ namespace WIFI.Buchandlung.Client.ViewModels
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
         public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegenÖffnen());
         #endregion Commands
+
         #region Bindings
         #region Artikel Anlegen Bindings
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
         private string _ArtikelBezeichnung = null!;
+        /// <summary>
+        /// Ruft den in der Datenbank neuen 
+        /// anzulegenden Artikelnamen ab oder legt diesen Fest
+        /// </summary>
         public string ArtikelBezeichnung
         {
             get => this._ArtikelBezeichnung;
@@ -125,7 +137,14 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
         private decimal _ArtikelBeschaffungspreis;
+        /// <summary>
+        /// Ruft den in der Datenbank neuen 
+        /// anzulegenden Artikelbeschaffungspreis ab oder legt diesen Fest
+        /// </summary>
         public decimal ArtikelBeschaffungspreis
         {
             get => this._ArtikelBeschaffungspreis;
@@ -137,7 +156,15 @@ namespace WIFI.Buchandlung.Client.ViewModels
         }
         #endregion Artikel Anlegen Bindings
         #region Artikel Suche Bindings
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
         private string _ArtikelBezeichnungSuche = null!;
+        /// <summary>
+        /// Ruft den den Artikelname ab mit dem
+        /// in der Datenbank gesucht wird 
+        /// ab oder legt diesen fest
+        /// </summary>
         public string ArtikelBezeichungSuche
         {
             get => this._ArtikelBezeichnungSuche;
@@ -147,7 +174,15 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
         private string _PersonBezeichnungSuche = null!;
+        /// <summary>
+        /// Ruft den den Vornamen ab mit dem nach Personen
+        /// in der Datenbank gesucht wird 
+        /// ab oder legt diesen fest
+        /// </summary>
         public string PersonBezeichungSuche
         {
             get => this._PersonBezeichnungSuche;
@@ -182,7 +217,15 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
         private ArtikelListe _ArtikelListe = null!;
+        /// <summary>
+        /// Ruft die zu Darstellende 
+        /// Liste von Artikel aus der Datenbank 
+        /// ab oder legt diese fest
+        /// </summary>
         public ArtikelListe ArtikelListe
         {
             get
@@ -277,6 +320,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
         }
         #endregion Bindings
+
         #region Daten Manager
         /// <summary>
         /// Internes Feld für die Eigenschaft
@@ -297,6 +341,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
         }
         #endregion ADaten Manager
+
+        #region Methoden             
         /// <summary>
         /// Methode um die Controls per Button Click zu wechseln
         /// </summary>
@@ -400,5 +446,6 @@ namespace WIFI.Buchandlung.Client.ViewModels
             
             PersonAnlegenFenster.Show();
         }
+        #endregion Methoden
     }
 }

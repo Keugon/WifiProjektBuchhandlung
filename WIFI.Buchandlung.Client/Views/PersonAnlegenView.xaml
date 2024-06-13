@@ -54,14 +54,22 @@
                     Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
                     Width="80"/>    
             </StackPanel>
-               
-            <ucontrol:TextBox
+            <StackPanel
+                Orientation="Horizontal">
+                <ucontrol:TextBox
                 Wasserzeichen="AusweisNr"
                 Text="{Binding AusweisNr,UpdateSourceTrigger=PropertyChanged}"
                 Width="80"/>
+                <DatePicker
+                IsTodayHighlighted="True"
+                FirstDayOfWeek="Monday"
+                SelectedDateFormat="Short"
+                    SelectedDate="{Binding GeburtsTag}"/>
+            </StackPanel>
                 <Button Content="Person Anlegen"
                 Width="100"
                 Command="{Binding PersonAnlegenCommand}"/>
+            
         </StackPanel>
        
         

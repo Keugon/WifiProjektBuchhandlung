@@ -14,16 +14,31 @@ namespace WIFI.Buchandlung.Client.ViewModels
     public class PersonAnlegenViewModel : WIFI.Windows.ViewModel
     {
         #region Befehle
-        public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegen(), p =>
+        /// <summary>
+        /// CanExecute:Prüft zusätzlich ob alle notwendigen
+        /// Textfelder nicht leer sind und gibt den Button frei
+        /// </summary>
+        public Befehl PersonAnlegenCommand 
+            => new Befehl(p => PersonAnlegen(), p =>
         {
 
-            if (Tools.General.AreStringsValid(Vorname, Nachname, PLZ, Ort, Straße, TelNr, Email, AusweisNr))
+            if (Tools.General
+            .AreStringsValid(
+                Vorname, 
+                Nachname, 
+                PLZ, 
+                Ort, 
+                Straße, 
+                TelNr, 
+                Email, 
+                AusweisNr))
             {
                 return true;
             }
             return false;
         });
         #endregion  Befehle
+
         #region Bindings
 
         public string Vorname { get; set; } = null!;
@@ -34,14 +49,35 @@ namespace WIFI.Buchandlung.Client.ViewModels
         public string TelNr { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string AusweisNr { get; set; } = null!;
+        public DateTime GeburtsTag { get; set; } = DateTime.Today;
 
         #endregion Bindings
-        public DatenManager? DatenManager { get; set; }
+
+        #region Lokale Eigenschaft DatenManager     
         /// <summary>
+        /// Lokales Eigenschaft für 
+        /// den DatenManager aus den AnwendungsViewModel
+        /// </summary>
+        public DatenManager? DatenManager { get; set; }
+        #endregion Lokale Eigenschaft DatenManager
+
+        #region Methoden
+/// <summary>
         /// Legt einen neuen Artigel in der Datenbank an
         /// </summary>
         public void PersonAnlegen()
         {
+            //Check für über mindestens 8 Jahre alt
+            
+            if ((DateTime.Today.Year - this.GeburtsTag.Year) < 8)
+            {
+                MessageBox
+                    .Show(
+                    $"Das Angegebene Alter: " +
+                    $"{(DateTime.Today.Year - this.GeburtsTag.Year)}" +
+                    $" ist niedriger als das Mindestalter von 8 Jahren!");
+                return;
+            }
             try
             {
                 Guid newGuidOnDemand = Guid.NewGuid();
@@ -71,6 +107,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 System.Diagnostics.Debug.WriteLine($"{ex.Message}");
             }
         }
+        #endregion Methoden
+        
         
     }
 }

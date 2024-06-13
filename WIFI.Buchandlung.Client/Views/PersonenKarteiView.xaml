@@ -32,14 +32,21 @@
                <Label Content="Nachname"/>
             <Label Content="{Binding AktuellePerson.Nachname}"/>
             </StackPanel>
+        <Button
+            Grid.Row="0"
+            Grid.Column="1"
+            Width="80"
+            Content="Leihen"/>
         <!--row1-->
             <StackPanel
                 Orientation="Horizontal"
                 Grid.Row="1"
                 Grid.Column="0"
-Grid.ColumnSpan="2">
-                 <Label Content="Adresse"/>
-            <Label Content="{Binding AktuellePerson.Adresse}"/>
+                Grid.ColumnSpan="2">
+            <Label Content="Adresse"/>
+            <Label Content="{Binding AktuellePerson.Plz}"/>
+            <Label Content="{Binding AktuellePerson.Ort}"/>
+            <Label Content="{Binding AktuellePerson.Straße}"/>
             <Label Content="Telefonnummer"/>
             <Label Content="{Binding AktuellePerson.Telefonnummer}"/>
             </StackPanel>
