@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace WIFI.Buchandlung.Client.Models
 {
@@ -23,41 +24,30 @@ namespace WIFI.Buchandlung.Client.Models
         /// für die Lokalisierung</param>
         /// <returns>Liste mit Länder aus der
         /// DatenQuelle</returns>
-        public ArtikelListe HoleArtikelListeAsync()
+        public Task<ArtikelListe> HoleArtikelListeAsync(string suchParameter)
         {
-            ArtikelListe artikelliste = new ArtikelListe()
-            {
-                new Artikel()
-                {
-                    ID = Guid.NewGuid(),
-                  Titel = "Herr der Ringe",
-                  ArtikelNummer = 1111
-                },
-                 new Artikel()
-                {
-                     ID = Guid.NewGuid(),
-                  Titel = "Harry Potter",
-                  ArtikelNummer = 1112
-                }
-            };
-            /*
             //Das Holen als TAP Thread Laufen lassen
-            return System.Threading.Tasks.Task<WIFI.Lotto.Daten.Länder>.Run(() =>
+            return System.Threading.Tasks.Task<ArtikelListe>.Run(() =>
             {
                 this.Kontext.Log.StartMelden();
                 //Für das Ergebnis
-                var Länder = new Daten.Länder();
-
+                ArtikelListe Rückmeldung = new ArtikelListe();
                 //Erstens - ein Verbindungsobjekt 
                 using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
                 //Zweitens - ein Befehlsobjekt
                 //(Reicht für Insert, Update und Delet)
-                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("HoleLänder", Verbindung);
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("ArtikelSuche", Verbindung);
                 //Mitteilen das wir kein SQL direkt haben
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
-
                 //Damit wir SQL Injection sicher sind..
-                Befehl.Parameters.AddWithValue("@sprache", sprachcode);
+                Befehl.Parameters.AddWithValue("@SuchParameter", suchParameter);
+                /* kein Return Value nur daten
+var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
+{
+Direction = System.Data.ParameterDirection.Output
+};
+Befehl.Parameters.Add(rückmeldungParameter);
+*/
                 //Damit das RDBMS die sql Anweisung nicht jedes Mals
                 //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
                 Befehl.Prepare();
@@ -74,27 +64,22 @@ namespace WIFI.Buchandlung.Client.Models
                 //Datentransferobjekte "mappen"
                 while (Daten.Read())
                 {
-                    Länder.Add(new Lotto.Daten.Land
+                    Rückmeldung.Add(new Artikel
                     {
                         ID = (System.Guid)Daten["ID"],
-                        Iso2 = (string)Daten["ISO2"],
-                        Name = (string)Daten["Name"]
+                        Bezeichnung = (string)Daten["Bezeichnung"],
+                        InventarNr = (int)Daten["InventarNr"],
+                        Beschaffungspreis = (decimal)Daten["Beschaffungspreis"],
+                        Zustand = (string)Daten["Zustand"],
+                        Typ = (string)Daten["Typ"]
                     });
                 }
-                this.Kontext.Log.Erstellen
-                ($"{this} hat {Länder.Count} unterstützte Länder gefunden");
-
-                //Zum Testen von Multithreading in 
-                //Debug Version "Schlafen"
-
-#if DEBUG
-                System.Threading.Thread.Sleep(2000);
-#endif
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
                 this.Kontext.Log.EndeMelden();
-                return Länder;
+                return Rückmeldung;
             });
-*/
-            return artikelliste;
         }
         /// <summary>
         /// Holt die Passenden Personne aus 

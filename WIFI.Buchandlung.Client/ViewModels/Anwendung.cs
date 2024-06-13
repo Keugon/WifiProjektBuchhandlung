@@ -104,7 +104,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
         #endregion Commands
         #region Bindings
-
+        #region Artikel Anlegen Bindings
         private string _ArtikelBezeichnung = null!;
         public string ArtikelBezeichnung
         {
@@ -125,6 +125,19 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion Artikel Anlegen Bindings
+        #region Artikel Suche Bindings
+        private string _ArtikelBezeichnungSuche = null!;
+        public string ArtikelBezeichungSuche
+        {
+            get => this._ArtikelBezeichnungSuche;
+            set
+            {
+                this._ArtikelBezeichnungSuche = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -149,14 +162,14 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
-        private ObservableCollection<Artikel> _ArtikelListe = null!;
-        public ObservableCollection<Artikel> ArtikelListe
+        private ArtikelListe _ArtikelListe = null!;
+        public ArtikelListe ArtikelListe
         {
             get
             {
                 if (this._ArtikelListe == null)
                 {
-                    this._ArtikelListe = new ObservableCollection<Artikel>();
+                    this._ArtikelListe = new ArtikelListe();
                 }
                 return this._ArtikelListe;
             }
@@ -281,7 +294,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
         {
             try
             {
-                this.ArtikelListe = new ObservableCollection<Artikel>(this.DatenManager.SqlServerController.HoleArtikelListeAsync());
+                this.ArtikelListe = this.DatenManager.SqlServerController
+                        .HoleArtikelListeAsync(this.ArtikelBezeichungSuche).Result;
             }
             catch (Exception ex)
             {
@@ -296,12 +310,11 @@ namespace WIFI.Buchandlung.Client.ViewModels
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine($"Rückmeldung aus der SQL Artikel Anlegen:{
-                    this.DatenManager.SqlServerController
+                System.Diagnostics.Debug.WriteLine($"Rückmeldung aus der SQL Artikel Anlegen:{this.DatenManager.SqlServerController
                     .ArtikelAnlegen(
                         Guid.NewGuid(),
-                        bezeichnung:ArtikelBezeichnung,
-                        beschaffungspreis:ArtikelBeschaffungspreis
+                        bezeichnung: ArtikelBezeichnung,
+                        beschaffungspreis: ArtikelBeschaffungspreis
                         ).Result}");
             }
             catch (Exception ex)

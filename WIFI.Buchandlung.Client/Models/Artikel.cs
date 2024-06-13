@@ -12,8 +12,11 @@ namespace WIFI.Buchandlung.Client.Models
     }
     public class Artikel :WIFI.Anwendung.Daten.GuidDatenObjekt
     {
-        public string? Titel { get; set; }
-        public int? ArtikelNummer { get; set; }
+        public string? Bezeichnung { get; set; }
+        public int? InventarNr { get; set; }
+        public decimal Beschaffungspreis {  get; set; }
+        public string? Typ { get; set; }
+        public string? Zustand {  get; set; }
        
     }
 }

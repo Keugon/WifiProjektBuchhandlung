@@ -21,12 +21,13 @@
          HorizontalAlignment="Left"
          VerticalAlignment="Top">
                 <Label
-             Content="Artikel:"/>
-                <ucontrol:TextBox 
-             Wasserzeichen="Artikel Suche" 
-             Width="80"/>
+                    Content="Artikel:"/>
+                <ucontrol:TextBox
+                    Text="{Binding ArtikelBezeichungSuche}"
+                     Wasserzeichen="Artikel Suche" 
+                     Width="80"/>
                 <Button Content="Artikel Suche Starten"
-                 Command="{Binding ArtikelSucheCommand}"/>
+                        Command="{Binding ArtikelSucheCommand}"/>
             </StackPanel>
             <!--Such Ergebnis Liste-->
             <!--Es müssen Daten in einer Classe als Eigenschaft 
@@ -38,8 +39,11 @@
              ItemsSource="{Binding ArtikelListe}"
              AutoGenerateColumns="False">
                     <DataGrid.Columns >
-                        <DataGridTextColumn Header="Artikel Nr." Binding="{Binding ArtikelNummer}"/>
-                        <DataGridTextColumn Header="Titel" Binding="{Binding Titel}"/>
+                        <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
+                        <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Bezeichnung}"/>
+                        <DataGridTextColumn Header="Beschaffungspreis" Binding="{Binding Beschaffungspreis}"/>
+                        <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
+                        <DataGridTextColumn Header="Typ" Binding="{Binding Typ}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
