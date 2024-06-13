@@ -20,11 +20,11 @@
             <ucontrol:TextBox 
                 Wasserzeichen="Artikel Bezeichnung"
                 Width="80"
-                Text="{Binding ArtikelBezeichnung}"/>
+                Text="{Binding ArtikelBezeichnung,UpdateSourceTrigger=PropertyChanged}"/>
             <ucontrol:TextBox 
                 Wasserzeichen="Beschaffungspreis"
                 Width="80"
-                Text="{Binding ArtikelBeschaffungspreis}"/>
+                Text="{Binding ArtikelBeschaffungspreis,UpdateSourceTrigger=PropertyChanged}"/>
             
             <Button Content="Anlegen"
                     Command="{Binding ArtikelAnlegenCommand }"/>

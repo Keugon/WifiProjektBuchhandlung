@@ -86,30 +86,65 @@ Befehl.Parameters.Add(rückmeldungParameter);
         /// der Datenbank mit den angegeben parameter
         /// </summary>
         /// <returns>Liste von Personen</returns>
-        public Personen HolePersonenAsync()
+        public Task<Personen> HolePersonenAsync(string suchParameter)
         {
-            Personen personen = new Personen()
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Personen>.Run(() =>
             {
-                new Person()
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                Personen Rückmeldung = new Personen();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("PersonenSuche", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@SuchParameter", suchParameter);
+                /* kein Return Value nur daten
+var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
+{
+Direction = System.Data.ParameterDirection.Output
+};
+Befehl.Parameters.Add(rückmeldungParameter);
+*/
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
                 {
-                    Vorname ="Florian",
-                    Nachname= "Jemand",
-                    Adresse="Irgendwo",
-                    Email= "florian@email.at",
-                    Telefonnummer = 0900666666
-                },
-                 new Person()
-                {
-                    Vorname ="Markus",
-                    Nachname= "AuchJemand",
-                    Adresse="IrgendIrgendwo",
-                    Email= "florian@guugle.at",
-                    Telefonnummer = 0200666666
+                    Rückmeldung.Add(new Person
+                    {
+                        ID = (System.Guid)Daten["ID"],
+                        Vorname = (string)Daten["Vorname"],
+                        Nachname = (string)Daten["Nachname"],
+                        Plz = (int)Daten["PLZ"],
+                        Ort = (string)Daten["Ort"],
+                        Straße = (string)Daten["Straße"],
+                        Telefonnummer = (string)Daten["TelNr"],
+                        Email = (string)Daten["Email"],
+                        AusweisNr = (string)Daten["AusweisNr"],
+                                            });
                 }
-            };
-
-
-            return personen;
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
         }
         /// <summary>
         /// Neuen Artikel in der Datenbank anlegen
@@ -170,14 +205,14 @@ Befehl.Parameters.Add(rückmeldungParameter);
 
         public Task<int> PersonAnlegen(
             Guid guid,
-            string vorname="Max",
-            string nachname="Musterman",
-            int plz=0000,
-            string ort="Musterhausen",
-            string straße="Musterstraße",
-            int telefonNr=0800,
-            string email="maxmusterman@mustermail.muster",
-            string ausweisNr="09897fg89g8769dsg6-Austria"
+            string vorname,
+            string nachname,
+            int plz,
+            string ort,
+            string straße,
+            string telefonNr,
+            string email,
+            string ausweisNr
             )
         {
             //Das Holen als TAP Thread Laufen lassen

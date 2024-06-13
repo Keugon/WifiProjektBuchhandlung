@@ -23,7 +23,8 @@
                     Content="Person:"/>
                 <ucontrol:TextBox 
                     Wasserzeichen="Person Suche" 
-                    Width="80"/>
+                    Width="80"
+                    Text="{Binding PersonBezeichungSuche}"/>
                 <Button Content="Personen Suche Starten"
                         Command="{Binding PersonenSucheCommand}"/>
                 <Button Content="Person Anlegen"
@@ -52,9 +53,12 @@
                     <DataGrid.Columns >
                         <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"/>
                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
-                        <DataGridTextColumn Header="Nachname" Binding="{Binding Adresse}"/>
-                        <DataGridTextColumn Header="Nachname" Binding="{Binding Telefonnummer}"/>
-                        <DataGridTextColumn Header="Nachname" Binding="{Binding Email}"/>
+                        <DataGridTextColumn Header="Plz" Binding="{Binding Plz}"/>
+                        <DataGridTextColumn Header="Ort" Binding="{Binding Ort}"/>
+                        <DataGridTextColumn Header="Straße" Binding="{Binding Straße}"/>
+                        <DataGridTextColumn Header="Telefonnummer" Binding="{Binding Telefonnummer}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                        <DataGridTextColumn Header="AusweisNr" Binding="{Binding AusweisNr}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

@@ -8,6 +8,7 @@ using WIFI.Buchandlung.Client;
 using WIFI.Buchandlung.Client.Views;
 using WIFI.Buchandlung.Client.Models;
 using System.Collections.ObjectModel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
@@ -98,9 +99,17 @@ namespace WIFI.Buchandlung.Client.ViewModels
         #endregion Hauptview
         #region Commands
         public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen(p as string));
-        public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche(p as string));
+        public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche());
         public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche(p as string));
-        public Befehl ArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegen());
+        public Befehl ArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegen(), p =>
+        {
+
+            if (Tools.General.AreStringsValid(ArtikelBezeichnung,ArtikelBeschaffungspreis.ToString()))
+            {
+                return true;
+            }
+            return false;
+        });
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
         public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegenÖffnen());
         #endregion Commands
@@ -138,22 +147,32 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        private string _PersonBezeichnungSuche = null!;
+        public string PersonBezeichungSuche
+        {
+            get => this._PersonBezeichnungSuche;
+            set
+            {
+                this._PersonBezeichnungSuche= value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
-        private ObservableCollection<Person> _PersonenListe = null!;
+        private Personen _PersonenListe = null!;
         /// <summary>
         /// Ruft ab oder legt die Liste an Personen die an der
         /// PersonenSuche seite angezeigt werden soll fest
         /// </summary>
-        public ObservableCollection<Person> PersonenListe
+        public Personen PersonenListe
         {
             get
             {
                 if (this._PersonenListe == null)
                 {
-                    this._PersonenListe = new ObservableCollection<Person>();
+                    this._PersonenListe = new Personen();
                 }
                 return this._PersonenListe;
             }
@@ -339,11 +358,12 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
         /// </summary>
         /// <param name="name">Name der Gesucht wird</param>
-        public void PersonenSuche(string? name)
+        public void PersonenSuche()
         {
             try
             {
-                this.PersonenListe = new ObservableCollection<Person>(this.DatenManager.SqlServerController.HolePersonenAsync());
+                this.PersonenListe = this.DatenManager.SqlServerController
+                        .HolePersonenAsync(this.PersonBezeichungSuche).Result;
             }
             catch (Exception ex)
             {

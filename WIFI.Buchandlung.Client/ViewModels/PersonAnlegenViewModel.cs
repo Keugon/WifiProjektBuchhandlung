@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
 using WIFI.Buchandlung.Client.Models;
 using WIFI.Windows;
 
@@ -11,7 +14,15 @@ namespace WIFI.Buchandlung.Client.ViewModels
     public class PersonAnlegenViewModel : WIFI.Windows.ViewModel
     {
         #region Befehle
-        public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegen());
+        public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegen(), p =>
+        {
+
+            if (Tools.General.AreStringsValid(Vorname, Nachname, PLZ, Ort, Straße, TelNr, Email, AusweisNr))
+            {
+                return true;
+            }
+            return false;
+        });
         #endregion  Befehle
         #region Bindings
 
@@ -34,25 +45,32 @@ namespace WIFI.Buchandlung.Client.ViewModels
             try
             {
                 Guid newGuidOnDemand = Guid.NewGuid();
-                System.Diagnostics.Debug.WriteLine($"Rückmeldung aus der SQL Artikel Anlegen:{this.DatenManager!.SqlServerController
+                int rückmeldung = this.DatenManager!.SqlServerController
                     .PersonAnlegen(
                     guid: newGuidOnDemand,
                     vorname: Vorname,
                     nachname: Nachname,
                     plz: int.Parse(PLZ),
                     ort: Ort,
-                    straße:Straße,
-                    telefonNr: int.Parse(TelNr),
+                    straße: Straße,
+                    telefonNr: TelNr,
                     email: Email,
                     ausweisNr: AusweisNr
-                    
-                    ).Result}");
+
+                    ).Result;
+                System.Diagnostics.Debug.WriteLine($"Rückmeldung aus dem Personne Anlegen:{rückmeldung}");
+                if (rückmeldung == 2)
+                {
+                    MessageBox.Show("Person wurde Angelegt");
+                }
             }
+
             catch (Exception ex)
             {
 
                 System.Diagnostics.Debug.WriteLine($"{ex.Message}");
             }
         }
+        
     }
 }
