@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Buchandlung.Client
+﻿namespace WIFI.Buchandlung.Client
 {
-    public class DatenManager :WIFI.Anwendung.AppObjekt
+    public class DatenManager : WIFI.Anwendung.AppObjekt
     {
         /// <summary>
         /// Internes Feld für die Eigenschaft
@@ -20,9 +14,9 @@ namespace WIFI.Buchandlung.Client
         {
             get
             {
-                if(this._SqlServerController == null)
+                if (this._SqlServerController == null)
                 {
-                 this._SqlServerController =   this.Kontext.Produziere<Models.SqlServerController>();
+                    this._SqlServerController = this.Kontext.Produziere<Models.SqlServerController>();
                 }
                 return this._SqlServerController!;
             }

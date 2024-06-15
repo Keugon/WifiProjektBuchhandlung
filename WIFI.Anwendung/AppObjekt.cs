@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-// Zum Aktivieren der WIFI Erweiterungen
+﻿// Zum Aktivieren der WIFI Erweiterungen
 using WIFI.Anwendung.Werkzeuge;
 
 namespace WIFI.Anwendung;
@@ -212,9 +206,9 @@ public abstract class AppObjekt : System.Object
     {
         get
         {
-            if(AppObjekt._HttpClient == null)
+            if (AppObjekt._HttpClient == null)
             {
-                AppObjekt._HttpClient 
+                AppObjekt._HttpClient
                     = new System.Net.Http.HttpClient();
                 this.Kontext.Log.Erstellen(
                     $"{this} hat den Dienst für HTTP " +

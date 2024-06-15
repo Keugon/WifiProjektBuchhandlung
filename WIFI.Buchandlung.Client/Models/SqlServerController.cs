@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
-namespace WIFI.Buchandlung.Client.Models
+﻿namespace WIFI.Buchandlung.Client.Models
 {
     /// <summary>
     /// Stellt einen Dienst zum Lesen und Schreiben
@@ -137,7 +130,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
                         Telefonnummer = (string)Daten["TelNr"],
                         Email = (string)Daten["Email"],
                         AusweisNr = (string)Daten["AusweisNr"],
-                                            });
+                    });
                 }
                 /*Kein return nur daten
                 Rückmeldung = (int)rückmeldungParameter.Value;

@@ -1,11 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Interop;
+﻿using System.Windows;
 using WIFI.Buchandlung.Client.Models;
 using WIFI.Windows;
 
@@ -18,13 +11,13 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// CanExecute:Prüft zusätzlich ob alle notwendigen
         /// Textfelder nicht leer sind und gibt den Button frei
         /// </summary>
-        public Befehl PersonAnlegenCommand 
+        public Befehl PersonAnlegenCommand
             => new Befehl(p => PersonAnlegen(), p =>
         {
 
             if (Tools.General
             .AreStringsValid(
-                PersonZumAnlegen.Vorname!, 
+                PersonZumAnlegen.Vorname!,
                 PersonZumAnlegen.Nachname!,
                 PersonZumAnlegen.Plz.ToString()!,
                 PersonZumAnlegen.Ort!,
@@ -51,15 +44,15 @@ namespace WIFI.Buchandlung.Client.ViewModels
         {
             get
             {
-                if(this._PersonZumAnlegen == null)
+                if (this._PersonZumAnlegen == null)
                 {
-                    this._PersonZumAnlegen= new Person();
+                    this._PersonZumAnlegen = new Person();
                     this._PersonZumAnlegen.ID = Guid.NewGuid();
                 }
                 return this._PersonZumAnlegen;
             }
         }
-       public DateTime GeburtsTag { get; set; } = DateTime.Today;
+        public DateTime GeburtsTag { get; set; } = DateTime.Today;
 
         #endregion Bindings
 
@@ -72,13 +65,13 @@ namespace WIFI.Buchandlung.Client.ViewModels
         #endregion Lokale Eigenschaft DatenManager
 
         #region Methoden
-/// <summary>
+        /// <summary>
         /// Legt einen neuen Artigel in der Datenbank an
         /// </summary>
         public void PersonAnlegen()
         {
             //Check für über mindestens 8 Jahre alt
-            
+
             if ((DateTime.Today.Year - this.GeburtsTag.Year) < 8)
             {
                 MessageBox
@@ -107,7 +100,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
         }
         #endregion Methoden
-        
-        
+
+
     }
 }

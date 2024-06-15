@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using WIFI.Buchandlung.Client.Models;
 using WIFI.Windows;
-using System.Windows;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
@@ -27,8 +22,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 }
                 return false;
             });
-
         #endregion  Befehle
+
         #region ArtikelBinding
         /// <summary>
         /// Internes Feld für die Eigenschaft
@@ -52,8 +47,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 return this._ArtikelZumAnlegen;
             }
         }
-
         #endregion ArtikelBinding
+
         #region Lokale Eigenschaft DatenManager     
         /// <summary>
         /// Lokales Eigenschaft für 
@@ -61,6 +56,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// </summary>
         public DatenManager? DatenManager { get; set; }
         #endregion Lokale Eigenschaft DatenManager
+
         #region Methoden
         /// <summary>
         /// Legt einen neuen Artigel in der Datenbank an
@@ -86,7 +82,6 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     MessageBox.Show("Artikel wurde Angelegt");
                 }
             }
-
             catch (Exception ex)
             {
 

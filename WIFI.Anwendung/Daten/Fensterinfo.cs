@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung.Daten;
+﻿namespace WIFI.Anwendung.Daten;
 
 /// <summary>
 /// Stellt ein typsicheres dynamisches 
@@ -62,7 +56,7 @@ public class Fensterinfo : DatenObjekt
     /// <remarks>Null, wenn kein
     /// Wert vorliegt</remarks>
     public int? Breite { get; set; }
-        /// <summary>
+    /// <summary>
     /// Ruft die Höhe
     /// des Fensters ab oder legt
     /// diese fest

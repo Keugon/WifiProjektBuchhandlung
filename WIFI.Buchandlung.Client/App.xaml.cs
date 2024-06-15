@@ -1,8 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
-using WIFI.Anwendung;
-using WIFI.Buchandlung.Client;
+﻿using System.Windows;
 
 
 
@@ -43,13 +39,13 @@ namespace WIFI.Buchandlung.Client
                 Client.Properties.Settings.Default.LetzterSprachcode);
             //Im offlinebtrieb die Datenbankverbindung-- es gibt keinen online betrieb
             //einstellen
-               this.Kontext.Verbindungszeichenfolge
-                           = WIFI.Buchandlung.Client.Properties.Settings
-                           .Default.Verbindungszeichenfolge;
-            
+            this.Kontext.Verbindungszeichenfolge
+                        = WIFI.Buchandlung.Client.Properties.Settings
+                        .Default.Verbindungszeichenfolge;
+
             // Das ViewModel initialisieren
             var vm = this.Kontext.Produziere<ViewModels.Anwendung>();
-            
+
             // Die Hauptfenster View als Oberfläche benutzen
             vm.Anzeigen<Views.Hauptfenster>();
 
@@ -70,7 +66,7 @@ namespace WIFI.Buchandlung.Client
             WIFI.Buchandlung.Client.Properties.Settings.Default
                 .LetzterSprachcode = this.Kontext.Sprachen
                     .AktuelleSprache.Code;
-          WIFI.Buchandlung.Client.Properties.Settings.Default.Save();
+            WIFI.Buchandlung.Client.Properties.Settings.Default.Save();
 
             this.Kontext.Fenster.Speichern();
 

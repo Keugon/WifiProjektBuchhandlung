@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WIFI.Anwendung.Daten;
+﻿using WIFI.Anwendung.Daten;
 
 namespace WIFI.Anwendung
 {

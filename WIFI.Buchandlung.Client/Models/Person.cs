@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Buchandlung.Client.Models
+﻿namespace WIFI.Buchandlung.Client.Models
 {
     public class Personen : System.Collections.Generic.List<Person>
     {
@@ -18,12 +12,12 @@ namespace WIFI.Buchandlung.Client.Models
         public string? Email { get; set; }
         public string? Straße { get; set; }
         public string? Ort { get; set; }
-        public int? Plz {  get; set; }
+        public int? Plz { get; set; }
         public string? AusweisNr { get; set; }
         public override string ToString()
         {
             return $"Info About Person\n Vorname: {Vorname}";
         }
     }
-    
+
 }

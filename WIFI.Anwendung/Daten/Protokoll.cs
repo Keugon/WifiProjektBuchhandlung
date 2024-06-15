@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung.Daten
+﻿namespace WIFI.Anwendung.Daten
 {
 
     /// <summary>
@@ -48,7 +42,7 @@ namespace WIFI.Anwendung.Daten
     /// Stellt die Daten für eine Zeile 
     /// des Anwendungsprotokolls bereit
     /// </summary>
-    public class Protokolleintrag: DatenObjekt
+    public class Protokolleintrag : DatenObjekt
     {
         /// <summary>
         /// Ruft den Zeitstempel ab,
@@ -56,8 +50,8 @@ namespace WIFI.Anwendung.Daten
         /// legt diesen fest.
         /// </summary>
         /// <remarks>Standartwert die Aktuellezeit</remarks>
-        
-        public System.DateTime Zeitpunkt { get; set; } 
+
+        public System.DateTime Zeitpunkt { get; set; }
             = System.DateTime.Now;
         /// <summary>
         /// Ruft die Informaitions stufe dieses Eintrags
@@ -65,7 +59,7 @@ namespace WIFI.Anwendung.Daten
         /// </summary>
         /// <remarks>Standartwert Normal</remarks>
         [InToString(0)]
-        public ProtokolleintragTyp Typ { get; set; } 
+        public ProtokolleintragTyp Typ { get; set; }
         = ProtokolleintragTyp.Normal;
         /// <summary>
         /// Ruft die lesbare Information des Eintrags ab 
@@ -74,6 +68,6 @@ namespace WIFI.Anwendung.Daten
         [InToString(1)]
         public string Text { get; set; } = string.Empty;
 
-       
+
     }
 }

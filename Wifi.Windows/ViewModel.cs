@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace WIFI.Windows
 {
@@ -30,7 +25,7 @@ namespace WIFI.Windows
         public bool IstBeschäftigt
         {
             get => this.IstBeschäftigtZähler > 0;
-                        set
+            set
             {
                 if (value)
                 {
@@ -40,7 +35,7 @@ namespace WIFI.Windows
                 else
                 {
                     this.IstBeschäftigtZähler--;
-                    if(this.IstBeschäftigtZähler < 0)
+                    if (this.IstBeschäftigtZähler < 0)
                     {
                         this.IstBeschäftigtZähler = 0;
                     }

@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WIFI.Windows;
-using WIFI.Buchandlung.Client;
+﻿using WIFI.Buchandlung.Client.Models;
 using WIFI.Buchandlung.Client.Views;
-using WIFI.Buchandlung.Client.Models;
-using System.Collections.ObjectModel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using WIFI.Windows;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {

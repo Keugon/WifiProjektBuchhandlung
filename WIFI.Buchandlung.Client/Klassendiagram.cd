@@ -29,7 +29,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.ViewModels.PersonenKarteiViewModel">
-    <Position X="2.75" Y="4.25" Width="1.5" />
+    <Position X="2.75" Y="3.5" Width="1.5" />
     <Members>
       <Field Name="_AktuellePerson" Hidden="true" />
     </Members>
@@ -40,8 +40,11 @@
   </Class>
   <Class Name="WIFI.Buchandlung.Client.ViewModels.PersonAnlegenViewModel">
     <Position X="2.75" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_PersonZumAnlegen" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>CAACQAAAQCAAACAAAAAAAAAAAAKAAAAgAAAAggAAAAI=</HashCode>
+      <HashCode>AAAAAAAAQAAAACAAAAAhAAAAAAAAAAAAAAAAgAAAAAI=</HashCode>
       <FileName>ViewModels\PersonAnlegenViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -49,6 +52,7 @@
     <Position X="1" Y="0.5" Width="1.5" />
     <Members>
       <Field Name="_AktuelleView" Hidden="true" />
+      <Field Name="_ArtikelAnlegenVM" Hidden="true" />
       <Field Name="_ArtikelBeschaffungspreis" Hidden="true" />
       <Field Name="_ArtikelBezeichnung" Hidden="true" />
       <Field Name="_ArtikelBezeichnungSuche" Hidden="true" />
@@ -61,7 +65,7 @@
       <Field Name="_SelectedPerson" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAQIAAEAAAQgTIAkSgAQE4IAEIAAAAAIkQAgEQGAE4=</HashCode>
+      <HashCode>AAAQIAAEAAAQgTIAkSgAQE4IAEIAAACAIkQIgEQCAE4=</HashCode>
       <FileName>ViewModels\Anwendung.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -101,6 +105,16 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAA=</HashCode>
       <FileName>DatenManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.ViewModels.ArtikelAnlegenViewModel">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <Members>
+      <Field Name="_ArtikelZumAnlegen" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAgAAAAAAAQAAAAAAAIAAAAAAAAI=</HashCode>
+      <FileName>ViewModels\ArtikelAnlegenViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

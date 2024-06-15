@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung
+﻿namespace WIFI.Anwendung
 {
     /// <summary>
     /// Stellt einen Dienst bereit
@@ -30,7 +23,7 @@ namespace WIFI.Anwendung
         /// https://learn.microsoft.com/de-de/windows/win32/api/winuser/nf-winuser-getsystemmetrics
         /// </remarks>
         [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private extern static  int GetSystemMetrics(int info);
+        private extern static int GetSystemMetrics(int info);
 
         /// <summary>
         /// Ruft eine Zusatzinformation zum
@@ -45,7 +38,7 @@ namespace WIFI.Anwendung
             => $"_M{GetSystemMetrics(SM_CMONITORS)}" +
             $"_{GetSystemMetrics(SM_CXSCREEN)}" +
             $"x{GetSystemMetrics(SM_CYSCREEN)}";
-        
+
 
         #endregion Win32Wrapper
 
@@ -114,11 +107,11 @@ namespace WIFI.Anwendung
                 }
 
                 // Verbesserung - Binärentscheidung ?: als Funktion
-                AlteInfo.Oben 
+                AlteInfo.Oben
                     = fenster.Oben.HasValue ? fenster.Oben : AlteInfo.Oben;
 
                 // Falls-Null-Operator ??
-                AlteInfo.Breite= fenster.Breite ?? AlteInfo.Breite;
+                AlteInfo.Breite = fenster.Breite ?? AlteInfo.Breite;
                 AlteInfo.Höhe = fenster.Höhe ?? AlteInfo.Höhe;
 
             }
@@ -215,7 +208,7 @@ namespace WIFI.Anwendung
             try
             {
                 this.Controller.Schreiben(
-                    this.Standardpfad, 
+                    this.Standardpfad,
                     this.Liste);
             }
             catch (System.Exception ex)

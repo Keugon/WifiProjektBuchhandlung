@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WIFI.Buchandlung.Client.Models;
+﻿using WIFI.Buchandlung.Client.Models;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {

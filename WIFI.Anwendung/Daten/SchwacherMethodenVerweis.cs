@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung.Daten
+﻿namespace WIFI.Anwendung.Daten
 {
     /// <summary>
     /// Stellt eine typsichere Liste für Schwacher
@@ -30,13 +24,13 @@ namespace WIFI.Anwendung.Daten
         /// existieren
         /// </summary>
         public int ToteBesitzer => (
-            from m in this  
-            where m.Methode == null 
+            from m in this
+            where m.Methode == null
             select m)
             .Count();
-        
-           
-        
+
+
+
     }
     /// <summary>
     /// Kapselt die Speicheradresse einer Methode ohne 
@@ -72,8 +66,8 @@ namespace WIFI.Anwendung.Daten
         /// objekt nicht mehr existiert</remarks>
         public System.Action? Methode
         {
-            get => this._Methode.IsAlive ? 
-                this._Methode.Target as System.Action 
+            get => this._Methode.IsAlive ?
+                this._Methode.Target as System.Action
                 : null;
         }
     }
