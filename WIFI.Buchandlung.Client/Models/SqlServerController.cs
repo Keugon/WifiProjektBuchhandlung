@@ -247,5 +247,61 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
         }
 
+        public Task<Entlehnungen> HoleEntlehnungenAsync(Guid personID)
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Entlehnungen>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                Entlehnungen Rückmeldung = new Entlehnungen();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("EntlehnungSuche", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+
+                //Todo ggf If null dan keinen Parameter
+                Befehl.Parameters.AddWithValue("@SuchParameter", personID);
+
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
+                {
+                    Rückmeldung.Add(new Entlehnung
+                    {
+                        ID = (System.Guid)Daten["ID"],
+                        InventarNr = (int)Daten["InventarNr"],
+                        Ausleiher = (System.Guid)Daten["AusleiherNr"],
+                        AusleihDatum = (DateTime)Daten["AusleihDatum"],
+                        RückgabeDatum = (DateTime)Daten["RückgabeDatum"],
+                        RückgabeZustand = (string)Daten["RückgabeZustand"],
+                        Strafbetrag = (decimal)Daten["Strafbetrag"],
+                        StrafbetragBemerkung = (string)Daten["StrafBetragBemerkung"]
+                    });
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+
+        }
     }
 }

@@ -8,7 +8,7 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:PersonenKarteiViewModel}"
         DataContext="{Binding PersonenKarteiVW}"
         mc:Ignorable="d"
-        Title="PersonenKarteiView" Height="400" Width="400">
+        Title="PersonenKarteiView" Height="300" Width="710">
     <Grid
         >
         <Grid.RowDefinitions>
@@ -60,9 +60,26 @@
             <Label Content="{Binding AktuellePerson.Email}"/>
         </StackPanel>
             <!--row3-->
-<!--Listview ausgeliehenes-->            
-            
-        
-        
+<!--Listview ausgeliehenes-->
+        <StackPanel
+                Orientation="Vertical"
+            Grid.Row="2"
+            Grid.ColumnSpan="2">
+            <DataGrid
+                ItemsSource="{Binding EntlehnungenListe}"
+                    AutoGenerateColumns="False">
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
+                    <DataGridTextColumn Header="AusleihDatum" Binding="{Binding AusleihDatum}"/>
+                    <DataGridTextColumn Header="RückgabeDatum" Binding="{Binding RückgabeDatum}"/>
+                    <DataGridTextColumn Header="RückgabeZustand" Binding="{Binding RückgabeZustand}"/>
+                    <DataGridTextColumn Header="Strafbetrag" Binding="{Binding Strafbetrag}"/>
+                    <DataGridTextColumn Header="StrafbetragBemerkung" Binding="{Binding StrafbetragBemerkung}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+
+
     </Grid>
 </Window>

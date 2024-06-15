@@ -249,6 +249,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        /*
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -258,15 +259,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// </summary>
         public PersonenKarteiViewModel PersonenKarteiVM
         {
-            get
-            {
-                if (this._PersonenKarteiVM == null)
-                {
-                    this._PersonenKarteiVM = this.Kontext.Produziere<PersonenKarteiViewModel>();
-                }
-                return this._PersonenKarteiVM;
-            }
+            get=>this._PersonenKarteiVM = this.Kontext.Produziere<PersonenKarteiViewModel>();
+           
         }
+        */
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -402,10 +398,13 @@ namespace WIFI.Buchandlung.Client.ViewModels
         {
             if (person is WIFI.Buchandlung.Client.Models.Person)
             {
+ 
                 System.Diagnostics.Debug.WriteLine(person.ToString());
                 var PersonenKarteiFenster = new PersonenKarteiView();
-                PersonenKarteiFenster.DataContext = this.PersonenKarteiVM;
-                this.PersonenKarteiVM.AktuellePerson = (person as Person)!;
+               PersonenKarteiViewModel PersonenKarteiVM = new PersonenKarteiViewModel();
+                PersonenKarteiFenster.DataContext = PersonenKarteiVM;
+                PersonenKarteiVM.AktuellePerson = (person as Person)!;
+                PersonenKarteiVM.DatenManager = this.DatenManager;
                 PersonenKarteiFenster.Show();
             }
         }
