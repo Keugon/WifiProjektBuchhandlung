@@ -24,14 +24,14 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
             if (Tools.General
             .AreStringsValid(
-                Vorname, 
-                Nachname, 
-                PLZ, 
-                Ort, 
-                Straße, 
-                TelNr, 
-                Email, 
-                AusweisNr))
+                PersonZumAnlegen.Vorname!, 
+                PersonZumAnlegen.Nachname!,
+                PersonZumAnlegen.Plz.ToString()!,
+                PersonZumAnlegen.Ort!,
+                PersonZumAnlegen.Straße!,
+                PersonZumAnlegen.Telefonnummer!,
+                PersonZumAnlegen.Email!,
+                PersonZumAnlegen.AusweisNr!))
             {
                 return true;
             }
@@ -40,16 +40,26 @@ namespace WIFI.Buchandlung.Client.ViewModels
         #endregion  Befehle
 
         #region Bindings
-
-        public string Vorname { get; set; } = null!;
-        public string Nachname { get; set; } = null!;
-        public string PLZ { get; set; } = null!;
-        public string Ort { get; set; } = null!;
-        public string Straße { get; set; } = null!;
-        public string TelNr { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string AusweisNr { get; set; } = null!;
-        public DateTime GeburtsTag { get; set; } = DateTime.Today;
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Person _PersonZumAnlegen = null!;
+        /// <summary>
+        /// Ruft das DatentransferObjekt ab zum Anlegen einer Person ab
+        /// </summary>
+        public Person PersonZumAnlegen
+        {
+            get
+            {
+                if(this._PersonZumAnlegen == null)
+                {
+                    this._PersonZumAnlegen= new Person();
+                    this._PersonZumAnlegen.ID = Guid.NewGuid();
+                }
+                return this._PersonZumAnlegen;
+            }
+        }
+       public DateTime GeburtsTag { get; set; } = DateTime.Today;
 
         #endregion Bindings
 
@@ -82,18 +92,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             {
                 Guid newGuidOnDemand = Guid.NewGuid();
                 int rückmeldung = this.DatenManager!.SqlServerController
-                    .PersonAnlegen(
-                    guid: newGuidOnDemand,
-                    vorname: Vorname,
-                    nachname: Nachname,
-                    plz: int.Parse(PLZ),
-                    ort: Ort,
-                    straße: Straße,
-                    telefonNr: TelNr,
-                    email: Email,
-                    ausweisNr: AusweisNr
-
-                    ).Result;
+                    .PersonAnlegen(PersonZumAnlegen).Result;
                 System.Diagnostics.Debug.WriteLine($"Rückmeldung aus dem Personne Anlegen:{rückmeldung}");
                 if (rückmeldung == 2)
                 {

@@ -28,6 +28,8 @@
                      Width="80"/>
                 <Button Content="Artikel Suche Starten"
                         Command="{Binding ArtikelSucheCommand}"/>
+                <Button Content="Artikel Anlegen"
+         Command="{Binding ArtikelAnlegenCommand}"/>
             </StackPanel>
             <!--Such Ergebnis Liste-->
             <!--Es müssen Daten in einer Classe als Eigenschaft 

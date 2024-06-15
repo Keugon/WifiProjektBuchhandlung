@@ -95,31 +95,22 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     this.PositionHinterlegen(fenster);
                 };
         }
-                #endregion Hauptview
+        #endregion Hauptview
 
         #region Commands
         public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen(p as string));
         public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche());
         public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche(p as string));
-        /// <summary>
-        /// CanExecute:Prüft zusätzlich ob alle notwendigen
-        /// Textfelder nicht leer sind und gibt den Button frei
-        /// </summary>
-        public Befehl ArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegen(), p =>
-        {
 
-            if (Tools.General.AreStringsValid(ArtikelBezeichnung,ArtikelBeschaffungspreis.ToString()))
-            {
-                return true;
-            }
-            return false;
-        });
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
         public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegenÖffnen());
+        public Befehl ArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegenÖffnen());
         #endregion Commands
 
         #region Bindings
         #region Artikel Anlegen Bindings
+
+
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -155,7 +146,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
         }
         #endregion Artikel Anlegen Bindings
-        #region Artikel Suche Bindings
+        #region Artikel/Personen Suche Bindings
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -188,7 +179,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             get => this._PersonBezeichnungSuche;
             set
             {
-                this._PersonBezeichnungSuche= value;
+                this._PersonBezeichnungSuche = value;
                 OnPropertyChanged();
             }
         }
@@ -303,6 +294,22 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
+        private ArtikelAnlegenViewModel _ArtikelAnlegenVM = null!;
+        /// <summary>
+        /// Ruft das Viewmodel zum Anlegen eines neuen Artikels ab
+        /// </summary>
+        public ArtikelAnlegenViewModel ArtikelAnlegenVM
+        {
+            get
+            {
+                this._ArtikelAnlegenVM = this.Kontext.Produziere<ArtikelAnlegenViewModel>();
+                this._ArtikelAnlegenVM.DatenManager = this.DatenManager;
+                return this._ArtikelAnlegenVM;
+            }
+        }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
         private System.Windows.Controls.Control _AktuelleView = null!;
         /// <summary>
         /// Ruft die Aktuell Angezeigte View ab
@@ -352,13 +359,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
             switch (viewName)
             {
-                case nameof(ArtikelAnlegen):
-                    AktuelleView = new Views.ArtikelAnlegen();
-                    break;
                 case nameof(ArtikelSuche):
                     AktuelleView = new Views.ArtikelSuche();
                     break;
-                               case nameof(PersonenSuche):
+                case nameof(PersonenSuche):
                     AktuelleView = new Views.PersonenSuche();
                     break;
             }
@@ -379,26 +383,6 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnFehlerAufgetreten(ex);
             }
 
-        }
-        /// <summary>
-        /// Legt einen neuen Artigel in der Datenbank an
-        /// </summary>
-        public void ArtikelAnlegen()
-        {
-            try
-            {
-                System.Diagnostics.Debug.WriteLine($"Rückmeldung aus der SQL Artikel Anlegen:{this.DatenManager.SqlServerController
-                    .ArtikelAnlegen(
-                        Guid.NewGuid(),
-                        bezeichnung: ArtikelBezeichnung,
-                        beschaffungspreis: ArtikelBeschaffungspreis
-                        ).Result}");
-            }
-            catch (Exception ex)
-            {
-
-                System.Diagnostics.Debug.WriteLine($"{ex.Message}");
-            }
         }
         /// <summary>
         /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
@@ -443,8 +427,16 @@ namespace WIFI.Buchandlung.Client.ViewModels
             var PersonAnlegenFenster = new PersonAnlegenView();
             this.PersonAnlegenVM.DatenManager = this.DatenManager;
             PersonAnlegenFenster.DataContext = this.PersonAnlegenVM;
-            
+
             PersonAnlegenFenster.Show();
+        }
+        public void ArtikelAnlegenÖffnen()
+        {
+            var ArtikelAnlegenFenster = new ArtikelAnlegenView();
+            this.ArtikelAnlegenVM.DatenManager = this.DatenManager;
+            ArtikelAnlegenFenster.DataContext = this.ArtikelAnlegenVM;
+
+            ArtikelAnlegenFenster.Show();
         }
         #endregion Methoden
     }

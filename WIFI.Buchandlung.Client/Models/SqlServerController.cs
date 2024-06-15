@@ -149,12 +149,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
         /// <summary>
         /// Neuen Artikel in der Datenbank anlegen
         /// </summary>
-        public Task<int> ArtikelAnlegen(
-            Guid guid, 
-            string bezeichnung, 
-            int inventarNr = 0, 
-            decimal beschaffungspreis = 0, 
-            int zustand = 1, int typ = 1)
+        public Task<int> ArtikelAnlegen(Artikel artikelZumAnlegen)
         {
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<int>.Run(() =>
@@ -171,12 +166,12 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
 
                 //Damit wir SQL Injection sicher sind..
-                Befehl.Parameters.AddWithValue("@IDguid", guid);
-                Befehl.Parameters.AddWithValue("@inventarNr", inventarNr);
-                Befehl.Parameters.AddWithValue("@bezeichnung", bezeichnung);
-                Befehl.Parameters.AddWithValue("@beschaffungspreis", beschaffungspreis);
-                Befehl.Parameters.AddWithValue("@zustand", zustand);
-                Befehl.Parameters.AddWithValue("@typ", typ);
+                Befehl.Parameters.AddWithValue("@IDguid", artikelZumAnlegen.ID);
+                Befehl.Parameters.AddWithValue("@inventarNr", artikelZumAnlegen.InventarNr);
+                Befehl.Parameters.AddWithValue("@bezeichnung", artikelZumAnlegen.Bezeichnung);
+                Befehl.Parameters.AddWithValue("@beschaffungspreis", artikelZumAnlegen.Beschaffungspreis);
+                Befehl.Parameters.AddWithValue("@zustand", artikelZumAnlegen.Zustand);
+                Befehl.Parameters.AddWithValue("@typ", artikelZumAnlegen.Typ);
                 //Rückmeldung
                 var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
                 {
@@ -207,17 +202,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
         /// </summary>
         /// <returns>return 1 oder 2 für update
         /// oder neu angelegt</returns>
-        public Task<int> PersonAnlegen(
-            Guid guid,
-            string vorname,
-            string nachname,
-            int plz,
-            string ort,
-            string straße,
-            string telefonNr,
-            string email,
-            string ausweisNr
-            )
+        public Task<int> PersonAnlegen(Person personZumAnlegen)
         {
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<int>.Run(() =>
@@ -234,15 +219,15 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
 
                 //Damit wir SQL Injection sicher sind..
-                Befehl.Parameters.AddWithValue("@IDguid", guid);
-                Befehl.Parameters.AddWithValue("@vorname", vorname);
-                Befehl.Parameters.AddWithValue("@nachname", nachname);
-                Befehl.Parameters.AddWithValue("@plz", plz);
-                Befehl.Parameters.AddWithValue("@ort", ort);
-                Befehl.Parameters.AddWithValue("@straße", straße);
-                Befehl.Parameters.AddWithValue("@telNr", telefonNr);
-                Befehl.Parameters.AddWithValue("@email", email);
-                Befehl.Parameters.AddWithValue("@ausweisNr", ausweisNr);
+                Befehl.Parameters.AddWithValue("@IDguid", personZumAnlegen.ID);
+                Befehl.Parameters.AddWithValue("@vorname", personZumAnlegen.Vorname);
+                Befehl.Parameters.AddWithValue("@nachname", personZumAnlegen.Nachname);
+                Befehl.Parameters.AddWithValue("@plz", personZumAnlegen.Plz);
+                Befehl.Parameters.AddWithValue("@ort", personZumAnlegen.Ort);
+                Befehl.Parameters.AddWithValue("@straße", personZumAnlegen.Straße);
+                Befehl.Parameters.AddWithValue("@telNr", personZumAnlegen.Telefonnummer);
+                Befehl.Parameters.AddWithValue("@email", personZumAnlegen.Email);
+                Befehl.Parameters.AddWithValue("@ausweisNr", personZumAnlegen.AusweisNr);
                 //Rückmeldung
                 var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
                 {

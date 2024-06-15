@@ -7,7 +7,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\ArtikelAnlegen.xaml.cs">
+    <Compile Update="Views\ArtikelAnlegenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ArtikelSuche.xaml.cs">
@@ -24,7 +24,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\ArtikelAnlegen.xaml">
+    <Page Update="Views\ArtikelAnlegenView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ArtikelSuche.xaml">
