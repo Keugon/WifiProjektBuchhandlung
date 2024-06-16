@@ -26,6 +26,8 @@
          Wasserzeichen="Beschaffungspreis"
          Width="80"
          Text="{Binding ArtikelZumAnlegen.Beschaffungspreis,UpdateSourceTrigger=PropertyChanged}"/>
+            <!--Todo Listen vom server abrufen um die int string 
+            problematik in den griff zu bekommen-->
             <Label Content="Zustand:"/>
             <ComboBox SelectedIndex="{Binding ArtikelZumAnlegen.Zustand}">
                 <ComboBoxItem Content="Neuwärtig"/>

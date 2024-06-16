@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
         xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+        xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
         d:DataContext="{d:DesignInstance Type=viewmodels:PersonenKarteiViewModel}"
         DataContext="{Binding PersonenKarteiVW}"
         mc:Ignorable="d"
@@ -32,11 +33,23 @@
                <Label Content="Nachname"/>
             <Label Content="{Binding AktuellePerson.Nachname}"/>
             </StackPanel>
-        <Button
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right">
+            <Button
             Grid.Row="0"
             Grid.Column="1"
-            Width="80"
-            Content="Leihen"/>
+            Content="Leihen"
+                Command="{Binding ArtikelAusleihenCommand}"/>
+            <ucontrol:TextBox
+                Wasserzeichen="InventarNr"
+                Text="{Binding ArtikelZumAusleihen.InventarNr}"
+                Width="80"/>
+        </StackPanel>
+        
         <!--row1-->
             <StackPanel
                 Orientation="Horizontal"

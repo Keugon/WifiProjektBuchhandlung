@@ -11,14 +11,14 @@
         : WIFI.Anwendung.AppObjekt
     {
         /// <summary>
-        /// Gibt die Unterstützten Länder zurück.
+        /// Gibt eine Liste von Artikeln aus der Datebank zurück
         /// </summary>
-        /// <param name="sprachcode">Das CulturInfoKürzel
-        /// für die Lokalisierung</param>
-        /// <returns>Liste mit Länder aus der
-        /// DatenQuelle</returns>
-        public Task<ArtikelListe> HoleArtikelListeAsync(string suchParameter)
+        /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
+        /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
+        /// <returns>Liste von Artikeln</returns>
+        public Task<ArtikelListe> HoleArtikelListeAsync(string suchParameter,string inventarNr = null!)
         {
+            //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<ArtikelListe>.Run(() =>
             {
@@ -34,6 +34,8 @@
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
                 //Damit wir SQL Injection sicher sind..
                 Befehl.Parameters.AddWithValue("@SuchParameter", suchParameter);
+                //optional InventarNr
+                Befehl.Parameters.AddWithValue("@InventarNr", inventarNr);
                 /* kein Return Value nur daten
 var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
 {
@@ -74,6 +76,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
         }
+
         /// <summary>
         /// Holt die Passenden Personne aus 
         /// der Datenbank mit den angegeben parameter
@@ -246,7 +249,12 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
         }
-
+        /// <summary>
+        /// Gibt die Entlehnungen einer Person oder aller Personen zurück
+        /// </summary>
+        /// <param name="personID">(Optional)GUID einer Person 
+        /// um die Enlehnungen auf diese zu beschränken</param>
+        /// <returns>Liste von Entlehnungen</returns>
         public Task<Entlehnungen> HoleEntlehnungenAsync(Guid personID)
         {
             //Das Holen als TAP Thread Laufen lassen
@@ -302,6 +310,62 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
 
+        }
+        /// <summary>
+        /// Legt eine neue Person in der Datenbank an
+        /// </summary>
+        /// <returns>return 1 oder 2 für update
+        /// oder neu angelegt</returns>
+        public Task<int> EntlehnungAnlegen(Entlehnung EntlehnungZumAnlegen)
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<int>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                int Rückmeldung = 0;
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("EntlehnungSpeichern", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@id", EntlehnungZumAnlegen.ID);
+                Befehl.Parameters.AddWithValue("@inventarNr", EntlehnungZumAnlegen.InventarNr);
+                Befehl.Parameters.AddWithValue("@ausleiherNr", EntlehnungZumAnlegen.Ausleiher);
+                Befehl.Parameters.AddWithValue("@ausleihDatum", EntlehnungZumAnlegen.AusleihDatum.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                Befehl.Parameters.AddWithValue("@rückgabeDatum", EntlehnungZumAnlegen.RückgabeDatum.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                Befehl.Parameters.AddWithValue("@rückgabeZustand", EntlehnungZumAnlegen.RückgabeZustand);
+                Befehl.Parameters.AddWithValue("@strafbetrag", EntlehnungZumAnlegen.Strafbetrag);
+                Befehl.Parameters.AddWithValue("@strafbetragBemerkung", EntlehnungZumAnlegen.StrafbetragBemerkung);
+
+                //Rückmeldung
+                var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                Befehl.Parameters.Add(rückmeldungParameter);
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
         }
     }
 }

@@ -6,7 +6,7 @@
     }
     public class Entlehnung : WIFI.Anwendung.Daten.GuidDatenObjekt
     {
-        public int InventarNr { get; set; }
+        public int? InventarNr { get; set; }
         public Guid Ausleiher { get; set; }
         public DateTime AusleihDatum { get; set; }
         public DateTime RückgabeDatum { get; set; }
