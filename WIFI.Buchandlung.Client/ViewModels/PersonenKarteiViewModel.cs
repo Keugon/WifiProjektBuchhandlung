@@ -45,6 +45,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Internes Feld für die Eigenschaft
         /// </summary>
         private Entlehnungen _Entlehnungen = null!;
+        
         /// <summary>
         /// Ruft die Entlehnungen der
         /// aktuell angezeigten Person ab
@@ -58,6 +59,11 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     this._Entlehnungen = this.DatenManager!.SqlServerController.HoleEntlehnungenAsync(this.AktuellePerson.ID).Result;
                 }
                 return this._Entlehnungen;
+            }
+            set
+            {
+                this._Entlehnungen = value;
+                OnPropertyChanged();
             }
         }
         /// <summary>
@@ -109,6 +115,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
             Artikel artikelZumAusleihen,
             Entlehnung entlehnungZumAnlegen)
         {
+            //Todo es darf nur möglich sein Artikel deren
+            //InventarNr nicht bereits ausgeliehen sind auszuleihen!
             //artikel Bezeichnung nach InventarNr abrufen
             //wenn nicht vorhanden Meldung Falsche InventarNr und Return; 
             try
@@ -152,6 +160,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     }
                     this.ArtikelZumAusleihen = null!;
                     this.EntlehnungZumAnlegen = null!;
+                    this.EntlehnungenListe = null!;
+                    OnPropertyChanged(nameof(EntlehnungenListe));
                 }
 
                 catch (Exception ex)

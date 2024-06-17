@@ -36,8 +36,7 @@
      mit Getter bereit stehen public alleine reicht nicht-->
             <StackPanel
          Orientation="Vertical">
-                <Label Content="Diese daten sind Sampels nur zur Funktions darstellung nicht vom SQL Server"/>
-                <DataGrid
+                                <DataGrid
              ItemsSource="{Binding ArtikelListe}"
              AutoGenerateColumns="False">
                     <DataGrid.Columns >

@@ -92,7 +92,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     MessageBox.Show("Person wurde Angelegt");
                 }
             }
-
+            //Todo Refresh Personen search ggf 
             catch (Exception ex)
             {
 
