@@ -299,6 +299,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Internes Feld für die Eigenschaft
         /// </summary>
         private System.Windows.Controls.Control _AktuelleView = null!;
+        //Todo Zuletzt angezeigte view oder standart view einstellbar
         /// <summary>
         /// Ruft die Aktuell Angezeigte View ab
         /// </summary>

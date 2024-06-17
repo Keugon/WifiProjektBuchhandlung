@@ -140,8 +140,6 @@ public class Infrastruktur : System.Object
                             $"eine Ausnahme " +
                             $"\"{e.Ursache.Message}\" " +
                             $"ausgelöst!", Daten.ProtokolleintragTyp.Fehler);
-        // TODO - hier weitere Produktionsschritte ergänzen
-
         return NeuesObjekt;
     }
 

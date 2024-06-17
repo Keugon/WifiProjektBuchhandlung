@@ -23,9 +23,6 @@
             Orientation="Vertical"
             Grid.Row="1"
             Grid.Column="0">
-            <Button Content="ArtikelAnlegen"
-                    Command="{Binding MenüPunktAnzeigenCommand}"
-                    CommandParameter="ArtikelAnlegen"/>
             <Button Content="ArtikelSuche"
                     Command="{Binding MenüPunktAnzeigenCommand}"
                     CommandParameter="ArtikelSuche"/>
@@ -34,7 +31,7 @@
         CommandParameter="PersonenSuche"/>
            
         </StackPanel>
-        <local:ArtikelAnlegen
+        <ContentControl
             Content="{Binding AktuelleView}"
             Grid.Row="1"
             Grid.Column="1"/>

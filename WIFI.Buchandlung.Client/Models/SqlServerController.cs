@@ -16,7 +16,7 @@
         /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
         /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
         /// <returns>Liste von Artikeln</returns>
-        public Task<ArtikelListe> HoleArtikelListeAsync(string suchParameter,string inventarNr = null!)
+        public Task<ArtikelListe> HoleArtikelListeAsync(string suchParameter, string inventarNr = null!)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
             //Das Holen als TAP Thread Laufen lassen
@@ -271,10 +271,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 //Mitteilen das wir kein SQL direkt haben
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
                 //Damit wir SQL Injection sicher sind..
-
-                //Todo ggf If null dan keinen Parameter
                 Befehl.Parameters.AddWithValue("@SuchParameter", personID);
-
                 //Damit das RDBMS die sql Anweisung nicht jedes Mals
                 //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
                 Befehl.Prepare();

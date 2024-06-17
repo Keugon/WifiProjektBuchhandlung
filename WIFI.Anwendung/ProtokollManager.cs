@@ -330,7 +330,7 @@ namespace WIFI.Anwendung
             // if(this.Pfad != null && this.Pfad != string.Empty) 
             if (!string.IsNullOrEmpty(this.Pfad))
             {
-                const int Generationen = 4; //Todo Konfigurierbar mochn
+                const int Generationen = 4; //Todo ANWENDUNG Konfigurierbar machen
                 for (int i = Generationen; i > 0; i--)
                 {
                     var NeuerName = $"{this.Pfad}.{i}";
