@@ -364,5 +364,21 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
         }
+
+        //Todo (Datenbank) Mit dem aktuellen Datenbank design Artikel-> Entlehnung kan ein Artikel
+        //nicht mehrere InventarNr auffassen somit ist ein artikel immer einzigartig und
+        //die möglichkeit zu identifizieren ob von einem Artikel mehrere im Inventar
+        //vorhanden sind ist schwieriger. Dies zu ändern bräuchte ein Datenbank redesign
+        //und aller abläufe ebenfalls!
+        //Es wäre dan ca. 
+        //+-------------+       +-------------+       +-------------+
+        //|   Artikel   |       |   Inventar  |       | Entlehnungen|
+        //+-------------+       +-------------+       +-------------+
+        //| ArtikelID   |1----->| InventarNr  |1----->| EntleihID   |
+        //| Bezeichnung |       | ArtikelID   |       | InventarNr  |
+        //+-------------+       +-------------+       | PersonID    |
+        //                                            | AusleihDatum|
+        //                                            | RueckgabeDatum|
+        //                                            +-------------+
     }
 }
