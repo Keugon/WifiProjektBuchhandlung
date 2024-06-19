@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung.Daten;
+﻿namespace WIFI.Anwendung.Daten;
 
 /// <summary>
 /// Stellt ein typsicheres dynamisches

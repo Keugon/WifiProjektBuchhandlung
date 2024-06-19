@@ -1,0 +1,105 @@
+﻿<Window x:Class="WIFI.Buchandlung.Client.Views.PersonenKarteiView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
+        xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+        xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
+        d:DataContext="{d:DesignInstance Type=viewmodels:PersonenKarteiViewModel}"
+        DataContext="{Binding PersonenKarteiVW}"
+        mc:Ignorable="d"
+        Title="PersonenKarteiView" Height="300" Width="710">
+    <Grid
+        >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--row0-->
+           <StackPanel
+                Orientation="Horizontal"
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="2">
+                 <Label Content="Vorname"/>
+            <Label Content="{Binding AktuellePerson.Vorname}"/>
+               <Label Content="Nachname"/>
+            <Label Content="{Binding AktuellePerson.Nachname}"/>
+            </StackPanel>
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right">
+            <Button
+            Grid.Row="0"
+            Grid.Column="1"
+            Content="Leihen"
+                Command="{Binding ArtikelAusleihenCommand}"/>
+            <ucontrol:TextBox
+                Wasserzeichen="InventarNr"
+                Text="{Binding ArtikelZumAusleihen.InventarNr}"
+                Width="80"/>
+        </StackPanel>
+        
+        <!--row1-->
+       
+             <StackPanel
+                Orientation="Horizontal"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2">
+            <Label Content="Adresse"/>
+            <Label Content="{Binding AktuellePerson.Plz}"/>
+            <Label Content="{Binding AktuellePerson.Ort}"/>
+            <Label Content="{Binding AktuellePerson.Straße}"/>
+            <Label Content="Telefonnummer"/>
+            <Label Content="{Binding AktuellePerson.Telefonnummer}"/>
+            </StackPanel>
+       
+           
+        <!--row2-->
+        <StackPanel 
+            Orientation="Horizontal"
+             Grid.Row="2"
+ Grid.Column="0"
+ Grid.ColumnSpan="2">
+            <Label Content="Email"/>
+            <Label Content="{Binding AktuellePerson.Email}"/>
+        </StackPanel>
+            <!--row3-->
+<!--Listview ausgeliehenes-->
+        <ScrollViewer
+             Grid.Row="2"
+            Grid.ColumnSpan="2">
+             <StackPanel
+                Orientation="Vertical"
+           >
+            <DataGrid
+                ItemsSource="{Binding EntlehnungenListe,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
+                    AutoGenerateColumns="False">
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
+                    <DataGridTextColumn Header="AusleihDatum" Binding="{Binding AusleihDatum}"/>
+                    <DataGridTextColumn Header="RückgabeDatum" Binding="{Binding RückgabeDatum}"/>
+                    <DataGridTextColumn Header="RückgabeZustand" Binding="{Binding RückgabeZustand}"/>
+                    <DataGridTextColumn Header="Strafbetrag" Binding="{Binding Strafbetrag}"/>
+                    <DataGridTextColumn Header="StrafbetragBemerkung" Binding="{Binding StrafbetragBemerkung}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        </ScrollViewer>
+       
+
+
+
+    </Grid>
+</Window>

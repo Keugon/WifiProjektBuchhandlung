@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung;
+﻿namespace WIFI.Anwendung;
 
 /// <summary>
 /// Stellt den Anwendungskontext
@@ -90,9 +84,9 @@ public class Infrastruktur : System.Object
     public AppObjekt Produziere(System.Type typ)
     {
         //Die generisches Methode Produziere suchen
-        var FabrikMethode 
+        var FabrikMethode
             = this.GetType().GetMethod(
-                "Produziere",new Type[] { })!;
+                "Produziere", new Type[] { })!;
         //Diese mit dem Typ aufrufen
         //und das Ergebniss zurückgeben
         return (FabrikMethode.MakeGenericMethod(typ).Invoke(this, null) as AppObjekt)!;
@@ -146,8 +140,6 @@ public class Infrastruktur : System.Object
                             $"eine Ausnahme " +
                             $"\"{e.Ursache.Message}\" " +
                             $"ausgelöst!", Daten.ProtokolleintragTyp.Fehler);
-        // TODO - hier weitere Produktionsschritte ergänzen
-
         return NeuesObjekt;
     }
 
@@ -241,7 +233,7 @@ public class Infrastruktur : System.Object
                 //die alte Einstellung mit
                 //dem neuen Pfad ersetzten
                 einstellung = einstellung
-                    .Replace(Datei,NeuerPfad);
+                    .Replace(Datei, NeuerPfad);
             }
         }
         this.Log.Erstellen($"Datenbank Einstellung=\"({einstellung})\"");

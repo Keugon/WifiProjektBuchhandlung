@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung.Daten
+﻿namespace WIFI.Anwendung.Daten
 {
     /// <summary>
     /// Kennzeichnet eine Eigenschaft 
@@ -117,7 +108,7 @@ namespace WIFI.Anwendung.Daten
             var GefundeneEigenschaften = new InToStringEigenschaften();
 
             //Zum Sammeln der Positions Einstellungen
-            var EigenschaftenMitPosition 
+            var EigenschaftenMitPosition
                 = new System.Collections.Generic.Dictionary<
                     System.Reflection.PropertyInfo,
                     int>();
@@ -135,7 +126,7 @@ namespace WIFI.Anwendung.Daten
 
                 if (Einstellungen.Length > 0)
                 {
-                    int GewünschtePosition 
+                    int GewünschtePosition
                         = (Einstellungen[0] as InToStringAttribute)!
                         .Position;
                     //Reihenfolge des Findens
@@ -146,7 +137,7 @@ namespace WIFI.Anwendung.Daten
             GefundeneEigenschaften.AddRange(from e in EigenschaftenMitPosition
                                             orderby e.Value
                                             select e.Key);
-            
+
 
             return GefundeneEigenschaften;
         }
@@ -180,7 +171,7 @@ namespace WIFI.Anwendung.Daten
                 var Ergebnis = $"{this.GetType().Name}(";
                 //Nur der Name vom Typ
 
-               // var NewList = InToString.OrderBy(p => p.GetCustomAttributesData()[0].ConstructorArguments[0].Value);
+                // var NewList = InToString.OrderBy(p => p.GetCustomAttributesData()[0].ConstructorArguments[0].Value);
 
                 //die Namen der Eigenschaften
                 //mit den aktuellen Werten

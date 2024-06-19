@@ -7,18 +7,36 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\ArtikelAnlegen.xaml.cs">
+    <Compile Update="Views\ArtikelAnlegenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ArtikelSuche.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Hauptfenster.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\PersonAnlegenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\PersonenSuche.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\ArtikelAnlegen.xaml">
+    <Page Update="Views\ArtikelAnlegenView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ArtikelSuche.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Hauptfenster.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PersonAnlegenView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PersonenSuche.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

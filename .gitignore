@@ -1,1 +1,11 @@
 *.vs/
+*WIFI.Buchandlung.Client/bin/
+*WIFI.Buchandlung.Client/obj/
+*WIFI.Anwendung/bin/
+*WIFI.Anwendung/obj/
+*Wifi.Windows/bin/
+*Wifi.Windows/obj/
+*Wifi.Windows/obj/Debug/
+*Wifi.Windows/obj/Debug/net8.0
+/WIFI.Buchandlung.Client/Datenbank/WIFIBuchhaltung.mdf
+/WIFI.Buchandlung.Client/Datenbank/WIFIBuchhaltung_log.ldf

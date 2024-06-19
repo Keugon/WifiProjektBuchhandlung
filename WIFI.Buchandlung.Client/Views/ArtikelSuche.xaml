@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="WIFI.Buchandlung.Client.Views.ArtikelSuche"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
+             xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+             xmlns:models="clr-namespace:WIFI.Buchandlung.Client.Models"
+             xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
+             d:DataContext="{d:DesignInstance Type=viewmodels:Anwendung}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!--ArtikelSuche-->
+        
+        <StackPanel
+     Orientation="Vertical">
+            <!--Such Formular-->
+            <StackPanel
+         Orientation="Horizontal"
+         HorizontalAlignment="Left"
+         VerticalAlignment="Top">
+                <Label
+                    Content="Artikel:"/>
+                <ucontrol:TextBox
+                    Text="{Binding ArtikelBezeichungSuche}"
+                     Wasserzeichen="Artikel Suche" 
+                     Width="80"/>
+                <Button Content="Artikel Suche Starten"
+                        Command="{Binding ArtikelSucheCommand}"/>
+                <Button Content="Artikel Anlegen"
+         Command="{Binding ArtikelAnlegenCommand}"/>
+            </StackPanel>
+            <!--Such Ergebnis Liste-->
+            <!--Es müssen Daten in einer Classe als Eigenschaft 
+     mit Getter bereit stehen public alleine reicht nicht-->
+            <StackPanel
+         Orientation="Vertical">
+                                <DataGrid
+             ItemsSource="{Binding ArtikelListe}"
+             AutoGenerateColumns="False">
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
+                        <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Bezeichnung}"/>
+                        <DataGridTextColumn Header="Beschaffungspreis" Binding="{Binding Beschaffungspreis}"/>
+                        <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
+                        <DataGridTextColumn Header="Typ" Binding="{Binding Typ}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

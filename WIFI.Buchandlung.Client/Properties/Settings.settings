@@ -8,5 +8,8 @@
     <Setting Name="BeimBeendenFragen" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Verbindungszeichenfolge" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server=(localdb)\mssqllocaldb;AttachDbFilename=..\..\..\..\WIFI.Buchandlung.Client\Datenbank\WIFIBuchhaltung.mdf;Database=WIFIBuchhaltung;Trusted_Connection=Yes;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

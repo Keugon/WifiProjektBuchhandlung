@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung.Controller
+﻿namespace WIFI.Anwendung.Controller
 {
     /// <summary>
     /// Stellt einen Dienst zum 
     /// Lesen und Schreiben von
     /// Anwendungssprachen bereit
     /// </summary>
-    internal class SprachenController 
+    internal class SprachenController
         : Generisch.XmlController<Daten.Sprachen>
     {
 
@@ -44,7 +38,7 @@ namespace WIFI.Anwendung.Controller
                         Name = e.Attributes!["name"]!.Value
                     });
             }
-            
+
             // Ergebnisliste zurückgeben
             return Sprachen;
 

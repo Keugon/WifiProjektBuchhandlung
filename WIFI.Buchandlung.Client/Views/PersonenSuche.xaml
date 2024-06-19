@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="WIFI.Buchandlung.Client.Views.PersonenSuche"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
+              xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+              xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
+             xmlns:models="clr-namespace:WIFI.Buchandlung.Client.Models"
+              d:DataContext="{d:DesignInstance Type=viewmodels:Anwendung}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!--PersonenSuche-->
+        <StackPanel
+            Orientation="Vertical">
+            <!--Such Formular-->
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                <Label
+                    Content="Person:"/>
+                <ucontrol:TextBox 
+                    Wasserzeichen="Person Suche" 
+                    Width="80"
+                    Text="{Binding PersonBezeichungSuche}"/>
+                <Button Content="Personen Suche Starten"
+                        Command="{Binding PersonenSucheCommand}"/>
+                <Button Content="Person Anlegen"
+                        Command="{Binding PersonAnlegenCommand}"/>
+            </StackPanel>
+            <!--Such Ergebnis Liste-->
+            <!--Es müssen Daten in einer Classe als Eigenschaft 
+            mit Getter bereit stehen public alleine reicht nicht-->
+            <StackPanel
+                Orientation="Vertical">
+                <Label Content="Diese daten sind Sampels nur zur Funktions darstellung nicht vom SQL Server"/>
+                <DataGrid
+                    ItemsSource="{Binding PersonenListe}"
+                    SelectedItem="{Binding SelectedPerson}"
+                    AutoGenerateColumns="False">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem
+                                Command="{Binding PersonenKarteiÖffnenCommand}"
+                                CommandParameter="{Binding PlacementTarget.SelectedItem,
+                                                   RelativeSource={RelativeSource FindAncestor,
+                                                   AncestorType={x:Type ContextMenu}}}"
+                                Header="Kartei Öffnen"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"/>
+                        <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
+                        <DataGridTextColumn Header="Plz" Binding="{Binding Plz}"/>
+                        <DataGridTextColumn Header="Ort" Binding="{Binding Ort}"/>
+                        <DataGridTextColumn Header="Straße" Binding="{Binding Straße}"/>
+                        <DataGridTextColumn Header="Telefonnummer" Binding="{Binding Telefonnummer}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                        <DataGridTextColumn Header="AusweisNr" Binding="{Binding AusweisNr}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

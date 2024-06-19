@@ -3,11 +3,11 @@
 namespace WIFI.Buchandlung.Client.Views
 {
     /// <summary>
-    /// Interaktionslogik für Hauptfenster.xaml
+    /// Interaktionslogik für PersonenKarteiView.xaml
     /// </summary>
-    public partial class Hauptfenster : Window
+    public partial class PersonenKarteiView : Window
     {
-        public Hauptfenster()
+        public PersonenKarteiView()
         {
             InitializeComponent();
         }

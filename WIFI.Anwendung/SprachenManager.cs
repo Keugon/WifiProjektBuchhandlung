@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung;
+﻿namespace WIFI.Anwendung;
 
 /// <summary>
 /// Stellt einen Dienst zum
@@ -31,7 +24,7 @@ public class SprachenManager : AppObjekt
 
         // Mit dem gemerkten Code
         // die aktuelle Sprache neu initialisieren
-        this.AktuelleSprache 
+        this.AktuelleSprache
             = this.Liste.Find(s => s.Code == Sprachkürzel)!;
     }
 
@@ -61,8 +54,8 @@ public class SprachenManager : AppObjekt
 
                     this._Liste = new Daten.Sprachen();
                     this._Liste.AddRange(
-                        from s in this.Controller.HoleAusRessourcen() 
-                        orderby s.Name 
+                        from s in this.Controller.HoleAusRessourcen()
+                        orderby s.Name
                         select s);
 
                 }
@@ -157,8 +150,8 @@ public class SprachenManager : AppObjekt
                     .CultureInfo(GewünschteSprache.Code);
 
             // die Sprache zur aktuellen Sprache machen
-            this.AktuelleSprache = GewünschteSprache; 
-            
+            this.AktuelleSprache = GewünschteSprache;
+
             // Ressourcen neu laden
             this.Aktualisieren();
 

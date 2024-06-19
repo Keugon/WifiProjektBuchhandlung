@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WIFI.Anwendung.Controller.Generisch
+﻿namespace WIFI.Anwendung.Controller.Generisch
 {
     /// <summary>
     /// Stellt ein Dienst zum Lesen und

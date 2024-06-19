@@ -23,13 +23,16 @@
             Orientation="Vertical"
             Grid.Row="1"
             Grid.Column="0">
-            <Button Content="Menu1"
-                    Command="{Binding MenüPunktAnzeigenCommand}"/>
-            <Button Content="Menu2"/>
-            <Button Content="Menu3"/>
-            <Button Content="Menu4"/>
+            <Button Content="ArtikelSuche"
+                    Command="{Binding MenüPunktAnzeigenCommand}"
+                    CommandParameter="ArtikelSuche"/>
+            <Button Content="PersonenSuche"
+        Command="{Binding MenüPunktAnzeigenCommand}"
+        CommandParameter="PersonenSuche"/>
+           
         </StackPanel>
-        <local:ArtikelAnlegen
+        <ContentControl
+            Content="{Binding AktuelleView}"
             Grid.Row="1"
             Grid.Column="1"/>
     </Grid>
