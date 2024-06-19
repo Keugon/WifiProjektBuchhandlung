@@ -73,9 +73,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 int ArtikelTyp = int.Parse(ArtikelZumAnlegen.Typ!);
                 ArtikelTyp += 1;
                 ArtikelZumAnlegen.Typ = ArtikelTyp.ToString();
-                Guid newGuidOnDemand = Guid.NewGuid();
                 int rückmeldung = this.DatenManager!.SqlServerController
-                    .ArtikelAnlegen(ArtikelZumAnlegen).Result;
+                    .InventarGegenstandAnlegen(ArtikelZumAnlegen).Result;
                 System.Diagnostics.Debug.WriteLine($"Rückmeldung aus dem Artikel Anlegen:{rückmeldung}");
                 if (rückmeldung == 2)
                 {

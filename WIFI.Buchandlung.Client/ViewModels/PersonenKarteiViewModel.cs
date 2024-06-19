@@ -122,7 +122,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             try
             {
                 artikelZumAusleihen.Bezeichnung = this.DatenManager!.SqlServerController
-                .HoleArtikelListeAsync(
+                .HoleInventarGegenständeAsync(
                     suchParameter: "",
                     inventarNr: artikelZumAusleihen.InventarNr.ToString()!)
                 .Result[0].Bezeichnung;

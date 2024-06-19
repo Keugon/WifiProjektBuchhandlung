@@ -365,7 +365,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             try
             {
                 this.ArtikelListe = this.DatenManager.SqlServerController
-                        .HoleArtikelListeAsync(this.ArtikelBezeichungSuche).Result;
+                        .HoleInventarGegenständeAsync(this.ArtikelBezeichungSuche).Result;
             }
             catch (Exception ex)
             {

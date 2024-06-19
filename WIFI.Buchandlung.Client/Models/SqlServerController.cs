@@ -16,7 +16,7 @@
         /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
         /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
         /// <returns>Liste von Artikeln</returns>
-        public Task<ArtikelListe> HoleArtikelListeAsync(string suchParameter, string inventarNr = null!)
+        public Task<ArtikelListe> HoleInventarGegenständeAsync(string suchParameter, string inventarNr = null!)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
             //Das Holen als TAP Thread Laufen lassen
@@ -29,7 +29,7 @@
                 using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
                 //Zweitens - ein Befehlsobjekt
                 //(Reicht für Insert, Update und Delet)
-                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("ArtikelSuche", Verbindung);
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("InventarGegenstandSuche", Verbindung);
                 //Mitteilen das wir kein SQL direkt haben
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
                 //Damit wir SQL Injection sicher sind..
@@ -61,9 +61,8 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 {
                     Rückmeldung.Add(new Artikel
                     {
-                        ID = (System.Guid)Daten["ID"],
-                        Bezeichnung = (string)Daten["Bezeichnung"],
                         InventarNr = (int)Daten["InventarNr"],
+                        Bezeichnung = (string)Daten["Bezeichnung"],                        
                         Beschaffungspreis = (decimal)Daten["Beschaffungspreis"],
                         Zustand = (string)Daten["Zustand"],
                         Typ = (string)Daten["Typ"]
@@ -145,7 +144,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
         /// <summary>
         /// Neuen Artikel in der Datenbank anlegen
         /// </summary>
-        public Task<int> ArtikelAnlegen(Artikel artikelZumAnlegen)
+        public Task<int> InventarGegenstandAnlegen(Artikel artikelZumAnlegen)
         {
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<int>.Run(() =>
@@ -157,7 +156,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
                 //Zweitens - ein Befehlsobjekt
                 //(Reicht für Insert, Update und Delet)
-                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("ArtikelSpeichern", Verbindung);
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("InventarGegenstandSpeichern", Verbindung);
                 //Mitteilen das wir kein SQL direkt haben
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
 
