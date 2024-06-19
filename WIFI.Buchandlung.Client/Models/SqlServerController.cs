@@ -384,8 +384,6 @@ Befehl.Parameters.Add(rückmeldungParameter);
         // nueer kommenatart vol 30
         //florianTest
         // Update check wegen der Sicherstellung der Funktion
-        //commit 1
-        // commit 2
 
     }
 }
