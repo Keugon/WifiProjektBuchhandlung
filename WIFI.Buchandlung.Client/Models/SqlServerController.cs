@@ -16,15 +16,15 @@
         /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
         /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
         /// <returns>Liste von Artikeln</returns>
-        public Task<ArtikelListe> HoleInventarGegenständeAsync(string suchParameter, string inventarNr = null!)
+        public Task<InventarGegenstände> HoleInventarGegenständeAsync(string suchParameter, string inventarNr = null!)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
             //Das Holen als TAP Thread Laufen lassen
-            return System.Threading.Tasks.Task<ArtikelListe>.Run(() =>
+            return System.Threading.Tasks.Task<InventarGegenstände>.Run(() =>
             {
                 this.Kontext.Log.StartMelden();
                 //Für das Ergebnis
-                ArtikelListe Rückmeldung = new ArtikelListe();
+                InventarGegenstände Rückmeldung = new InventarGegenstände();
                 //Erstens - ein Verbindungsobjekt 
                 using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
                 //Zweitens - ein Befehlsobjekt
@@ -59,7 +59,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 //Datentransferobjekte "mappen"
                 while (Daten.Read())
                 {
-                    Rückmeldung.Add(new Artikel
+                    Rückmeldung.Add(new InventarGegenstand
                     {
                         InventarNr = (int)Daten["InventarNr"],
                         Bezeichnung = (string)Daten["Bezeichnung"],                        
@@ -144,7 +144,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
         /// <summary>
         /// Neuen Artikel in der Datenbank anlegen
         /// </summary>
-        public Task<int> InventarGegenstandAnlegen(Artikel artikelZumAnlegen)
+        public Task<int> InventarGegenstandAnlegen(InventarGegenstand artikelZumAnlegen)
         {
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<int>.Run(() =>

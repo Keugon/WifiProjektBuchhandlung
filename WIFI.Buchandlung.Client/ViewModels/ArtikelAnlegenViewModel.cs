@@ -28,17 +28,17 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
-        private Artikel _ArtikelZumAnlegen = null!;
+        private InventarGegenstand _ArtikelZumAnlegen = null!;
         /// <summary>
         /// Ruft das DatentransferObjekt ab zum Anlegen eines Artikels ab
         /// </summary>
-        public Artikel ArtikelZumAnlegen
+        public InventarGegenstand ArtikelZumAnlegen
         {
             get
             {
                 if (this._ArtikelZumAnlegen == null)
                 {
-                    this._ArtikelZumAnlegen = new Artikel();
+                    this._ArtikelZumAnlegen = new InventarGegenstand();
                     this._ArtikelZumAnlegen.ID = Guid.NewGuid();
                     //Todo Zustand und Typ Listen von der Datenbank
                     //ziehen und in Dropdownlisten umsetzten

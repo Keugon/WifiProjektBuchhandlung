@@ -1,18 +1,14 @@
-﻿namespace WIFI.Buchandlung.Client.Models
-{
-    public class ArtikelListe : System.Collections.Generic.List<Artikel>
-    {
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-    }
-    public class Artikel : WIFI.Anwendung.Daten.GuidDatenObjekt
+namespace WIFI.Buchandlung.Client.Models
+{
+    public class Artikel :WIFI.Anwendung.Daten.GuidDatenObjekt
     {
         public string? Bezeichnung { get; set; }
-        public int? InventarNr { get; set; }
         public decimal? Beschaffungspreis { get; set; }
-        //Todo Typ und Zustand sind hier String zwecks der Rückgabe
-        //vom server aber beim hinsenden eigentlich String fehler in der logic? 
-        public string? Typ { get; set; }
-        public string? Zustand { get; set; }
-
     }
 }

@@ -203,19 +203,19 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
-        private ArtikelListe _ArtikelListe = null!;
+        private InventarGegenstände _ArtikelListe = null!;
         /// <summary>
         /// Ruft die zu Darstellende 
         /// Liste von Artikel aus der Datenbank 
         /// ab oder legt diese fest
         /// </summary>
-        public ArtikelListe ArtikelListe
+        public InventarGegenstände ArtikelListe
         {
             get
             {
                 if (this._ArtikelListe == null)
                 {
-                    this._ArtikelListe = new ArtikelListe();
+                    this._ArtikelListe = new InventarGegenstände();
                 }
                 return this._ArtikelListe;
             }

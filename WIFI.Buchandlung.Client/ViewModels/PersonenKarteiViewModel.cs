@@ -69,18 +69,18 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
-        private Artikel _ArtikelZumAusleihen = null!;
+        private InventarGegenstand _ArtikelZumAusleihen = null!;
         /// <summary>
         /// Ruft den Artikel der Ausgeliehen
         /// werden soll ab oder legt in fest
         /// </summary>
-        public Artikel ArtikelZumAusleihen
+        public InventarGegenstand ArtikelZumAusleihen
         {
             get
             {
                 if (this._ArtikelZumAusleihen == null)
                 {
-                    this._ArtikelZumAusleihen = new Artikel();
+                    this._ArtikelZumAusleihen = new InventarGegenstand();
                 }
                 return this._ArtikelZumAusleihen;
             }
@@ -112,7 +112,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <param name="artikelZumAusleihen">
         /// Artikel objekt mit der auszuleihenden InventarNr</param>
         public void Ausleihen(
-            Artikel artikelZumAusleihen,
+            InventarGegenstand artikelZumAusleihen,
             Entlehnung entlehnungZumAnlegen)
         {
             //Todo es darf nur möglich sein Artikel deren
