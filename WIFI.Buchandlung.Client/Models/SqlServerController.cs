@@ -379,10 +379,8 @@ Befehl.Parameters.Add(rückmeldungParameter);
         //                                            | AusleihDatum|
         //                                            | RueckgabeDatum|
         //                                            +-------------+
-        //Neuer kommentar zwecks testbranch mergent
-        // nueer kommenatart vol 30
-        //florianTest
-        // Update check wegen der Sicherstellung der Funktion
+        //Todo (Datenbank)
+        //änderung zu neuem Design
 
     }
 }
