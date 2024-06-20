@@ -1,8 +1,11 @@
 ﻿<Application x:Class="WIFI.Buchandlung.Client.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WIFI.Buchandlung.Client">
+             xmlns:local="clr-namespace:WIFI.Buchandlung.Client"
+             xmlns:tools="clr-namespace:WIFI.Buchandlung.Client.Tools">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <tools:AusleihZuRückgabeDatum x:Key="AusleihZuRückgabeDatum"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

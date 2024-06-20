@@ -45,7 +45,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Internes Feld für die Eigenschaft
         /// </summary>
         private Entlehnungen _Entlehnungen = null!;
-        
+
         /// <summary>
         /// Ruft die Entlehnungen der
         /// aktuell angezeigten Person ab
@@ -56,7 +56,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
             {
                 if (this._Entlehnungen == null)
                 {
-                    this._Entlehnungen = this.DatenManager!.SqlServerController.HoleEntlehnungenAsync(this.AktuellePerson.ID).Result;
+                    this._Entlehnungen 
+                        = this.DatenManager!.SqlServerController
+                        .HoleEntlehnungenAsync(this.AktuellePerson.ID).Result;
                 }
                 return this._Entlehnungen;
             }
@@ -121,12 +123,13 @@ namespace WIFI.Buchandlung.Client.ViewModels
             //wenn nicht vorhanden Meldung Falsche InventarNr und Return; 
             try
             {
-                artikelZumAusleihen.Bezeichnung = this.DatenManager!.SqlServerController
+                artikelZumAusleihen.Bezeichnung 
+                    = this.DatenManager!.SqlServerController
                 .HoleInventarGegenständeAsync(
                     suchParameter: "",
                     inventarNr: artikelZumAusleihen.InventarNr.ToString()!)
                 .Result[0].Bezeichnung;
-               
+
             }
             catch (Exception ex)
             {
@@ -137,32 +140,35 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     $" konnte nicht gefunden werden!");
                 return;
             }
-            //auf RückgabeDatum prüfen wenn noch nicht vorhanden dann ist der Artikel noch ausgeliehen
+            //auf RückgabeDatum prüfen wenn noch nicht
+            //vorhanden dann ist der Artikel noch ausgeliehen
             try
             {
                 Entlehnung zumAusleihen = this.DatenManager!.SqlServerController
                                 .HoleEntlehnungAsync(
                                     inventarNr: artikelZumAusleihen.InventarNr
                                     ).Result;
-                if (zumAusleihen.RückgabeDatum
-                                 == null)
+                if (zumAusleihen.RückgabeDatum == null)
                 {
                     //Meldung InventarGegenstand augeliehen
                     MessageBox
                     .Show($"Angegebene InventarNr: " +
                     $"{artikelZumAusleihen.InventarNr.ToString()}" +
-                    $" wird vorraussichtlich am: {zumAusleihen.AusleihDatum!.Value.AddDays(14)} zurückgegeben!");
+                    $" wird vorraussichtlich am: " +
+                    $"{zumAusleihen.AusleihDatum!.Value.AddDays(14)}" +
+                    $" zurückgegeben!");
                     return;
                 }
             }
             catch (Exception ex)
             {
-                                OnFehlerAufgetreten(ex);
+                OnFehlerAufgetreten(ex);
             }
             //Vor Entlehnung den Titel anzeigen!
             var result = MessageBox
                 .Show(
-                messageBoxText: $"Artikel mit Bezeichnung: {artikelZumAusleihen.Bezeichnung} ausleihen?",
+                messageBoxText: $"Artikel mit Bezeichnung: " +
+                $"{artikelZumAusleihen.Bezeichnung} ausleihen?",
                 caption: "Bestätigen", MessageBoxButton.YesNo);
             //Wenn mit Ja bestägt Entlehnung anlegen sonst beenden!
             if (result == MessageBoxResult.Yes)
@@ -176,7 +182,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     entlehnungZumAnlegen.AusleihDatum = DateTime.Now;
                     int rückmeldung = this.DatenManager!.SqlServerController
                         .EntlehnungAnlegen(entlehnungZumAnlegen).Result;
-                    System.Diagnostics.Debug.WriteLine($"Rückmeldung aus dem Personne Anlegen:{rückmeldung}");
+                    System.Diagnostics.Debug.WriteLine(
+                        $"Rückmeldung aus dem Personne Anlegen:{rückmeldung}");
                     if (rückmeldung == 2)
                     {
                         MessageBox.Show("Artikel wurde ausgeliehen.");

@@ -7,9 +7,13 @@
              xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
              xmlns:models="clr-namespace:WIFI.Buchandlung.Client.Models"
              xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
+             xmlns:tools="clr-namespace:WIFI.Buchandlung.Client.Tools"
              d:DataContext="{d:DesignInstance Type=viewmodels:Anwendung}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <tools:AusleihZuRückgabeDatum x:Key="AusleihZuRückgabeDatum"/>
+    </UserControl.Resources>
     <Grid>
         <!--ArtikelSuche-->
 
@@ -56,9 +60,13 @@
                                     <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
                                     <DataGridTextColumn Header="Typ" Binding="{Binding Typ}"/>
                                     <!--Todo Vorraussichtliche Rückgabe anstatt AusleihDatum "Converter"-->
-                                    <DataGridTextColumn Header="AusleihDatum" Binding="{Binding Entlehnung.AusleihDatum}"/>
-                                    
-                                </DataGrid.Columns>
+                                    <DataGridTextColumn 
+                                        Header="Vorraussichtliches Rückgabe Datum" 
+                                        Binding="{Binding 
+                                        Entlehnung.AusleihDatum,
+                                        Converter={StaticResource ResourceKey=AusleihZuRückgabeDatum},
+                                        StringFormat='dd.MM.yyyy HH:mm'}"/>
+                                                                    </DataGrid.Columns>
                                 </DataGrid>
                             </DataTemplate>
                             
