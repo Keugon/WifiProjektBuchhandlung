@@ -1,0 +1,48 @@
+﻿<Window x:Class="WIFI.Buchandlung.Client.Views.EntlehnungRückgabe"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
+        xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+        xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
+        d:DataContext="{d:DesignInstance Type=viewmodels:PersonenKarteiViewModel}"
+        DataContext="{Binding PersonenKarteiVW}"
+        mc:Ignorable="d"
+        Title="EntlehnungRückgabe" Height="250" Width="400">
+    <Grid>
+        
+        <StackPanel
+            Orientation="Vertical">
+            <Label Content="Entlehnung rückgabe"/>
+            <StackPanel
+            Orientation="Horizontal">
+                <Label Content="InventarNr"/>
+                <Label Content="{Binding InventarNr}"/>
+                <Label Content="AusleihDatum"/>
+                <Label Content="{Binding AusleihDatum}"/>
+            </StackPanel>
+            <StackPanel
+                Orientation="Horizontal">
+                <Label Content="Zustand:"/>
+                <ComboBox >
+                    <ComboBoxItem Content="Neuwärtig"/>
+                    <ComboBoxItem Content="Gebraucht"/>
+                    <ComboBoxItem Content="Unbenutzbar"/>
+                    <ComboBoxItem Content="Verloren"/>
+                </ComboBox>
+                <Label Content="Typ:"/>
+                <ComboBox >
+                    <ComboBoxItem Content="Buch"/>
+                    <ComboBoxItem Content="Spiel"/>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel
+            Grid.Row="1">
+                <ucontrol:TextBox Wasserzeichen="Strafbemerkung"/>
+            </StackPanel>
+        </StackPanel>
+
+
+    </Grid>
+</Window>

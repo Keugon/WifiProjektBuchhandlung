@@ -1,6 +1,8 @@
 ﻿using WIFI.Buchandlung.Client.Models;
 using WIFI.Windows;
 using System.Windows;
+using System;
+using WIFI.Buchandlung.Client.Views;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
@@ -57,7 +59,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             {
                 if (this._Entlehnungen == null)
                 {
-                    this._Entlehnungen 
+                    this._Entlehnungen
                         = this.DatenManager!.SqlServerController
                         .HoleEntlehnungenAsync(this.AktuellePerson.ID).Result;
                 }
@@ -124,7 +126,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             //wenn nicht vorhanden Meldung Falsche InventarNr und Return; 
             try
             {
-                artikelZumAusleihen.Bezeichnung 
+                artikelZumAusleihen.Bezeichnung
                     = this.DatenManager!.SqlServerController
                 .HoleInventarGegenständeAsync(
                     suchParameter: "",
@@ -204,7 +206,14 @@ namespace WIFI.Buchandlung.Client.ViewModels
         }
         public void Rückgabe(Entlehnung entlehnung)
         {
-            System.Diagnostics.Debug.WriteLine(entlehnung.ID);
+            if (entlehnung != null)
+            {
+
+                System.Diagnostics.Debug.WriteLine(entlehnung.ID.ToString());
+                var EntlehnungRückgabeFenster = new EntlehnungRückgabe();
+                EntlehnungRückgabeFenster.DataContext = entlehnung;
+                EntlehnungRückgabeFenster.Show();
+            }
         }
         #endregion
     }
