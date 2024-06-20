@@ -79,7 +79,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
         /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
         /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
         /// <returns>Liste von Artikeln</returns>
-        public Task<InventarGegenstände> HoleInventarGegenständeAsync(string suchParameter, string inventarNr = null!)
+        public Task<InventarGegenstände> HoleInventarGegenständeAsync(string suchParameter, int? inventarNr = null!)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
             //Das Holen als TAP Thread Laufen lassen
@@ -487,10 +487,12 @@ Befehl.Parameters.Add(rückmeldungParameter);
 
         }
         /// <summary>
-        /// Legt eine neue Person in der Datenbank an
+        /// Legt eine neue Entlehnung in der Datenbank an
         /// </summary>
-        /// <returns>return 1 oder 2 für update
-        /// oder neu angelegt</returns>
+        /// <param name="EntlehnungZumAnlegen">
+        /// Entlehnungs objekt das zum anlegen benutzt werden soll,
+        /// RückgabeDatum,Zustand,strafbetrag,strafbetrag bemerkung werden zum anlegen nicht benötigt und sollten NULL sein</param>
+        /// <returns>1 für angelegt 2 für updated</returns>
         public Task<int> EntlehnungAnlegen(Entlehnung EntlehnungZumAnlegen)
         {
             //Das Holen als TAP Thread Laufen lassen

@@ -24,7 +24,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 entlehnungZumAnlegen: EntlehnungZumAnlegen
                 ));
         public Befehl EntlehnungRückgabeFensterÖffnenCommand => new Befehl(p => RückgabeFensterÖffnen((p as Entlehnung)!));
-        public Befehl EntlehnungRückgabeCommand => new Befehl(p => Rückgabe());
+        public Befehl EntlehnungRückgabeCommand => new Befehl(p => Rückgabe(p as System.Windows.Window));
         #endregion Befehle
         #region Bindings
 
@@ -63,6 +63,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     this._Entlehnungen
                         = this.DatenManager!.SqlServerController
                         .HoleEntlehnungenAsync(this.AktuellePerson.ID).Result;
+                    System.Diagnostics.Debug.WriteLine("Neue Entlehnungsliste geholt");
                 }
                 return this._Entlehnungen;
             }
@@ -110,8 +111,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
             set => this._EntlehnungZumAnlegen = value;
         }
 
-        public Entlehnung ZurückGebenEntlehnung { get; set; }
-       
+        public Entlehnung? ZurückGebenEntlehnung { get; set; }
+
         #endregion Bindings
         #region Methode
         /// <summary>
@@ -134,7 +135,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     = this.DatenManager!.SqlServerController
                 .HoleInventarGegenständeAsync(
                     suchParameter: "",
-                    inventarNr: artikelZumAusleihen.InventarNr.ToString()!)
+                    inventarNr: artikelZumAusleihen.InventarNr)
                 .Result[0].Bezeichnung;
 
             }
@@ -219,9 +220,60 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 EntlehnungRückgabeFenster.Show();
             }
         }
-        public void Rückgabe()
+        public void Rückgabe(System.Windows.Window currentWindow)
         {
+            //Todo faking Selected Index +1 bis
+            //Listen vom Server geladen werden 
+            int rückgabezustand = int.Parse(ZurückGebenEntlehnung!.RückgabeZustand!);
+            rückgabezustand += 1;
+            this.ZurückGebenEntlehnung.RückgabeZustand = rückgabezustand.ToString();
+            this.ZurückGebenEntlehnung.RückgabeDatum = DateTime.Now;
+            //Berechnung Strafbetrag
+            this.ZurückGebenEntlehnung.Strafbetrag = StrafbetragBerechnen(this.ZurückGebenEntlehnung);
+            try
+            {
+                //Update vom Entlehnungs eintrag auf der Datenbank
+                this.DatenManager!.SqlServerController
+                                .EntlehnungAnlegen(this.ZurückGebenEntlehnung!);
+            }
+            catch (Exception ex)
+            {
+                OnFehlerAufgetreten(ex);
+            }
+            //fenster schließen
+            currentWindow.Close();
+            this.EntlehnungenListe = null!;
+            OnPropertyChanged(nameof(EntlehnungenListe));
+        }
+        public decimal StrafbetragBerechnen(Entlehnung entlehnungZumBerechnen)
+        {
+            //wenn 14Tage nicht überschritten und
+            //der Zustand nicht 3-Unbenutzbar oder 4-Verloren ist werden keine Gebühren erhoben!
+            //0,5€ pro tag über 14, 10€ bei übermässiger benutztung,bei verlust/Totalschaden Beschaffungswert x2
+            decimal strafbetrag = 0;
+            if ((entlehnungZumBerechnen.AusleihDatum - DateTime.Now)!.Value.Days > 14)
+            {
+                //über 14 tage seit dem ausleihen dadurch berechnen
+                int tageüberschreitung = (entlehnungZumBerechnen.AusleihDatum - DateTime.Now)!.Value.Days;
+                strafbetrag += Convert.ToDecimal(tageüberschreitung * 0.5);
+            }
+            if (entlehnungZumBerechnen.RückgabeZustand == "3" || entlehnungZumBerechnen.RückgabeZustand == "4")
+            {
+                decimal beschaffungsPreis;
+                //holt den Beschaffungspreis des Artikels über der InventarNr der Entlehnung
+                try
+                {
+                    beschaffungsPreis = this.DatenManager!.SqlServerController.HoleInventarGegenständeAsync(suchParameter: "", inventarNr: entlehnungZumBerechnen.InventarNr).Result[0].Beschaffungspreis!.Value;
+                    //Fügt den zweifachen Beschaffungspreis hinzu
+                    strafbetrag += (beschaffungsPreis * 2);
+                }
+                catch (Exception ex)
+                {
+                    OnFehlerAufgetreten(ex);
+                }
 
+            }
+            return strafbetrag;
         }
         #endregion
     }

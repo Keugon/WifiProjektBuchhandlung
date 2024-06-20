@@ -43,7 +43,8 @@
                 <DataGrid
                          ItemsSource="{Binding ArtikelListe}"
                          AutoGenerateColumns="False"
-                    CanUserAddRows="false">
+                    CanUserAddRows="false"
+                    IsReadOnly="False">
                     <DataGrid.Columns >
                         <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Bezeichnung}"/>
                         <DataGridTextColumn Header="Beschaffungspreis" Binding="{Binding Beschaffungspreis}"/>
@@ -54,7 +55,8 @@
                                 <DataGrid 
                                     ItemsSource="{Binding InventarGegenstände}"
                                     AutoGenerateColumns="False"
-                                    CanUserAddRows="false">
+                                    CanUserAddRows="false"
+                                    IsReadOnly="False">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
                                     <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
