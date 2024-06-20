@@ -40,8 +40,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 {
                     this._ArtikelZumAnlegen = new InventarGegenstand();
                     this._ArtikelZumAnlegen.ID = Guid.NewGuid();
-                    //Todo Zustand und Typ Listen von der Datenbank
-                    //ziehen und in Dropdownlisten umsetzten
+                    
 
                 }
                 return this._ArtikelZumAnlegen;
