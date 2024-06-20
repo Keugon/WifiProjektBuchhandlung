@@ -21,6 +21,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 artikelZumAusleihen: ArtikelZumAusleihen,
                 entlehnungZumAnlegen: EntlehnungZumAnlegen
                 ));
+        public Befehl EntlehnungRückgabe => new Befehl(p => Rückgabe(p as Entlehnung));
         #endregion Befehle
         #region Bindings
 
@@ -200,6 +201,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     System.Diagnostics.Debug.WriteLine($"{ex.Message}");
                 }
             }
+        }
+        public void Rückgabe(Entlehnung entlehnung)
+        {
+            System.Diagnostics.Debug.WriteLine(entlehnung.ID);
         }
         #endregion
     }
