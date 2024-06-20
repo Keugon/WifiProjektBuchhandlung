@@ -12,7 +12,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <!--ArtikelSuche-->
-        
+
         <StackPanel
      Orientation="Vertical">
             <!--Such Formular-->
@@ -33,19 +33,36 @@
             </StackPanel>
             <!--Such Ergebnis Liste-->
             <!--Es müssen Daten in einer Classe als Eigenschaft 
-     mit Getter bereit stehen public alleine reicht nicht-->
+                mit Getter bereit stehen public alleine reicht nicht-->
             <StackPanel
-         Orientation="Vertical">
-                                <DataGrid
-             ItemsSource="{Binding ArtikelListe}"
-             AutoGenerateColumns="False">
+                    Orientation="Vertical">
+                <DataGrid
+                         ItemsSource="{Binding ArtikelListe}"
+                         AutoGenerateColumns="False"
+                    CanUserAddRows="false">
                     <DataGrid.Columns >
-                        <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
                         <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Bezeichnung}"/>
                         <DataGridTextColumn Header="Beschaffungspreis" Binding="{Binding Beschaffungspreis}"/>
-                        <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
-                        <DataGridTextColumn Header="Typ" Binding="{Binding Typ}"/>
                     </DataGrid.Columns>
+                         <!--Details von Inventargegenstände passend zum Artikel-->
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <DataGrid 
+                                    ItemsSource="{Binding InventarGegenstände}"
+                                    AutoGenerateColumns="False"
+                                    CanUserAddRows="false">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
+                                    <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
+                                    <DataGridTextColumn Header="Typ" Binding="{Binding Typ}"/>
+                                    <!--Todo Vorraussichtliche Rückgabe anstatt AusleihDatum "Converter"-->
+                                    <DataGridTextColumn Header="AusleihDatum" Binding="{Binding Entlehnung.AusleihDatum}"/>
+                                    
+                                </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                            
+                        </DataGrid.RowDetailsTemplate>
                 </DataGrid>
             </StackPanel>
         </StackPanel>

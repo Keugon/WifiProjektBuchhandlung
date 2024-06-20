@@ -150,7 +150,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     entlehnungZumAnlegen.ID = Guid.NewGuid();
                     entlehnungZumAnlegen.InventarNr = artikelZumAusleihen.InventarNr;
                     entlehnungZumAnlegen.Ausleiher = this.AktuellePerson.ID;
-                    entlehnungZumAnlegen.AusleihDatum = DateTime.Today;
+                    entlehnungZumAnlegen.AusleihDatum = DateTime.Now;
                     int rückmeldung = this.DatenManager!.SqlServerController
                         .EntlehnungAnlegen(entlehnungZumAnlegen).Result;
                     System.Diagnostics.Debug.WriteLine($"Rückmeldung aus dem Personne Anlegen:{rückmeldung}");
