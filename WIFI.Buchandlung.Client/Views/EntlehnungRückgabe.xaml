@@ -18,10 +18,12 @@
             <StackPanel
             Orientation="Horizontal">
                 <Label Content="InventarNr"/>
-                <Label Content="{Binding InventarNr}"/>
+                <Label Content="{Binding ZurückGebenEntlehnung.InventarNr}"/>
                 <Label Content="AusleihDatum"/>
-                <Label Content="{Binding AusleihDatum}"/>
+                <Label Content="{Binding ZurückGebenEntlehnung.AusleihDatum}"/>
             </StackPanel>
+            <!--Todo Zustand und Typ austauschen wobei eigentlich 
+            Typ nicht weil es hier nicht änderbar sein soll-->
             <StackPanel
                 Orientation="Horizontal">
                 <Label Content="Zustand:"/>
@@ -36,6 +38,7 @@
                     <ComboBoxItem Content="Buch"/>
                     <ComboBoxItem Content="Spiel"/>
                 </ComboBox>
+                <Button Content="zurückgeben"/>
             </StackPanel>
             <StackPanel
             Grid.Row="1">

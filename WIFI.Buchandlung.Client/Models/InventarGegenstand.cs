@@ -9,7 +9,7 @@
         
         public int InventarNr { get; set; }
         
-        //Todo Typ und Zustand sind hier String zwecks der Rückgabe
+        //Todo Typ und Zustand sind hier String zwecks der RückgabeFensterÖffnen
         //vom server aber beim hinsenden eigentlich String fehler in der logic? 
         public string? Typ { get; set; }
         public string? Zustand { get; set; }

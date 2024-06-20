@@ -23,7 +23,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 artikelZumAusleihen: ArtikelZumAusleihen,
                 entlehnungZumAnlegen: EntlehnungZumAnlegen
                 ));
-        public Befehl EntlehnungRückgabe => new Befehl(p => Rückgabe(p as Entlehnung));
+        public Befehl EntlehnungRückgabeFensterÖffnenCommand => new Befehl(p => RückgabeFensterÖffnen((p as Entlehnung)!));
+        public Befehl EntlehnungRückgabeCommand => new Befehl(p => Rückgabe());
         #endregion Befehle
         #region Bindings
 
@@ -108,6 +109,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
             set => this._EntlehnungZumAnlegen = value;
         }
+
+        public Entlehnung ZurückGebenEntlehnung { get; set; }
+       
         #endregion Bindings
         #region Methode
         /// <summary>
@@ -204,16 +208,20 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 }
             }
         }
-        public void Rückgabe(Entlehnung entlehnung)
+        public void RückgabeFensterÖffnen(Entlehnung entlehnung)
         {
             if (entlehnung != null)
             {
-
+                this.ZurückGebenEntlehnung = entlehnung;
                 System.Diagnostics.Debug.WriteLine(entlehnung.ID.ToString());
                 var EntlehnungRückgabeFenster = new EntlehnungRückgabe();
-                EntlehnungRückgabeFenster.DataContext = entlehnung;
+                EntlehnungRückgabeFenster.DataContext = this;
                 EntlehnungRückgabeFenster.Show();
             }
+        }
+        public void Rückgabe()
+        {
+
         }
         #endregion
     }
