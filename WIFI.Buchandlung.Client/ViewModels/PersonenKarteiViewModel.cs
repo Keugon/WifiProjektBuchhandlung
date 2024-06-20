@@ -126,6 +126,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     suchParameter: "",
                     inventarNr: artikelZumAusleihen.InventarNr.ToString()!)
                 .Result[0].Bezeichnung;
+               
             }
             catch (Exception ex)
             {
@@ -135,6 +136,28 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     $"{artikelZumAusleihen.InventarNr.ToString()}" +
                     $" konnte nicht gefunden werden!");
                 return;
+            }
+            //auf RückgabeDatum prüfen wenn noch nicht vorhanden dann ist der Artikel noch ausgeliehen
+            try
+            {
+                Entlehnung zumAusleihen = this.DatenManager!.SqlServerController
+                                .HoleEntlehnungAsync(
+                                    inventarNr: artikelZumAusleihen.InventarNr
+                                    ).Result;
+                if (zumAusleihen.RückgabeDatum
+                                 == null)
+                {
+                    //Meldung InventarGegenstand augeliehen
+                    MessageBox
+                    .Show($"Angegebene InventarNr: " +
+                    $"{artikelZumAusleihen.InventarNr.ToString()}" +
+                    $" wird vorraussichtlich am: {zumAusleihen.AusleihDatum!.Value.AddDays(14)} zurückgegeben!");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                                OnFehlerAufgetreten(ex);
             }
             //Vor Entlehnung den Titel anzeigen!
             var result = MessageBox
