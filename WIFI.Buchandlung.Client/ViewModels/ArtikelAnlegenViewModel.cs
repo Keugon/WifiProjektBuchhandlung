@@ -16,7 +16,12 @@ namespace WIFI.Buchandlung.Client.ViewModels
             {
 
                 if (Tools.General
-                .AreStringsValid())
+                .AreStringsValid(
+                    ArtikelZumAnlegen.Bezeichnung!,
+                    ArtikelZumAnlegen.Beschaffungspreis.ToString()!,
+                    ArtikelZumAnlegen.Typ!,
+                    ArtikelZumAnlegen.Zustand!
+                    ))
                 {
                     return true;
                 }

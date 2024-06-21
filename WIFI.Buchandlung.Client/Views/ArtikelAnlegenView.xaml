@@ -29,14 +29,14 @@
             <!--Todo Listen vom server abrufen um die int string 
             problematik in den griff zu bekommen-->
             <Label Content="Zustand:"/>
-            <ComboBox SelectedIndex="{Binding ArtikelZumAnlegen.Zustand}">
+            <ComboBox SelectedIndex="{Binding ArtikelZumAnlegen.Zustand,UpdateSourceTrigger=PropertyChanged}">
                 <ComboBoxItem Content="Neuwärtig"/>
                 <ComboBoxItem Content="Gebraucht"/>
                 <ComboBoxItem Content="Unbenutzbar"/>
                 <ComboBoxItem Content="Verloren"/>
             </ComboBox>
             <Label Content="Typ:"/>
-            <ComboBox SelectedIndex="{Binding ArtikelZumAnlegen.Typ}">
+            <ComboBox SelectedIndex="{Binding ArtikelZumAnlegen.Typ,UpdateSourceTrigger=PropertyChanged}">
                 <ComboBoxItem Content="Buch"/>
                 <ComboBoxItem Content="Spiel"/>
             </ComboBox>
