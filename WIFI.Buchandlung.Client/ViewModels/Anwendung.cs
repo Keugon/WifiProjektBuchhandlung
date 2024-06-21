@@ -92,7 +92,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         #region Commands
         public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen(p as string));
         public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche());
-        public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche(p as string));
+        public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche());
 
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
         public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegenÖffnen());
@@ -360,12 +360,24 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
         /// </summary>
         /// <param name="name">Name der Gesucht wird</param>
-        public void ArtikelSuche(string? name)
+        public void ArtikelSuche()
         {
+            var tempArtikelListe = new ArtikelListe();
             try
             {
-                this.ArtikelListe = this.DatenManager.SqlServerController
-                        .HoleArtikelListeAsync(this.ArtikelBezeichungSuche).Result;
+                tempArtikelListe = this.DatenManager.SqlServerController
+                        .HoleArtikelAsync(this.ArtikelBezeichungSuche).Result;
+                foreach (Artikel artikel in tempArtikelListe)
+                {
+                    artikel.InventarGegenstände = this.DatenManager.SqlServerController.HoleInventarGegenständeAsync(artikel.ID).Result;
+                    //hole entlehnung für die InventarNr
+                    foreach (InventarGegenstand inventarGegenstand in artikel.InventarGegenstände)
+                    {
+                        inventarGegenstand.Entlehnung = this.DatenManager.SqlServerController.HoleEntlehnungAsync(inventarGegenstand.InventarNr).Result;
+                    }
+
+                }
+                this.ArtikelListe = tempArtikelListe;
             }
             catch (Exception ex)
             {
@@ -399,10 +411,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
         {
             if (person is WIFI.Buchandlung.Client.Models.Person)
             {
- 
+
                 System.Diagnostics.Debug.WriteLine(person.ToString());
                 var PersonenKarteiFenster = new PersonenKarteiView();
-               PersonenKarteiViewModel PersonenKarteiVM = new PersonenKarteiViewModel();
+                PersonenKarteiViewModel PersonenKarteiVM = new PersonenKarteiViewModel();
                 PersonenKarteiFenster.DataContext = PersonenKarteiVM;
                 PersonenKarteiVM.AktuellePerson = (person as Person)!;
                 PersonenKarteiVM.DatenManager = this.DatenManager;

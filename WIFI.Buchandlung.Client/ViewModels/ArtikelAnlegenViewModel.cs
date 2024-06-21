@@ -28,20 +28,19 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
-        private Artikel _ArtikelZumAnlegen = null!;
+        private InventarGegenstand _ArtikelZumAnlegen = null!;
         /// <summary>
         /// Ruft das DatentransferObjekt ab zum Anlegen eines Artikels ab
         /// </summary>
-        public Artikel ArtikelZumAnlegen
+        public InventarGegenstand ArtikelZumAnlegen
         {
             get
             {
                 if (this._ArtikelZumAnlegen == null)
                 {
-                    this._ArtikelZumAnlegen = new Artikel();
+                    this._ArtikelZumAnlegen = new InventarGegenstand();
                     this._ArtikelZumAnlegen.ID = Guid.NewGuid();
-                    //Todo Zustand und Typ Listen von der Datenbank
-                    //ziehen und in Dropdownlisten umsetzten
+                    
 
                 }
                 return this._ArtikelZumAnlegen;
@@ -73,9 +72,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 int ArtikelTyp = int.Parse(ArtikelZumAnlegen.Typ!);
                 ArtikelTyp += 1;
                 ArtikelZumAnlegen.Typ = ArtikelTyp.ToString();
-                Guid newGuidOnDemand = Guid.NewGuid();
                 int rückmeldung = this.DatenManager!.SqlServerController
-                    .ArtikelAnlegen(ArtikelZumAnlegen).Result;
+                    .InventarGegenstandAnlegen(ArtikelZumAnlegen).Result;
                 System.Diagnostics.Debug.WriteLine($"Rückmeldung aus dem Artikel Anlegen:{rückmeldung}");
                 if (rückmeldung == 2)
                 {

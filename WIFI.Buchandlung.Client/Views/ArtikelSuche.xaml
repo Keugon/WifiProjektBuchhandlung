@@ -7,12 +7,16 @@
              xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
              xmlns:models="clr-namespace:WIFI.Buchandlung.Client.Models"
              xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
+             xmlns:tools="clr-namespace:WIFI.Buchandlung.Client.Tools"
              d:DataContext="{d:DesignInstance Type=viewmodels:Anwendung}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <tools:AusleihZuRückgabeDatum x:Key="AusleihZuRückgabeDatum"/>
+    </UserControl.Resources>
     <Grid>
         <!--ArtikelSuche-->
-        
+
         <StackPanel
      Orientation="Vertical">
             <!--Such Formular-->
@@ -33,19 +37,42 @@
             </StackPanel>
             <!--Such Ergebnis Liste-->
             <!--Es müssen Daten in einer Classe als Eigenschaft 
-     mit Getter bereit stehen public alleine reicht nicht-->
+                mit Getter bereit stehen public alleine reicht nicht-->
             <StackPanel
-         Orientation="Vertical">
-                                <DataGrid
-             ItemsSource="{Binding ArtikelListe}"
-             AutoGenerateColumns="False">
+                    Orientation="Vertical">
+                <DataGrid
+                         ItemsSource="{Binding ArtikelListe}"
+                         AutoGenerateColumns="False"
+                    CanUserAddRows="false"
+                    IsReadOnly="False">
                     <DataGrid.Columns >
-                        <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
                         <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Bezeichnung}"/>
                         <DataGridTextColumn Header="Beschaffungspreis" Binding="{Binding Beschaffungspreis}"/>
-                        <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
-                        <DataGridTextColumn Header="Typ" Binding="{Binding Typ}"/>
                     </DataGrid.Columns>
+                         <!--Details von Inventargegenstände passend zum Artikel-->
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <DataGrid 
+                                    ItemsSource="{Binding InventarGegenstände}"
+                                    AutoGenerateColumns="False"
+                                    CanUserAddRows="false"
+                                    IsReadOnly="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
+                                    <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
+                                    <DataGridTextColumn Header="Typ" Binding="{Binding Typ}"/>
+                                    <!--Todo Vorraussichtliche Rückgabe anstatt AusleihDatum "Converter"-->
+                                    <DataGridTextColumn 
+                                        Header="Vorraussichtliches Rückgabe Datum" 
+                                        Binding="{Binding 
+                                        Entlehnung.AusleihDatum,
+                                        Converter={StaticResource ResourceKey=AusleihZuRückgabeDatum},
+                                        StringFormat='dd.MM.yyyy HH:mm'}"/>
+                                                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                            
+                        </DataGrid.RowDetailsTemplate>
                 </DataGrid>
             </StackPanel>
         </StackPanel>
