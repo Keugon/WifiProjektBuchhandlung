@@ -18,7 +18,7 @@ namespace WIFI.Buchandlung.Client.Models
         /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
         /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
         /// <returns>Liste von Artikeln</returns>
-        public Task<ArtikelListe> HoleArtikelAsync(string suchParameter, string inventarNr = null!)
+        public Task<ArtikelListe> HoleArtikelAsync(string suchParameter)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
             //Das Holen als TAP Thread Laufen lassen
@@ -37,11 +37,11 @@ namespace WIFI.Buchandlung.Client.Models
                 //Damit wir SQL Injection sicher sind..
                 Befehl.Parameters.AddWithValue("@SuchParameter", suchParameter);
                 /* kein Return Value nur daten
-var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
-{
-Direction = System.Data.ParameterDirection.Output
-};
-Befehl.Parameters.Add(rückmeldungParameter);
+                var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
+                {
+                Direction = System.Data.ParameterDirection.Output
+                };
+                Befehl.Parameters.Add(rückmeldungParameter);
 */
                 //Damit das RDBMS die sql Anweisung nicht jedes Mals
                 //analysiert, nur einmal und cachen ("Ausführungsplan = "1")

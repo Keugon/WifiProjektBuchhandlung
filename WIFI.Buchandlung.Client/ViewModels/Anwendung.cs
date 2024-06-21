@@ -97,6 +97,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
         public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegenÖffnen());
         public Befehl ArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegenÖffnen());
+        public Befehl InventarGegenstandvonArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegenÖffnen((p as Artikel)!));
         #endregion Commands
 
         #region Bindings
@@ -281,20 +282,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         }
         /// <summary>
         /// Internes Feld für die Eigenschaft
-        /// </summary>
-        private ArtikelAnlegenViewModel _ArtikelAnlegenVM = null!;
-        /// <summary>
-        /// Ruft das Viewmodel zum Anlegen eines neuen Artikels ab
-        /// </summary>
-        public ArtikelAnlegenViewModel ArtikelAnlegenVM
-        {
-            get
-            {
-                this._ArtikelAnlegenVM = this.Kontext.Produziere<ArtikelAnlegenViewModel>();
-                this._ArtikelAnlegenVM.DatenManager = this.DatenManager;
-                return this._ArtikelAnlegenVM;
-            }
-        }
+        /// </summary>      
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -367,6 +355,11 @@ namespace WIFI.Buchandlung.Client.ViewModels
             {
                 tempArtikelListe = this.DatenManager.SqlServerController
                         .HoleArtikelAsync(this.ArtikelBezeichungSuche).Result;
+                //Wenn suche in Artikel keine Ergenisse zurückgibt, Vorschlag eintragen?
+                if (tempArtikelListe.Count == 0)
+                {
+
+                }
                 foreach (Artikel artikel in tempArtikelListe)
                 {
                     artikel.InventarGegenstände = this.DatenManager.SqlServerController.HoleInventarGegenständeAsync(artikel.ID).Result;
@@ -434,13 +427,39 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
             PersonAnlegenFenster.Show();
         }
+        /// <summary>
+        /// Öffnet das Fenster zum Anlegen eines neuen Artikels
+        /// </summary>
         public void ArtikelAnlegenÖffnen()
         {
             var ArtikelAnlegenFenster = new ArtikelAnlegenView();
-            this.ArtikelAnlegenVM.DatenManager = this.DatenManager;
-            ArtikelAnlegenFenster.DataContext = this.ArtikelAnlegenVM;
-
+            //singleton viewmodel
+            ArtikelAnlegenViewModel artikelAnlegenViewM = new ArtikelAnlegenViewModel();
+            ArtikelAnlegenFenster.DataContext = artikelAnlegenViewM;
+            artikelAnlegenViewM.DatenManager = this.DatenManager;
             ArtikelAnlegenFenster.Show();
+        }
+        /// <summary>
+        /// Öffnet das Fenster zum Anlegen eines neuen 
+        /// Artikels/InventarGegenstands hier wird nur einer 
+        /// neuer InventarGegenstand erzeugt anstatt einen 
+        /// gänzlich neuen Artikel Anzulegen
+        /// </summary>
+        /// <param name="artikel">
+        /// Der Artikel der von der Liste mittels 
+        /// Kontextmenü gewählt wurde</param>
+        public void ArtikelAnlegenÖffnen(Artikel artikel)
+        {
+            var ArtikelAnlegenFenster = new ArtikelAnlegenView();
+            //singleton viewmodel
+            ArtikelAnlegenViewModel artikelAnlegenViewM = new ArtikelAnlegenViewModel();
+            ArtikelAnlegenFenster.DataContext = artikelAnlegenViewM;
+            artikelAnlegenViewM.DatenManager = this.DatenManager;
+            artikelAnlegenViewM.ArtikelZumAnlegen.ID = artikel.ID;
+            artikelAnlegenViewM.ArtikelZumAnlegen.Bezeichnung = artikel.Bezeichnung;
+            artikelAnlegenViewM.ArtikelZumAnlegen.Beschaffungspreis = artikel.Beschaffungspreis;
+            ArtikelAnlegenFenster.Show();
+
         }
         #endregion Methoden
     }

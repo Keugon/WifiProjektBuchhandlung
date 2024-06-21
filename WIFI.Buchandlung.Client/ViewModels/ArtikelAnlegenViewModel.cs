@@ -40,11 +40,14 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 if (this._ArtikelZumAnlegen == null)
                 {
                     this._ArtikelZumAnlegen = new InventarGegenstand();
-                    this._ArtikelZumAnlegen.ID = Guid.NewGuid();
-                    
-
+                    this._ArtikelZumAnlegen.ID = Guid.NewGuid();                  
                 }
                 return this._ArtikelZumAnlegen;
+            }
+            set
+            {
+                this._ArtikelZumAnlegen = value;
+                OnPropertyChanged();
             }
         }
         #endregion ArtikelBinding

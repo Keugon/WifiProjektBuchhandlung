@@ -57,6 +57,16 @@
             ScrollViewer.CanContentScroll="True"
             ScrollViewer.VerticalScrollBarVisibility="Visible"
                    Height="250">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                         Command="{Binding InventarGegenstandvonArtikelAnlegenCommand}"
+                         CommandParameter="{Binding PlacementTarget.SelectedItem,
+                            RelativeSource={RelativeSource FindAncestor,
+                            AncestorType={x:Type ContextMenu}}}"
+                        Header="Neuen InventarGegenstand Anlegen"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns >
                 <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Bezeichnung}"/>
                 <DataGridTextColumn Header="Beschaffungspreis" Binding="{Binding Beschaffungspreis}"/>
@@ -69,6 +79,7 @@
                         AutoGenerateColumns="False"
                         CanUserAddRows="false"
                         IsReadOnly="False">
+                        
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
                             <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
