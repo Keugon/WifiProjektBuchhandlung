@@ -22,6 +22,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 }
                 return false;
             });
+        //Bug ggf (ongün) Button kan angeklickt werden ohne inhalt in den Boxen
         #endregion  Befehle
 
         #region ArtikelBinding
