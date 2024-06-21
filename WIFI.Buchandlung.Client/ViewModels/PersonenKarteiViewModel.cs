@@ -24,7 +24,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 entlehnungZumAnlegen: EntlehnungZumAnlegen
                 ));
         public Befehl EntlehnungRückgabeFensterÖffnenCommand => new Befehl(p => RückgabeFensterÖffnen((p as Entlehnung)!));
-        public Befehl EntlehnungRückgabeCommand => new Befehl(p => Rückgabe(p as System.Windows.Window));
+        public Befehl EntlehnungRückgabeCommand => new Befehl(p => Rückgabe((p as System.Windows.Window)!));
         #endregion Befehle
         #region Bindings
 
@@ -248,18 +248,21 @@ namespace WIFI.Buchandlung.Client.ViewModels
         public decimal StrafbetragBerechnen(Entlehnung entlehnungZumBerechnen)
         {
             //wenn 14Tage nicht überschritten und
+            int tageüberschreitung = 0;
             //der Zustand nicht 3-Unbenutzbar oder 4-Verloren ist werden keine Gebühren erhoben!
+            decimal beschaffungsPreis =0;
             //0,5€ pro tag über 14, 10€ bei übermässiger benutztung,bei verlust/Totalschaden Beschaffungswert x2
             decimal strafbetrag = 0;
-            if ((entlehnungZumBerechnen.AusleihDatum - DateTime.Now)!.Value.Days > 14)
+            if ((DateTime.Now - entlehnungZumBerechnen.AusleihDatum)!.Value.Days > 14)
             {
                 //über 14 tage seit dem ausleihen dadurch berechnen
-                int tageüberschreitung = (entlehnungZumBerechnen.AusleihDatum - DateTime.Now)!.Value.Days;
+                tageüberschreitung = (DateTime.Now - entlehnungZumBerechnen.AusleihDatum)!.Value.Days;
                 strafbetrag += Convert.ToDecimal(tageüberschreitung * 0.5);
             }
-            if (entlehnungZumBerechnen.RückgabeZustand == "3" || entlehnungZumBerechnen.RückgabeZustand == "4")
+            bool rückgabeZustandSchlecht = (entlehnungZumBerechnen.RückgabeZustand == "3" || entlehnungZumBerechnen.RückgabeZustand == "4");
+            if (rückgabeZustandSchlecht)
             {
-                decimal beschaffungsPreis;
+
                 //holt den Beschaffungspreis des Artikels über der InventarNr der Entlehnung
                 try
                 {
@@ -271,7 +274,19 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 {
                     OnFehlerAufgetreten(ex);
                 }
+                string strafzeit
+                    = $"Der Gegenstand wurde {tageüberschreitung + 14} ausgeliehen" +
+                    $" und dadurch ein Zeitüberschreitungsbetrag von: " +
+                    $"{tageüberschreitung * 0.5}€ fällig.";
+                string strafzustand 
+                    = $"Der Gegenstand wurd mit Zustand: " +
+                    $"{entlehnungZumBerechnen.RückgabeZustand} " +
+                    $"zurückgegeben und dadurch ein zusätzlicher erneuerungs " +
+                    $"Betrag fällig von: {beschaffungsPreis * 2}€.";
 
+                entlehnungZumBerechnen.StrafbetragBemerkung 
+                    = $"{(tageüberschreitung > 14 ? strafzeit :string.Empty )}" +
+                    $" \n {(rückgabeZustandSchlecht ? strafzustand : string.Empty)}";
             }
             return strafbetrag;
         }
