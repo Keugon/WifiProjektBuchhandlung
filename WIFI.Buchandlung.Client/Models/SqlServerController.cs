@@ -560,6 +560,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
         //                                            | AusleihDatum|
         //                                            | RueckgabeDatum|
         //                                            +-------------+
+
         //Todo(Datenbank) Typ muss zu Artikel wandern da dieser auch für jeden InventargGegenstand gleich sein wird!
         //Todo(InventarGegenstände) Ändern auf der ArtikelSuche seite mittels kontext menü und popout wie PersonenKarteiÖffnen
         //Todo(Artikel) ggf(Ongün)Ändern auf der ArtikelSuche seite mittels kontext menü und popout wie PersonenKarteiÖffnen
@@ -567,6 +568,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
         //Todo(ArtikelAnlegen) (Ongün) Zustand und Typ Listen von der Datenbank ziehen und in Dropdownlisten umsetzten
         //Todo(Bestands/Austands) Liste ggf(Ongün)
         //Todo(CSV) MahnungsListe
+
 
     }
 }

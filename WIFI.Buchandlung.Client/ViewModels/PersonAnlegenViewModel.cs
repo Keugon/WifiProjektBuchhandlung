@@ -38,7 +38,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// </summary>
         private Person _PersonZumAnlegen = null!;
         /// <summary>
-        /// Ruft das DatentransferObjekt ab zum Anlegen einer Person ab
+        /// Ruft das DatentransferObjekt zum Anlegen einer Person ab
         /// </summary>
         public Person PersonZumAnlegen
         {
@@ -66,7 +66,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
         #region Methoden
         /// <summary>
-        /// Legt einen neuen Artigel in der Datenbank an
+        /// Legt einen neuen Artikel in der Datenbank an
         /// </summary>
         public void PersonAnlegen()
         {
