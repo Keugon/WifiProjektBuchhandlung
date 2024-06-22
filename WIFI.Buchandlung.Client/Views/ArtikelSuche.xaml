@@ -78,9 +78,11 @@
                         ItemsSource="{Binding InventarGegenstände}"
                         AutoGenerateColumns="False"
                         CanUserAddRows="false"
-                        IsReadOnly="False">
-                        
-                        <DataGrid.Columns>
+                        IsReadOnly="True"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        Height="100">
+                            <DataGrid.Columns>
                             <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
                             <DataGridTextColumn Header="Zustand" Binding="{Binding Zustand}"/>
                             <DataGridTextColumn Header="Typ" Binding="{Binding Typ}"/>

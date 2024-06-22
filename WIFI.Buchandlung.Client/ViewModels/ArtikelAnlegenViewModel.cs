@@ -12,7 +12,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Textfelder nicht leer sind und gibt den Button frei
         /// </summary>
         public Befehl ArtikelAnlegenCommand
-            => new Befehl(p => ArtikelnAnlegen(), p =>
+            => new Befehl(p => ArtikelnAnlegen((p as System.Windows.Window)!), p =>
             {
 
                 if (Tools.General
@@ -69,7 +69,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Legt einen neuen Artigel in der Datenbank an
         /// </summary>
-        public void ArtikelnAnlegen()
+        public void ArtikelnAnlegen(System.Windows.Window currentWindow)
         {
             try
             {
@@ -94,6 +94,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
                 System.Diagnostics.Debug.WriteLine($"{ex.Message}");
             }
+            //fenster schließen
+            currentWindow.Close();
         }
         #endregion Methoden
     }
