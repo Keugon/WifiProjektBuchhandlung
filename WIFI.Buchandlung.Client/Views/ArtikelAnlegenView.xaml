@@ -29,11 +29,9 @@
             <!--Todo Listen vom server abrufen um die int string 
             problematik in den griff zu bekommen-->
             <Label Content="Zustand:"/>
-            <ComboBox SelectedIndex="{Binding ArtikelZumAnlegen.Zustand}">
-                <ComboBoxItem Content="Neuwärtig"/>
-                <ComboBoxItem Content="Gebraucht"/>
-                <ComboBoxItem Content="Unbenutzbar"/>
-                <ComboBoxItem Content="Verloren"/>
+            <ComboBox ItemsSource="{Binding ZustandsListe }"
+                      DisplayMemberPath="Bezeichnung">
+            
             </ComboBox>
             <Label Content="Typ:"/>
             <ComboBox SelectedIndex="{Binding ArtikelZumAnlegen.Typ}">
