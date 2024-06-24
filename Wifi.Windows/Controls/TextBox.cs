@@ -14,7 +14,7 @@ namespace WIFI.Windows.Controls
     /// möglichkeiten</remarks>
     public class TextBox : System.Windows.Controls.TextBox
     {
-
+        //Todo propertie for accepts only nummeric values, maximum text lenght
         #region Wasserzeichen Information
         /// <summary>
         /// Veröffentlicht die WasserzeichenEigenschaft 

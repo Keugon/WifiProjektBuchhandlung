@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
         xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+        xmlns:tools="clr-namespace:WIFI.Buchandlung.Client.Tools"
         xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
         d:DataContext="{d:DesignInstance Type=viewmodels:PersonenKarteiViewModel}"
         DataContext="{Binding PersonenKarteiVW}"
         mc:Ignorable="d"
         Title="EntlehnungRückgabe" Height="250" Width="400">
+    <Window.Resources>
+        <tools:DecimalToString x:Key="DecimalToString"/>
+        <tools:StringToIntSelectedIndexComboBox x:Key="StringToIntSelectedIndexComboBox"/>
+    </Window.Resources>
     <Grid>
-        
+        <!--Todo diese View als usercontrol in der 
+        PersonenKarteiView bei notwendigkeit einblenden-->
         <StackPanel
             Orientation="Vertical">
             <Label Content="Entlehnung rückgabe"/>
@@ -27,7 +33,11 @@
             <StackPanel
                 Orientation="Horizontal">
                 <Label Content="Zustand:"/>
-                <ComboBox SelectedIndex="{Binding ZurückGebenEntlehnung.RückgabeZustand}">
+                <ComboBox SelectedIndex="{Binding 
+                    ZurückGebenEntlehnung.RückgabeZustand,
+                    Mode=TwoWay,
+                    Converter={StaticResource ResourceKey=StringToIntSelectedIndexComboBox}
+                    }">
                     <ComboBoxItem Content="Neuwärtig"/>
                     <ComboBoxItem Content="Gebraucht"/>
                     <ComboBoxItem Content="Unbenutzbar"/>
@@ -35,7 +45,8 @@
                 </ComboBox>
                 <Button Content="Rückgabe"
                         Command="{Binding EntlehnungRückgabeCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                    AncestorType={x:Type Window}}}"/>
             </StackPanel>
             <StackPanel
             Grid.Row="1">

@@ -12,11 +12,16 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Textfelder nicht leer sind und gibt den Button frei
         /// </summary>
         public Befehl ArtikelAnlegenCommand
-            => new Befehl(p => ArtikelnAnlegen(), p =>
+            => new Befehl(p => ArtikelnAnlegen((p as System.Windows.Window)!), p =>
             {
 
                 if (Tools.General
-                .AreStringsValid())
+                .AreStringsValid(
+                    ArtikelZumAnlegen.Bezeichnung!,
+                    ArtikelZumAnlegen.Beschaffungspreis.ToString()!,
+                    ArtikelZumAnlegen.Typ!,
+                    ArtikelZumAnlegen.Zustand!
+                    ))
                 {
                     return true;
                 }
@@ -40,11 +45,14 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 if (this._ArtikelZumAnlegen == null)
                 {
                     this._ArtikelZumAnlegen = new InventarGegenstand();
-                    this._ArtikelZumAnlegen.ID = Guid.NewGuid();
-                    
-
+                    this._ArtikelZumAnlegen.ID = Guid.NewGuid();                  
                 }
                 return this._ArtikelZumAnlegen;
+            }
+            set
+            {
+                this._ArtikelZumAnlegen = value;
+                OnPropertyChanged();
             }
         }
         #endregion ArtikelBinding
@@ -61,7 +69,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Legt einen neuen Artigel in der Datenbank an
         /// </summary>
-        public void ArtikelnAnlegen()
+        public void ArtikelnAnlegen(System.Windows.Window currentWindow)
         {
             try
             {
@@ -86,6 +94,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
                 System.Diagnostics.Debug.WriteLine($"{ex.Message}");
             }
+            //fenster schließen
+            currentWindow.Close();
         }
         #endregion Methoden
     }
