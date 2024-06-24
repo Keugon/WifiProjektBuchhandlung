@@ -55,6 +55,35 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Zustände _Zustände = null!;
+
+        /// <summary>
+        /// Ruft die Zustände der
+        /// Artikel ab oder legt diese fest
+        /// </summary>
+        public Zustände ZustandsListe
+        {
+            get
+            {
+                if (this._Zustände == null)
+                {
+                    this._Zustände
+                        = this.DatenManager!.SqlServerController
+                        .HoleZuständeAsync().Result;
+                    System.Diagnostics.Debug.WriteLine("Zustandsliste geholt");
+                }
+                return this._Zustände;
+            }
+            set
+            {
+                this._Zustände = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion ArtikelBinding
 
         #region Lokale Eigenschaft DatenManager     
