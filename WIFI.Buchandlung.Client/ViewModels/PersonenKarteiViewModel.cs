@@ -315,6 +315,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 strafbetrag += Convert.ToDecimal(tageüberschreitung * strafTagesSatz);
             }
             //Todo werde aus Listes von DB
+            //Todo Florian Ongün Liste Zustände
             bool rückgabeZustandSchlecht = (entlehnungZumBerechnen.RückgabeZustand == "3" || entlehnungZumBerechnen.RückgabeZustand == "4");
             //Berechung für Rückgabe mit schlechtem zustand bzw Verloren
             if (rückgabeZustandSchlecht)

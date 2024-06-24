@@ -33,6 +33,7 @@
             <StackPanel
                 Orientation="Horizontal">
                 <Label Content="Zustand:"/>
+                <!--Todo Ongün hier ebenfalls den zustand ersetzten und in ZurückGebenEntlehnung.RückgabeZustand binden-->
                 <ComboBox SelectedIndex="{Binding 
                     ZurückGebenEntlehnung.RückgabeZustand,
                     Mode=TwoWay,

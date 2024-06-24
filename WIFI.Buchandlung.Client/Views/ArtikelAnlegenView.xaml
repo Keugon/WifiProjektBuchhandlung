@@ -37,11 +37,11 @@
             <!--Todo Listen vom server abrufen um die int string 
             problematik in den griff zu bekommen-->
             <Label Content="Zustand:"/>
-
+             <!--Todo es muss der in der Combobox ausgewählte 
+                Zustand dessen Zustand.ID in die ArtikelZumAnlegen.Zustand gebunden werden-->
             <ComboBox ItemsSource="{Binding ZustandsListe }"
                       DisplayMemberPath="Bezeichnung">
-            
-<!--
+           <!--
             <ComboBox 
                 SelectedIndex="{Binding 
                 ArtikelZumAnlegen.Zustand,
@@ -52,16 +52,16 @@
                 <ComboBoxItem Content="Gebraucht"/>
                 <ComboBoxItem Content="Unbenutzbar"/>
                 <ComboBoxItem Content="Verloren"/>
---!>
+-->
             </ComboBox>
             <Label Content="Typ:"/>
+            <!--Todo Ongün wie bei Zustand selbes vorgehen-->
             <ComboBox 
                 SelectedIndex="{Binding 
                 ArtikelZumAnlegen.Typ,
                 Mode=TwoWay,
                 Converter={StaticResource ResourceKey=StringToIntSelectedIndexComboBox},
-                UpdateSourceTrigger=PropertyChanged}"
-                >
+                UpdateSourceTrigger=PropertyChanged}">
                 <ComboBoxItem Content="Buch"/>
                 <ComboBoxItem Content="Spiel"/>
             </ComboBox>
