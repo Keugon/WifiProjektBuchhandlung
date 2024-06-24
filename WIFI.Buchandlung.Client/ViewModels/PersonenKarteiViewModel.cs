@@ -250,42 +250,62 @@ namespace WIFI.Buchandlung.Client.ViewModels
             //wenn 14Tage nicht überschritten und
             int tageüberschreitung = 0;
             //der Zustand nicht 3-Unbenutzbar oder 4-Verloren ist werden keine Gebühren erhoben!
-            decimal beschaffungsPreis =0;
+            decimal beschaffungsPreis = 0;
             //0,5€ pro tag über 14, 10€ bei übermässiger benutztung,bei verlust/Totalschaden Beschaffungswert x2
             decimal strafbetrag = 0;
-            if ((DateTime.Now - entlehnungZumBerechnen.AusleihDatum)!.Value.Days > 14)
+            Gebühr AktuellerGebührenSatz;
+            decimal strafTagesSatz = 0;
+            double ErsatzgebührFaktor = 0;
+            int GebührenFreieTage = 0;
+            //AktuelleGebühren aus der DB holen und in berechung einsetzten
+            try
+            {
+                AktuellerGebührenSatz = this.DatenManager!.SqlServerController.HoleAktuelleGebührAsync().Result;
+                strafTagesSatz = AktuellerGebührenSatz.Strafgebühr;
+                ErsatzgebührFaktor = AktuellerGebührenSatz.ErsatzgebührFaktor;
+                GebührenFreieTage = AktuellerGebührenSatz.GebührenFreieTage;
+            }
+            catch (Exception ex)
+            {
+                OnFehlerAufgetreten(ex);
+            }
+            //Wenn über der GebührenFreieTage standart 14 Tage
+            //Berechnung Tagesüberschreitungs Strafe
+            if ((DateTime.Now - entlehnungZumBerechnen.AusleihDatum)!.Value.Days > GebührenFreieTage)
             {
                 //über 14 tage seit dem ausleihen dadurch berechnen
-                tageüberschreitung = (DateTime.Now - entlehnungZumBerechnen.AusleihDatum)!.Value.Days;
-                strafbetrag += Convert.ToDecimal(tageüberschreitung * 0.5);
+                tageüberschreitung = (DateTime.Now - entlehnungZumBerechnen.AusleihDatum)!.Value.Days - GebührenFreieTage;
+                //StrafTagesSatz einsetzten
+                strafbetrag += Convert.ToDecimal(tageüberschreitung * strafTagesSatz);
             }
+            //Todo werde aus Listes von DB
             bool rückgabeZustandSchlecht = (entlehnungZumBerechnen.RückgabeZustand == "3" || entlehnungZumBerechnen.RückgabeZustand == "4");
+            //Berechung für Rückgabe mit schlechtem zustand bzw Verloren
             if (rückgabeZustandSchlecht)
             {
-
                 //holt den Beschaffungspreis des Artikels über der InventarNr der Entlehnung
                 try
                 {
                     beschaffungsPreis = this.DatenManager!.SqlServerController.HoleInventarGegenständeAsync(suchParameter: "", inventarNr: entlehnungZumBerechnen.InventarNr).Result[0].Beschaffungspreis!.Value;
-                    //Fügt den zweifachen Beschaffungspreis hinzu
-                    strafbetrag += (beschaffungsPreis * 2);
+                    //Fügt den Beschaffungspreis * den ErsatzgebührenFaktor aus der DB hinzu
+                    strafbetrag += (beschaffungsPreis * Convert.ToDecimal(ErsatzgebührFaktor));
                 }
                 catch (Exception ex)
                 {
                     OnFehlerAufgetreten(ex);
                 }
                 string strafzeit
-                    = $"Der Gegenstand wurde {tageüberschreitung + 14} ausgeliehen" +
+                    = $"Der Gegenstand wurde {tageüberschreitung + GebührenFreieTage} Tage ausgeliehe(Gebührenfreie Tage:{GebührenFreieTage})" +
                     $" und dadurch ein Zeitüberschreitungsbetrag von: " +
-                    $"{tageüberschreitung * 0.5}€ fällig.";
-                string strafzustand 
+                    $"{tageüberschreitung * strafTagesSatz}€ fällig. TagesSatz von: {strafTagesSatz}€";
+                string strafzustand
                     = $"Der Gegenstand wurd mit Zustand: " +
                     $"{entlehnungZumBerechnen.RückgabeZustand} " +
                     $"zurückgegeben und dadurch ein zusätzlicher erneuerungs " +
-                    $"Betrag fällig von: {beschaffungsPreis * 2}€.";
+                    $"Betrag fällig von: {beschaffungsPreis * Convert.ToDecimal(ErsatzgebührFaktor)}€. ErsatzFaktor: {ErsatzgebührFaktor}";
 
-                entlehnungZumBerechnen.StrafbetragBemerkung 
-                    = $"{(tageüberschreitung > 14 ? strafzeit :string.Empty )}" +
+                entlehnungZumBerechnen.StrafbetragBemerkung
+                    = $"{(tageüberschreitung > 0 ? strafzeit : string.Empty)}" +
                     $" \n {(rückgabeZustandSchlecht ? strafzustand : string.Empty)}";
             }
             return strafbetrag;

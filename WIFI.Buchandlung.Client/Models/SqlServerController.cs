@@ -414,7 +414,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
                         Ausleiher = (System.Guid)Daten["AusleiherNr"],
                         AusleihDatum = (DateTime)Daten["AusleihDatum"],
                         RückgabeDatum = Daten["RückgabeDatum"] == DBNull.Value ? (DateTime?)null : (DateTime)Daten["RückgabeDatum"],
-                        RückgabeZustand = Daten["RückgabeZustand"] == DBNull.Value? (string?)null : (string)Daten["RückgabeZustand"],
+                        RückgabeZustand = Daten["RückgabeZustand"] == DBNull.Value ? (string?)null : (string)Daten["RückgabeZustand"],
                         Strafbetrag = Daten["Strafbetrag"] == DBNull.Value ? (decimal?)null : (decimal)Daten["Strafbetrag"],
                         StrafbetragBemerkung = Daten["StrafBetragBemerkung"] == DBNull.Value ? (string?)null : (string)Daten["StrafBetragBemerkung"]
                     });
@@ -544,7 +544,62 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
         }
+        /// <summary>
+        /// Gibt die Entlehnungen einer Person oder aller Personen zurück
+        /// </summary>
+        /// <param name="personID">(Optional)GUID einer Person 
+        /// um die Enlehnungen auf diese zu beschränken</param>
+        /// <returns>Liste von Entlehnungen</returns>
+        public Task<Gebühr> HoleAktuelleGebührAsync(DateTime? suchDatum = null)
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Gebühr>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                var Rückmeldung = new Gebühr();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("AktuelleGebühren", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@SuchDatum", suchDatum);
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                if (Daten.Read())
+                {
+                    Rückmeldung = new Gebühr
+                    {
+                        LfdNr = (int)Daten["LfdNr"],
+                        GültigAb = (DateTime)Daten["GültigAb"],
+                        Strafgebühr = (decimal)Daten["Strafgebühr"],
+                        ErsatzgebührFaktor = (double)Daten["ErsatzgebührFaktor"],
+                        GebührenFreieTage = (int)Daten["GebührenFreieTage"]
+                    };
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
 
+        }
         //Todo (Datenbank) Mit dem aktuellen Datenbank design Artikel-> Entlehnung kan ein Artikel
         //nicht mehrere InventarNr auffassen somit ist ein artikel immer einzigartig und
         //die möglichkeit zu identifizieren ob von einem Artikel mehrere im Inventar
