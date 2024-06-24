@@ -4,6 +4,9 @@ using WIFI.Windows;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
+    /// <summary>
+    /// Haupt Viewmodel der Anwendung
+    /// </summary>
     public class Anwendung : WIFI.Windows.ViewModel
     {
         #region Hauptview       
@@ -90,54 +93,37 @@ namespace WIFI.Buchandlung.Client.ViewModels
         #endregion Hauptview
 
         #region Commands
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl MenüPunktAnzeigenCommand => new Befehl(p => MenüPunktAnzeigen(p as string));
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche());
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche());
-
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl PersonenKarteiÖffnenCommand => new Befehl(p => PersonenKarteiÖffnen(p));
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl PersonAnlegenCommand => new Befehl(p => PersonAnlegenÖffnen());
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl ArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegenÖffnen());
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
+        public Befehl InventarGegenstandvonArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegenÖffnen((p as Artikel)!));
         #endregion Commands
 
-        #region Bindings
-        #region Artikel Anlegen Bindings
-
-
-        /// <summary>
-        /// Internes Feld für die Eigenschaft
-        /// </summary>
-        private string _ArtikelBezeichnung = null!;
-        /// <summary>
-        /// Ruft den in der Datenbank neuen 
-        /// anzulegenden Artikelnamen ab oder legt diesen Fest
-        /// </summary>
-        public string ArtikelBezeichnung
-        {
-            get => this._ArtikelBezeichnung;
-            set
-            {
-                this._ArtikelBezeichnung = value;
-                OnPropertyChanged();
-            }
-        }
-        /// <summary>
-        /// Internes Feld für die Eigenschaft
-        /// </summary>
-        private decimal _ArtikelBeschaffungspreis;
-        /// <summary>
-        /// Ruft den in der Datenbank neuen 
-        /// anzulegenden Artikelbeschaffungspreis ab oder legt diesen Fest
-        /// </summary>
-        public decimal ArtikelBeschaffungspreis
-        {
-            get => this._ArtikelBeschaffungspreis;
-            set
-            {
-                this._ArtikelBeschaffungspreis = value;
-                OnPropertyChanged();
-            }
-        }
-        #endregion Artikel Anlegen Bindings
+        #region Bindings            
         #region Artikel/Personen Suche Bindings
         /// <summary>
         /// Internes Feld für die Eigenschaft
@@ -224,45 +210,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 this._ArtikelListe = value;
                 OnPropertyChanged();
             }
-        }
-        /// <summary>
-        /// Internes Feld für die Eigenschaft
-        /// </summary>
-        private Person _SelectedPerson = null!;
-        /// <summary>
-        /// Ruft ab oder legt die Selectierten 
-        /// PersonenListen Eintrag fest
-        /// </summary>
-        public Person SelectedPerson
-        {
-            get
-            {
-                if (this._SelectedPerson == null)
-                {
-                    this._SelectedPerson = new Person();
-                }
-                return this._SelectedPerson;
-            }
-            set
-            {
-                this._SelectedPerson = value;
-                OnPropertyChanged();
-            }
-        }
-        /*
-        /// <summary>
-        /// Internes Feld für die Eigenschaft
-        /// </summary>
-        private PersonenKarteiViewModel _PersonenKarteiVM = null!;
-        /// <summary>
-        /// Ruft das ViewModel für den PersonAnlegenView ab
-        /// </summary>
-        public PersonenKarteiViewModel PersonenKarteiVM
-        {
-            get=>this._PersonenKarteiVM = this.Kontext.Produziere<PersonenKarteiViewModel>();
-           
-        }
-        */
+        }            
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -281,20 +229,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         }
         /// <summary>
         /// Internes Feld für die Eigenschaft
-        /// </summary>
-        private ArtikelAnlegenViewModel _ArtikelAnlegenVM = null!;
-        /// <summary>
-        /// Ruft das Viewmodel zum Anlegen eines neuen Artikels ab
-        /// </summary>
-        public ArtikelAnlegenViewModel ArtikelAnlegenVM
-        {
-            get
-            {
-                this._ArtikelAnlegenVM = this.Kontext.Produziere<ArtikelAnlegenViewModel>();
-                this._ArtikelAnlegenVM.DatenManager = this.DatenManager;
-                return this._ArtikelAnlegenVM;
-            }
-        }
+        /// </summary>      
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -342,7 +277,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Methode um die Controls per Button Click zu wechseln
         /// </summary>
-        /// <param name="viewToDisplay"></param>
+        /// <param name="viewName"></param>
         public void MenüPunktAnzeigen(string? viewName)
         {
 
@@ -359,7 +294,6 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
         /// </summary>
-        /// <param name="name">Name der Gesucht wird</param>
         public void ArtikelSuche()
         {
             var tempArtikelListe = new ArtikelListe();
@@ -367,6 +301,11 @@ namespace WIFI.Buchandlung.Client.ViewModels
             {
                 tempArtikelListe = this.DatenManager.SqlServerController
                         .HoleArtikelAsync(this.ArtikelBezeichungSuche).Result;
+                //Wenn suche in Artikel keine Ergenisse zurückgibt, Vorschlag eintragen?
+                if (tempArtikelListe.Count == 0)
+                {
+
+                }
                 foreach (Artikel artikel in tempArtikelListe)
                 {
                     artikel.InventarGegenstände = this.DatenManager.SqlServerController.HoleInventarGegenständeAsync(artikel.ID).Result;
@@ -388,7 +327,6 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
         /// </summary>
-        /// <param name="name">Name der Gesucht wird</param>
         public void PersonenSuche()
         {
             try
@@ -434,13 +372,39 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
             PersonAnlegenFenster.Show();
         }
+        /// <summary>
+        /// Öffnet das Fenster zum Anlegen eines neuen Artikels
+        /// </summary>
         public void ArtikelAnlegenÖffnen()
         {
             var ArtikelAnlegenFenster = new ArtikelAnlegenView();
-            this.ArtikelAnlegenVM.DatenManager = this.DatenManager;
-            ArtikelAnlegenFenster.DataContext = this.ArtikelAnlegenVM;
-
+            //singleton viewmodel
+            ArtikelAnlegenViewModel artikelAnlegenViewM = new ArtikelAnlegenViewModel();
+            ArtikelAnlegenFenster.DataContext = artikelAnlegenViewM;
+            artikelAnlegenViewM.DatenManager = this.DatenManager;
             ArtikelAnlegenFenster.Show();
+        }
+        /// <summary>
+        /// Öffnet das Fenster zum Anlegen eines neuen 
+        /// Artikels/InventarGegenstands hier wird nur einer 
+        /// neuer InventarGegenstand erzeugt anstatt einen 
+        /// gänzlich neuen Artikel Anzulegen
+        /// </summary>
+        /// <param name="artikel">
+        /// Der Artikel der von der Liste mittels 
+        /// Kontextmenü gewählt wurde</param>
+        public void ArtikelAnlegenÖffnen(Artikel artikel)
+        {
+            var ArtikelAnlegenFenster = new ArtikelAnlegenView();
+            //singleton viewmodel
+            ArtikelAnlegenViewModel artikelAnlegenViewM = new ArtikelAnlegenViewModel();
+            ArtikelAnlegenFenster.DataContext = artikelAnlegenViewM;
+            artikelAnlegenViewM.DatenManager = this.DatenManager;
+            artikelAnlegenViewM.ArtikelZumAnlegen.ID = artikel.ID;
+            artikelAnlegenViewM.ArtikelZumAnlegen.Bezeichnung = artikel.Bezeichnung;
+            artikelAnlegenViewM.ArtikelZumAnlegen.Beschaffungspreis = artikel.Beschaffungspreis;
+            ArtikelAnlegenFenster.Show();
+
         }
         #endregion Methoden
     }
