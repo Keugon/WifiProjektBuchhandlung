@@ -6,6 +6,9 @@ using WIFI.Buchandlung.Client.Views;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
+    /// <summary>
+    /// Stellt das Viewmodel der PersonenKartei sowie Rückgabe der Entlehunngen bereit
+    /// </summary>
     public class PersonenKarteiViewModel : WIFI.Windows.ViewModel
     {
         #region Lokale Eigenschaft DatenManager     
@@ -17,13 +20,22 @@ namespace WIFI.Buchandlung.Client.ViewModels
         #endregion Lokale Eigenschaft DatenManager
 
         #region Befehle
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl ArtikelAusleihenCommand
             => new Befehl(p =>
             Ausleihen(
                 artikelZumAusleihen: ArtikelZumAusleihen,
                 entlehnungZumAnlegen: EntlehnungZumAnlegen
                 ));
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl EntlehnungRückgabeFensterÖffnenCommand => new Befehl(p => RückgabeFensterÖffnen((p as Entlehnung)!));
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl EntlehnungRückgabeCommand => new Befehl(p => Rückgabe((p as System.Windows.Window)!));
         #endregion Befehle
         #region Bindings
@@ -98,6 +110,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
         }
         private Entlehnung _EntlehnungZumAnlegen = null!;
+        /// <summary>
+        /// Ruft die das objekt ab das zum Anlegen einer neuen
+        /// Entlehnung benutzt werden soll oder legt dieses fest
+        /// </summary>
         public Entlehnung EntlehnungZumAnlegen
         {
             get
@@ -110,7 +126,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
             set => this._EntlehnungZumAnlegen = value;
         }
-
+        /// <summary>
+        /// Ruft das Entlehnungs Objekt ab das verwendet
+        /// wird um eine Entlehung zurückzugeben ab oder legt dieses fest
+        /// </summary>
         public Entlehnung? ZurückGebenEntlehnung { get; set; }
 
         #endregion Bindings
@@ -121,6 +140,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// </summary>
         /// <param name="artikelZumAusleihen">
         /// Artikel objekt mit der auszuleihenden InventarNr</param>
+        /// <param name="entlehnungZumAnlegen">
+        /// Entlehnungs objekt mit eine neue Entlehnung
+        /// in der DB erstellt wird</param>
         public void Ausleihen(
             InventarGegenstand artikelZumAusleihen,
             Entlehnung entlehnungZumAnlegen)
@@ -209,6 +231,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 }
             }
         }
+        /// <summary>
+        /// Öffnet das RückgabeFenster mit den Informationen der Entlehnung
+        /// </summary>
+        /// <param name="entlehnung"></param>
         public void RückgabeFensterÖffnen(Entlehnung entlehnung)
         {
             if (entlehnung != null)
@@ -220,6 +246,11 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 EntlehnungRückgabeFenster.Show();
             }
         }
+        /// <summary>
+        /// Schließt die Entlehung mit den informationen wie Rückgabe Zustand ab und berechnet die Strafbeträge falls notwendig,
+        /// schließt nach abschluss das RückgabeFenster
+        /// </summary>
+        /// <param name="currentWindow"></param>
         public void Rückgabe(System.Windows.Window currentWindow)
         {
             //Todo faking Selected Index +1 bis
@@ -245,6 +276,11 @@ namespace WIFI.Buchandlung.Client.ViewModels
             this.EntlehnungenListe = null!;
             OnPropertyChanged(nameof(EntlehnungenListe));
         }
+        /// <summary>
+        /// Berechnet die Strafgebühren wenn notwendig für eine Entlehnung und gibt den wert zurück
+        /// </summary>
+        /// <param name="entlehnungZumBerechnen">Entlehung zum Berechnen</param>
+        /// <returns></returns>
         public decimal StrafbetragBerechnen(Entlehnung entlehnungZumBerechnen)
         {
             //wenn 14Tage nicht überschritten und

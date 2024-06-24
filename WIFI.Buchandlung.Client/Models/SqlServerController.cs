@@ -16,7 +16,6 @@ namespace WIFI.Buchandlung.Client.Models
         /// Gibt eine Liste von Artikeln aus der Datebank zurück
         /// </summary>
         /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
-        /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
         /// <returns>Liste von Artikeln</returns>
         public Task<ArtikelListe> HoleArtikelAsync(string suchParameter)
         {
@@ -74,11 +73,11 @@ namespace WIFI.Buchandlung.Client.Models
             });
         }
         /// <summary>
-        /// Gibt eine Liste von Artikeln aus der Datebank zurück
+        /// Gibt eine Liste von InventarGegenstände aus der Datebank zurück
         /// </summary>
         /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
         /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
-        /// <returns>Liste von Artikeln</returns>
+        /// <returns>Liste von InventarGegenstände</returns>
         public Task<InventarGegenstände> HoleInventarGegenständeAsync(string suchParameter, int? inventarNr = null!)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
@@ -139,11 +138,11 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
         }
         /// <summary>
-        /// Gibt eine Liste von Artikeln aus der Datebank zurück
+        /// Gibt eine Liste von InventarGegenstände aus der Datebank zurück
         /// </summary>
-        /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
-        /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
-        /// <returns>Liste von Artikeln</returns>
+        /// <param name="artikelGuid">GUID des Artikels dessen 
+        /// InventarGegenstände geholt werden sollen</param>
+        /// <returns>Liste von InventarGegenstände</returns>
         public Task<InventarGegenstände> HoleInventarGegenständeAsync(Guid artikelGuid)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
@@ -262,8 +261,16 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
         }
         /// <summary>
-        /// Neuen Artikel in der Datenbank anlegen
+        /// Legt einen neuen InventarGegenstände in der Datenbank an oder überschreibt ihn
         /// </summary>
+        /// <param name="artikelZumAnlegen">Artikel der bei dem InventarGegenstand hinterlegt werden soll</param><remarks>
+        /// Es wird auf InventarNr geprüft wenn ein Update eines InventarGegenstände durchgeführt werden soll,
+        /// danach auf Artikel GUID falls ein neuer InventarGegenstände mit vorhandenen Artikel angelegt wird,
+        /// zuletzt wird ein neuer InventarGegenstände mit neuen Artikel angelegt</remarks>
+        /// <returns>
+        /// 1 = InventarGegenstände updated via InventarNr, 
+        /// 2 = InventarGegenstände und mit angegeben Artikel wurde angelegt,
+        /// 3 = Neuer InventarGegenstände und neuer Artikel wurde angelegt</returns>
         public Task<int> InventarGegenstandAnlegen(InventarGegenstand artikelZumAnlegen)
         {
             //Das Holen als TAP Thread Laufen lassen
@@ -428,11 +435,11 @@ Befehl.Parameters.Add(rückmeldungParameter);
 
         }
         /// <summary>
-        /// Gibt die Entlehnungen einer Person oder aller Personen zurück
+        /// Gibt die letzte Entlehnung des Angegebenen InventarNr zurück
         /// </summary>
-        /// <param name="personID">(Optional)GUID einer Person 
-        /// um die Enlehnungen auf diese zu beschränken</param>
-        /// <returns>Liste von Entlehnungen</returns>
+        /// <param name="inventarNr">inventarNr des InventarGegenstands 
+        /// dessen letzte Entlehung gebrauchtr wird</param>
+        /// <returns>Eine Entlehnung zum InventarGegenstand</returns>
         public Task<Entlehnung> HoleEntlehnungAsync(int inventarNr)
         {
             //Das Holen als TAP Thread Laufen lassen
@@ -545,11 +552,11 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
         }
         /// <summary>
-        /// Gibt die Entlehnungen einer Person oder aller Personen zurück
+        /// Gibt die Aktuelle Gebühr zurück
         /// </summary>
-        /// <param name="personID">(Optional)GUID einer Person 
-        /// um die Enlehnungen auf diese zu beschränken</param>
-        /// <returns>Liste von Entlehnungen</returns>
+        /// <param name="suchDatum">(Optional)Ein Datum von dem 
+        /// Aus die gültige Gebühr zurückgegeben werden soll</param>
+        /// <returns>Gebühr</returns>
         public Task<Gebühr> HoleAktuelleGebührAsync(DateTime? suchDatum = null)
         {
             //Das Holen als TAP Thread Laufen lassen
