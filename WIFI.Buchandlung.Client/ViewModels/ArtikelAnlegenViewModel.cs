@@ -84,6 +84,36 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
         }
 
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Typen _Typen = null!;
+
+        /// <summary>
+        /// Ruft die Typen der
+        /// Artikel ab oder legt diese fest
+        /// </summary>
+        public Typen TypenListe
+        {
+            get
+            {
+                if (this._Typen == null)
+                {
+                    this._Typen
+                        = this.DatenManager!.SqlServerController
+                        .HoleTypenAsync().Result;
+                    System.Diagnostics.Debug.WriteLine("Typenliste geholt");
+                }
+                return this._Typen;
+            }
+            set
+            {
+                this._Typen = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         #endregion ArtikelBinding
 
         #region Lokale Eigenschaft DatenManager     

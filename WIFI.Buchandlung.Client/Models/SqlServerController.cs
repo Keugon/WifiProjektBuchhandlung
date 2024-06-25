@@ -493,7 +493,10 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
 
         }
-
+        /// <summary>
+        /// Holt die Zustände aus dem Datenbank
+        /// </summary>
+        /// <returns></returns>
         public Task<Zustände> HoleZuständeAsync()
         {
             //Das Holen als TAP Thread Laufen lassen
@@ -540,7 +543,56 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
 
         }
+        /// <summary>
+        /// Holt die Typen aus dem Datenbank
+        /// </summary>
+        /// <returns></returns>
+        public Task<Typen> HoleTypenAsync()
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Typen>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                Typen Rückmeldung = new Typen();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("HoleTypen", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
 
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
+                {
+                    Rückmeldung.Add(new Typ
+                    {
+                        ID = (int)Daten["ID"],
+                        Bezeichnung = (string)Daten["Bezeichnung"]
+                    });
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+
+        }
 
 
 
