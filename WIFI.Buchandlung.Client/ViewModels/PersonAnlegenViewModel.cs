@@ -4,6 +4,9 @@ using WIFI.Windows;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
+    /// <summary>
+    /// Stellt das Viemodel zum Personen Anlegen bereit
+    /// </summary>
     public class PersonAnlegenViewModel : WIFI.Windows.ViewModel
     {
         #region Befehle
@@ -52,6 +55,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 return this._PersonZumAnlegen;
             }
         }
+        /// <summary>
+        /// Ruft den DateTime Geburtstag ab oder legt diesen fest
+        /// </summary>
         public DateTime GeburtsTag { get; set; } = DateTime.Today;
 
         #endregion Bindings

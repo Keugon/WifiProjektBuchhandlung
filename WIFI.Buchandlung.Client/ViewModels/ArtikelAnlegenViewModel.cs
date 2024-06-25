@@ -4,6 +4,9 @@ using WIFI.Windows;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
+    /// <summary>
+    /// Stellt das Viewmodel zum Anlegen von Artikel/InventarGegenstände bereit
+    /// </summary>
     public class ArtikelAnlegenViewModel : WIFI.Windows.ViewModel
     {
         #region Befehle

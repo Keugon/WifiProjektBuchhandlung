@@ -1,5 +1,8 @@
 ﻿namespace WIFI.Buchandlung.Client
 {
+    /// <summary>
+    /// Dienst zum kommunizieren mit der Datenbank
+    /// </summary>
     public class DatenManager : WIFI.Anwendung.AppObjekt
     {
         /// <summary>

@@ -493,7 +493,10 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
 
         }
-
+        /// <summary>
+        /// Gibt eine Liste von Zustands-Objekten zurück
+        /// </summary>
+        /// <returns></returns>
         public Task<Zustände> HoleZuständeAsync()
         {
             //Das Holen als TAP Thread Laufen lassen
