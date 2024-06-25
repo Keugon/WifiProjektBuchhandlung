@@ -210,7 +210,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 this._ArtikelListe = value;
                 OnPropertyChanged();
             }
-        }            
+        }
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -225,6 +225,25 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 this._PersonAnlegenVM = this.Kontext.Produziere<PersonAnlegenViewModel>();
                 this._PersonAnlegenVM.DatenManager = this.DatenManager;
                 return this._PersonAnlegenVM;
+            }
+        }
+        /// <summary>
+        /// Ruft die Liste an Entlehnungen die überfällig(Gebühr.GebührenFreieTage) sind ab
+        /// </summary>
+        public Entlehnungen Mahnungen
+        {
+            get
+            {
+                try
+                {
+                    return this.DatenManager.SqlServerController.HoleÜberfälligeEntlehnungenAsync().Result;
+                }
+                catch (Exception ex)
+                {
+                    OnFehlerAufgetreten(ex);
+                    //Falls die Abfrage scheitert
+                    return new Entlehnungen();
+                }
             }
         }
         /// <summary>
@@ -288,6 +307,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     break;
                 case nameof(PersonenSuche):
                     AktuelleView = new Views.PersonenSuche();
+                    break;
+                case nameof(MahnungenView):
+                    AktuelleView = new Views.MahnungenView();
                     break;
             }
         }

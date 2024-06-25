@@ -27,9 +27,12 @@
                     Command="{Binding MenüPunktAnzeigenCommand}"
                     CommandParameter="ArtikelSuche"/>
             <Button Content="PersonenSuche"
-        Command="{Binding MenüPunktAnzeigenCommand}"
-        CommandParameter="PersonenSuche"/>
-           
+                    Command="{Binding MenüPunktAnzeigenCommand}"
+                    CommandParameter="PersonenSuche"/>
+            <Button Content="Mahnungen"
+                    Command="{Binding MenüPunktAnzeigenCommand}"
+                    CommandParameter="MahnungenView"/>
+
         </StackPanel>
         <ContentControl
             Content="{Binding AktuelleView}"
