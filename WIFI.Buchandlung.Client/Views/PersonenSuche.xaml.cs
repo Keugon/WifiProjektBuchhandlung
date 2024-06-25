@@ -7,6 +7,9 @@ namespace WIFI.Buchandlung.Client.Views
     /// </summary>
     public partial class PersonenSuche : UserControl
     {
+        /// <summary>
+        /// PersonenSuche
+        /// </summary>
         public PersonenSuche()
         {
             InitializeComponent();

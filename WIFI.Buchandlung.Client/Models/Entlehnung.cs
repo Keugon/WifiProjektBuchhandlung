@@ -40,5 +40,9 @@
         /// Ruft die Strafbetrag Bemerkung ab oder legt diese fest
         /// </summary>
         public string? StrafbetragBemerkung { get; set; }
+        /// <summary>
+        /// Ruft das Person Objekt zum dieser Entlehnung ab oder legt dieses fest
+        /// </summary>
+        public Person? AusleiherDaten { get; set; }
     }
 }

@@ -7,6 +7,9 @@ namespace WIFI.Buchandlung.Client.Views
     /// </summary>
     public partial class Hauptfenster : Window
     {
+        /// <summary>
+        /// Hauptfenster
+        /// </summary>
         public Hauptfenster()
         {
             InitializeComponent();

@@ -194,7 +194,6 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
         }
-
         /// <summary>
         /// Holt die Passenden Personne aus 
         /// der Datenbank mit den angegeben parameter
@@ -435,6 +434,74 @@ Befehl.Parameters.Add(rückmeldungParameter);
 
         }
         /// <summary>
+        /// Gibt die Entlehnungen von Personen zurück deren "Gebüh bereits abgelaufen sind
+        /// </summary>
+        /// <param name="gebührenFreieTage">(Optional)Es kan eine bestimmte anzahl an Tagen
+        /// vom Ausleih Datum ab angegeben werden sont gilt der 
+        /// wert des aktuell gültigen Gebührensatzes</param>
+        /// <returns>Liste von Entlehnungen</returns>
+        public Task<Entlehnungen> HoleÜberfälligeEntlehnungenAsync(int? gebührenFreieTage = null)
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Entlehnungen>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                Entlehnungen Rückmeldung = new Entlehnungen();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("EntlehnungÜberfällig", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@GebührenFreieTage", gebührenFreieTage);
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
+                {
+                    Rückmeldung.Add(new Entlehnung
+                    {
+                        ID = (System.Guid)Daten["IDEntlehnung"],
+                        InventarNr = (int)Daten["InventarNr"],
+                        Ausleiher = (System.Guid)Daten["AusleiherNr"],
+                        AusleihDatum = (DateTime)Daten["AusleihDatum"],
+                        AusleiherDaten = new Person
+                        {
+                            ID = (System.Guid)Daten["ID"],
+                            Vorname = (string)Daten["Vorname"],
+                            Nachname = (string)Daten["Nachname"],
+                            Telefonnummer = (string)Daten["TelNr"],
+                            Email = (string)Daten["Email"],
+                            Straße = (string)Daten["Straße"],
+                            Ort = (string)Daten["Ort"],
+                            Plz = (int)Daten["PLZ"],
+                            AusweisNr = (string)Daten["AusweisNr"]
+                        }
+                    });
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+
+        }
+        /// <summary>
         /// Gibt die letzte Entlehnung des Angegebenen InventarNr zurück
         /// </summary>
         /// <param name="inventarNr">inventarNr des InventarGegenstands 
@@ -493,7 +560,10 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
 
         }
-
+        /// <summary>
+        /// Gibt eine Liste von Zustands-Objekten zurück
+        /// </summary>
+        /// <returns></returns>
         public Task<Zustände> HoleZuständeAsync()
         {
             //Das Holen als TAP Thread Laufen lassen
@@ -540,11 +610,6 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
 
         }
-
-
-
-
-
         /// <summary>
         /// Legt eine neue Entlehnung in der Datenbank an
         /// </summary>
