@@ -1,6 +1,9 @@
 ﻿using WIFI.Buchandlung.Client.Models;
 using WIFI.Buchandlung.Client.Views;
 using WIFI.Windows;
+using Microsoft.Win32;
+using System.Text;
+using System.IO;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
@@ -121,6 +124,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
         public Befehl InventarGegenstandvonArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegenÖffnen((p as Artikel)!));
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
+        public Befehl SpeichernInCSVCommand => new Befehl(p => SpeichernInCSV(Mahnungen));
         #endregion Commands
 
         #region Bindings            
@@ -426,6 +433,44 @@ namespace WIFI.Buchandlung.Client.ViewModels
             artikelAnlegenViewM.ArtikelZumAnlegen.Bezeichnung = artikel.Bezeichnung;
             artikelAnlegenViewM.ArtikelZumAnlegen.Beschaffungspreis = artikel.Beschaffungspreis;
             ArtikelAnlegenFenster.Show();
+
+        }
+        /// <summary>
+        /// Speichert das mitgegebene Objekt in eine CSV datei
+        /// </summary>
+        /// <param name="entlehnungenZumSpeichern">Entlehnungen Objekt das in eine CSV Datei geschrieben werden soll</param>
+        public void SpeichernInCSV(Entlehnungen entlehnungenZumSpeichern)
+        {
+            string speicherPfad;
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV file (*.csv)|*.csv";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                speicherPfad = saveFileDialog.FileName;
+                var csvInhalt = new StringBuilder();
+                //Kopfzeile
+                csvInhalt.AppendLine("InventarNr,AusleihDatum,Vorname,Nachname,TeleNr,Email,PLZ,Ort,Straße,AusweisNr");
+                //Objekt inhalt in csv schreiben
+                foreach (Entlehnung entlehnung in entlehnungenZumSpeichern)
+                {
+                    var zeile = string
+                            .Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}",
+                            entlehnung.InventarNr,
+                            entlehnung.AusleihDatum,
+                            entlehnung.AusleiherDaten!.Vorname,
+                            entlehnung.AusleiherDaten.Nachname,
+                            entlehnung.AusleiherDaten.Telefonnummer,
+                            entlehnung.AusleiherDaten.Email,
+                            entlehnung.AusleiherDaten.Plz,
+                            entlehnung.AusleiherDaten.Ort,
+                            entlehnung.AusleiherDaten.Straße,
+                            entlehnung.AusleiherDaten.AusweisNr
+                            );
+                    csvInhalt.AppendLine(zeile);
+                }
+                File.WriteAllText(speicherPfad,csvInhalt.ToString());
+            }
 
         }
         #endregion Methoden

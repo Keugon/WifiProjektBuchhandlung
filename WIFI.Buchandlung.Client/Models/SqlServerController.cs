@@ -475,10 +475,22 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 {
                     Rückmeldung.Add(new Entlehnung
                     {
-                        ID = (System.Guid)Daten["ID"],
+                        ID = (System.Guid)Daten["IDEntlehnung"],
                         InventarNr = (int)Daten["InventarNr"],
                         Ausleiher = (System.Guid)Daten["AusleiherNr"],
-                        AusleihDatum = (DateTime)Daten["AusleihDatum"]
+                        AusleihDatum = (DateTime)Daten["AusleihDatum"],
+                        AusleiherDaten = new Person
+                        {
+                            ID = (System.Guid)Daten["ID"],
+                            Vorname = (string)Daten["Vorname"],
+                            Nachname = (string)Daten["Nachname"],
+                            Telefonnummer = (string)Daten["TelNr"],
+                            Email = (string)Daten["Email"],
+                            Straße = (string)Daten["Straße"],
+                            Ort = (string)Daten["Ort"],
+                            Plz = (int)Daten["PLZ"],
+                            AusweisNr = (string)Daten["AusweisNr"]
+                        }
                     });
                 }
                 /*Kein return nur daten

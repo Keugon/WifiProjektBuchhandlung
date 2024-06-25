@@ -20,15 +20,12 @@ mc:Ignorable="d"
             Orientation="Horizontal"
             Grid.Row="0">
              <Label Content="Mahnungen"/>
-        <Button Content="Drucken"/>
+        <Button Content="Drucken"
+                Command="{Binding SpeichernInCSVCommand}"/>
         </StackPanel>
         <StackPanel
             Grid.Row="1">
-             
-       
-        
-        
-        <!--Listview ausgeliehenes-->
+       <!--Listview ausgeliehenes-->
         <ScrollViewer
              Grid.Row="2"
             Grid.ColumnSpan="2">
@@ -40,15 +37,20 @@ mc:Ignorable="d"
                 CanUserAddRows="False"
                 IsReadOnly="True"
                 ScrollViewer.CanContentScroll="True"
-                Height="250">
+                Height="250"
+                    FontSize="8pt">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
                         <DataGridTextColumn Header="AusleihDatum" Binding="{Binding AusleihDatum,StringFormat='dd.MM.yyyy HH:mm'}" />
-                        <DataGridTextColumn Header="RückgabeDatum" Binding="{Binding RückgabeDatum,StringFormat='dd.MM.yyyy HH:mm'}"/>
-                        <DataGridTextColumn Header="RückgabeZustand" Binding="{Binding RückgabeZustand}"/>
-                        <DataGridTextColumn Header="Strafbetrag" Binding="{Binding Strafbetrag}"/>
-                        <DataGridTextColumn Header="StrafbetragBemerkung" Binding="{Binding StrafbetragBemerkung}"/>
-                    </DataGrid.Columns>
+                        <DataGridTextColumn Header="Vorname" Binding="{Binding AusleiherDaten.Vorname}"/>
+                        <DataGridTextColumn Header="Nachname" Binding="{Binding AusleiherDaten.Nachname}"/>
+                        <DataGridTextColumn Header="TeleNr" Binding="{Binding AusleiherDaten.Telefonnummer}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding AusleiherDaten.Email}"/>
+                        <DataGridTextColumn Header="PLZ" Binding="{Binding AusleiherDaten.Plz}"/>
+                        <DataGridTextColumn Header="Ort" Binding="{Binding AusleiherDaten.Ort}"/>
+                        <DataGridTextColumn Header="Straße" Binding="{Binding AusleiherDaten.Straße}"/>
+                        <DataGridTextColumn Header="AusweisNr" Binding="{Binding AusleiherDaten.AusweisNr}"/>
+                        </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
         </ScrollViewer>
