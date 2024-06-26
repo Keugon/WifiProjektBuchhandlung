@@ -142,8 +142,9 @@ Befehl.Parameters.Add(rückmeldungParameter);
         /// </summary>
         /// <param name="artikelGuid">GUID des Artikels dessen 
         /// InventarGegenstände geholt werden sollen</param>
+        /// <param name="artikelSuchModus">SuchModus um die Ausgabe zu spezifizieren</param>
         /// <returns>Liste von InventarGegenstände</returns>
-        public Task<InventarGegenstände> HoleInventarGegenständeAsync(Guid artikelGuid)
+        public Task<InventarGegenstände> HoleInventarGegenständeAsync(Guid artikelGuid,int artikelSuchModus = 0)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
             //Das Holen als TAP Thread Laufen lassen
@@ -161,7 +162,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
                 //Damit wir SQL Injection sicher sind..
                 Befehl.Parameters.AddWithValue("@ArtikelGUID", artikelGuid);
-
+                Befehl.Parameters.AddWithValue("@SuchModus", artikelSuchModus);
                 //Damit das RDBMS die sql Anweisung nicht jedes Mals
                 //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
                 Befehl.Prepare();

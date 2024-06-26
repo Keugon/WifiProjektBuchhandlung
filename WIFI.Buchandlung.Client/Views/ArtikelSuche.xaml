@@ -37,7 +37,20 @@
                         Command="{Binding ArtikelSucheCommand}"/>
                 <Button Content="Artikel Anlegen"
          Command="{Binding ArtikelAnlegenCommand}"/>
-            </StackPanel>
+            <RadioButton Content="Alle Anzeigen"
+                         GroupName="ArtikelModus"
+                         Command="{Binding ArtikelModusCommand}"
+                         CommandParameter="0"
+                         IsChecked="True"/>
+            <RadioButton Content="Nur vorhanden"
+                         GroupName="ArtikelModus"
+                         Command="{Binding ArtikelModusCommand}"
+                         CommandParameter="1"/>
+            <RadioButton Content="Ausgeschiedene Anzeigen bzw wünsche"
+                         GroupName="ArtikelModus"
+                         Command="{Binding ArtikelModusCommand}"
+                         CommandParameter="2"/>
+        </StackPanel>
             <!--Such Ergebnis Liste-->
             <!--Es müssen Daten in einer Classe als Eigenschaft 
                 mit Getter bereit stehen public alleine reicht nicht-->
