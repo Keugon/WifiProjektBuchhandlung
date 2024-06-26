@@ -12,45 +12,112 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Textfelder nicht leer sind und gibt den Button frei
         /// </summary>
         public Befehl ArtikelAnlegenCommand
-            => new Befehl(p => ArtikelnAnlegen(), p =>
+            => new Befehl(p => ArtikelnAnlegen((p as System.Windows.Window)!), p =>
             {
 
                 if (Tools.General
-                .AreStringsValid())
+                .AreStringsValid(
+                    ArtikelZumAnlegen.Bezeichnung!,
+                    ArtikelZumAnlegen.Beschaffungspreis.ToString()!,
+                    ArtikelZumAnlegen.Typ!,
+                    ArtikelZumAnlegen.Zustand!
+                    ))
                 {
                     return true;
                 }
                 return false;
             });
+        //Bug ggf (ongün) Button kan angeklickt werden ohne inhalt in den Boxen
         #endregion  Befehle
 
         #region ArtikelBinding
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
-        private Artikel _ArtikelZumAnlegen = null!;
+        private InventarGegenstand _ArtikelZumAnlegen = null!;
         /// <summary>
         /// Ruft das DatentransferObjekt ab zum Anlegen eines Artikels ab
         /// </summary>
-        public Artikel ArtikelZumAnlegen
+        public InventarGegenstand ArtikelZumAnlegen
         {
             get
             {
                 if (this._ArtikelZumAnlegen == null)
                 {
-                    this._ArtikelZumAnlegen = new Artikel();
-                    this._ArtikelZumAnlegen.ID = Guid.NewGuid();
-                    //Todo Zustand und Typ Listen von der Datenbank
-                    //ziehen und in Dropdownlisten umsetzten
-
+                    this._ArtikelZumAnlegen = new InventarGegenstand();
+                    this._ArtikelZumAnlegen.ID = Guid.NewGuid();                  
                 }
                 return this._ArtikelZumAnlegen;
+            }
+            set
+            {
+                this._ArtikelZumAnlegen = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Zustände _Zustände = null!;
+
+        /// <summary>
+        /// Ruft die Zustände der
+        /// Artikel ab oder legt diese fest
+        /// </summary>
+        public Zustände ZustandsListe
+        {
+            get
+            {
+                if (this._Zustände == null)
+                {
+                    this._Zustände
+                        = this.DatenManager!.SqlServerController
+                        .HoleZuständeAsync().Result;
+                    System.Diagnostics.Debug.WriteLine("Zustandsliste geholt");
+                }
+                return this._Zustände;
+            }
+            set
+            {
+                this._Zustände = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Typen _Typen = null!;
+
+        /// <summary>
+        /// Ruft die Typen der
+        /// Artikel ab oder legt diese fest
+        /// </summary>
+        public Typen TypenListe
+        {
+            get
+            {
+                if (this._Typen == null)
+                {
+                    this._Typen
+                        = this.DatenManager!.SqlServerController
+                        .HoleTypenAsync().Result;
+                    System.Diagnostics.Debug.WriteLine("Typenliste geholt");
+                }
+                return this._Typen;
+            }
+            set
+            {
+                this._Typen = value;
+                OnPropertyChanged();
             }
 
             private 
 
 
         }
+
+
         #endregion ArtikelBinding
 
         #region Lokale Eigenschaft DatenManager     
@@ -65,7 +132,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Legt einen neuen Artigel in der Datenbank an
         /// </summary>
-        public void ArtikelnAnlegen()
+        public void ArtikelnAnlegen(System.Windows.Window currentWindow)
         {
             try
             {
@@ -77,9 +144,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 int ArtikelTyp = int.Parse(ArtikelZumAnlegen.Typ!);
                 ArtikelTyp += 1;
                 ArtikelZumAnlegen.Typ = ArtikelTyp.ToString();
-                Guid newGuidOnDemand = Guid.NewGuid();
                 int rückmeldung = this.DatenManager!.SqlServerController
-                    .ArtikelAnlegen(ArtikelZumAnlegen).Result;
+                    .InventarGegenstandAnlegen(ArtikelZumAnlegen).Result;
                 System.Diagnostics.Debug.WriteLine($"Rückmeldung aus dem Artikel Anlegen:{rückmeldung}");
                 if (rückmeldung == 2)
                 {
@@ -91,6 +157,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
                 System.Diagnostics.Debug.WriteLine($"{ex.Message}");
             }
+            //fenster schließen
+            currentWindow.Close();
         }
         #endregion Methoden
     }

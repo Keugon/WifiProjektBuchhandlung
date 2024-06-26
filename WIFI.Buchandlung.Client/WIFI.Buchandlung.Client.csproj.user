@@ -13,6 +13,9 @@
     <Compile Update="Views\ArtikelSuche.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\EntlehnungRückgabe.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Hauptfenster.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ArtikelSuche.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EntlehnungRückgabe.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Hauptfenster.xaml">

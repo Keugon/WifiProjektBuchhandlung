@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using System.Transactions;
 
 namespace WIFI.Buchandlung.Client.Models
 {
@@ -17,9 +16,8 @@ namespace WIFI.Buchandlung.Client.Models
         /// Gibt eine Liste von Artikeln aus der Datebank zurück
         /// </summary>
         /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
-        /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
         /// <returns>Liste von Artikeln</returns>
-        public Task<ArtikelListe> HoleArtikelListeAsync(string suchParameter, string inventarNr = null!)
+        public Task<ArtikelListe> HoleArtikelAsync(string suchParameter)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
             //Das Holen als TAP Thread Laufen lassen
@@ -27,12 +25,73 @@ namespace WIFI.Buchandlung.Client.Models
             {
                 this.Kontext.Log.StartMelden();
                 //Für das Ergebnis
-                ArtikelListe Rückmeldung = new ArtikelListe();
+                var Rückmeldung = new ArtikelListe();
                 //Erstens - ein Verbindungsobjekt 
                 using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
                 //Zweitens - ein Befehlsobjekt
                 //(Reicht für Insert, Update und Delet)
                 using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("ArtikelSuche", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@SuchParameter", suchParameter);
+                /* kein Return Value nur daten
+                var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
+                {
+                Direction = System.Data.ParameterDirection.Output
+                };
+                Befehl.Parameters.Add(rückmeldungParameter);
+*/
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
+                {
+                    Rückmeldung.Add(new Artikel
+                    {
+                        ID = (Guid)Daten["ID"],
+                        Bezeichnung = (string)Daten["Bezeichnung"],
+                        Beschaffungspreis = (decimal)Daten["Beschaffungspreis"]
+                    });
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+        }
+        /// <summary>
+        /// Gibt eine Liste von InventarGegenstände aus der Datebank zurück
+        /// </summary>
+        /// <param name="suchParameter">SuchParameter nach Artikel.Bezeichnung</param>
+        /// <param name="inventarNr">(Optional) Sucht nach InventarNr</param>
+        /// <returns>Liste von InventarGegenstände</returns>
+        public Task<InventarGegenstände> HoleInventarGegenständeAsync(string suchParameter, int? inventarNr = null!)
+        {
+            //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<InventarGegenstände>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                InventarGegenstände Rückmeldung = new InventarGegenstände();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("InventarGegenstandSuche", Verbindung);
                 //Mitteilen das wir kein SQL direkt haben
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
                 //Damit wir SQL Injection sicher sind..
@@ -62,11 +121,67 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 //Datentransferobjekte "mappen"
                 while (Daten.Read())
                 {
-                    Rückmeldung.Add(new Artikel
+                    Rückmeldung.Add(new InventarGegenstand
                     {
-                        ID = (System.Guid)Daten["ID"],
-                        Bezeichnung = (string)Daten["Bezeichnung"],
                         InventarNr = (int)Daten["InventarNr"],
+                        Bezeichnung = (string)Daten["Bezeichnung"],
+                        Beschaffungspreis = (decimal)Daten["Beschaffungspreis"],
+                        Zustand = (string)Daten["Zustand"],
+                        Typ = (string)Daten["Typ"]
+                    });
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+        }
+        /// <summary>
+        /// Gibt eine Liste von InventarGegenstände aus der Datebank zurück
+        /// </summary>
+        /// <param name="artikelGuid">GUID des Artikels dessen 
+        /// InventarGegenstände geholt werden sollen</param>
+        /// <returns>Liste von InventarGegenstände</returns>
+        public Task<InventarGegenstände> HoleInventarGegenständeAsync(Guid artikelGuid)
+        {
+            //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<InventarGegenstände>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                InventarGegenstände Rückmeldung = new InventarGegenstände();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("InventarGegenstandSuche", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@ArtikelGUID", artikelGuid);
+
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
+                {
+                    Rückmeldung.Add(new InventarGegenstand
+                    {
+                        InventarNr = (int)Daten["InventarNr"],
+                        Bezeichnung = (string)Daten["Bezeichnung"],
                         Beschaffungspreis = (decimal)Daten["Beschaffungspreis"],
                         Zustand = (string)Daten["Zustand"],
                         Typ = (string)Daten["Typ"]
@@ -145,69 +260,18 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
         }
-
-        #region Holt die Zustände aus der Datenbank 
-
         /// <summary>
-        /// Gibt die Zustände der Artikel zurück
+        /// Legt einen neuen InventarGegenstände in der Datenbank an oder überschreibt ihn
         /// </summary>
-        public Task<Zustände> HoleZuständeAsync()
-        {
-            // Das Holen als TAP Thread laufen lassen
-            return System.Threading.Tasks.Task<Zustände>.Run(() =>
-            {
-            this.Kontext.Log.StartMelden();
-            // Für das Ergebnis ...
-            Zustände Rückmeldung = new Zustände();
-            // Erstens  - ein Verbindungsobjekt
-            using var Verbindung = new Microsoft.Data.SqlClient
-                .SqlConnection(this.Kontext.Verbindungszeichenfolge);
-
-            // Zweitens - ein Befehlsobjekt
-            //            (Reicht für INSERT, UPDATE und DELETE)
-            using var Befehl = new Microsoft.Data.SqlClient
-                .SqlCommand("HoleZustände", Verbindung);
-            // Mitteilen, dass wir keine SQL direkt haben
-            Befehl.CommandType = System.Data.CommandType.StoredProcedure;
-            // Damit das RDBMS die Sql Anweisung nicht jedes Mal 
-            // analysiert, nur einmal und cachen("Ausführungsplan ="1")
-            Befehl.Prepare();
-            //Grundsatz "Öffne Spät-schließe früh"
-            Verbindung.Open();
-                // Für Inser, Update und Delet
-                //Befehl.ExecuteNonQuery();
-                
-                // Drittens - ein Datenobjekt für SELECT
-                using var Daten = Befehl
-                    .ExecuteReader(System.Data.CommandBehavior
-                        .CloseConnection);
-
-                //Die Daten vom Reader in unsere 
-                //Datentransferobjekte "mappen"
-                while (Daten.Read())
-                {
-                    Rückmeldung.Add(new Zustand
-                    {
-                        ID = (int)Daten["ID"],
-                        Bezeichnung = (string)Daten["Bezeichnung"]
-                    });
-                }
-                /*Kein return nur daten
-                Rückmeldung = (int)rückmeldungParameter.Value;
-                */
-                this.Kontext.Log.EndeMelden();
-                return Rückmeldung;
-            });
-
-        }   
-                #endregion Holt die Zustände aus der Datenbank 
-
-
-
-                /// <summary>
-                /// Neuen Artikel in der Datenbank anlegen
-                /// </summary>
-                public Task<int> ArtikelAnlegen(Artikel artikelZumAnlegen)
+        /// <param name="artikelZumAnlegen">Artikel der bei dem InventarGegenstand hinterlegt werden soll</param><remarks>
+        /// Es wird auf InventarNr geprüft wenn ein Update eines InventarGegenstände durchgeführt werden soll,
+        /// danach auf Artikel GUID falls ein neuer InventarGegenstände mit vorhandenen Artikel angelegt wird,
+        /// zuletzt wird ein neuer InventarGegenstände mit neuen Artikel angelegt</remarks>
+        /// <returns>
+        /// 1 = InventarGegenstände updated via InventarNr, 
+        /// 2 = InventarGegenstände und mit angegeben Artikel wurde angelegt,
+        /// 3 = Neuer InventarGegenstände und neuer Artikel wurde angelegt</returns>
+        public Task<int> InventarGegenstandAnlegen(InventarGegenstand artikelZumAnlegen)
         {
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<int>.Run(() =>
@@ -219,7 +283,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
                 //Zweitens - ein Befehlsobjekt
                 //(Reicht für Insert, Update und Delet)
-                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("ArtikelSpeichern", Verbindung);
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("InventarGegenstandSpeichern", Verbindung);
                 //Mitteilen das wir kein SQL direkt haben
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -356,10 +420,10 @@ Befehl.Parameters.Add(rückmeldungParameter);
                         InventarNr = (int)Daten["InventarNr"],
                         Ausleiher = (System.Guid)Daten["AusleiherNr"],
                         AusleihDatum = (DateTime)Daten["AusleihDatum"],
-                        RückgabeDatum = (DateTime)Daten["RückgabeDatum"],
-                        RückgabeZustand = (string)Daten["RückgabeZustand"],
-                        Strafbetrag = (decimal)Daten["Strafbetrag"],
-                        StrafbetragBemerkung = (string)Daten["StrafBetragBemerkung"]
+                        RückgabeDatum = Daten["RückgabeDatum"] == DBNull.Value ? (DateTime?)null : (DateTime)Daten["RückgabeDatum"],
+                        RückgabeZustand = Daten["RückgabeZustand"] == DBNull.Value ? (string?)null : (string)Daten["RückgabeZustand"],
+                        Strafbetrag = Daten["Strafbetrag"] == DBNull.Value ? (decimal?)null : (decimal)Daten["Strafbetrag"],
+                        StrafbetragBemerkung = Daten["StrafBetragBemerkung"] == DBNull.Value ? (string?)null : (string)Daten["StrafBetragBemerkung"]
                     });
                 }
                 /*Kein return nur daten
@@ -371,10 +435,175 @@ Befehl.Parameters.Add(rückmeldungParameter);
 
         }
         /// <summary>
-        /// Legt eine neue Person in der Datenbank an
+        /// Gibt die letzte Entlehnung des Angegebenen InventarNr zurück
         /// </summary>
-        /// <returns>return 1 oder 2 für update
-        /// oder neu angelegt</returns>
+        /// <param name="inventarNr">inventarNr des InventarGegenstands 
+        /// dessen letzte Entlehung gebrauchtr wird</param>
+        /// <returns>Eine Entlehnung zum InventarGegenstand</returns>
+        public Task<Entlehnung> HoleEntlehnungAsync(int inventarNr)
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Entlehnung>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                var Rückmeldung = new Entlehnung();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("EntlehnungSuche", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@InventarNr", inventarNr);
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                if (Daten.Read())
+                {
+                    Rückmeldung = new Entlehnung
+                    {
+                        ID = (System.Guid)Daten["ID"],
+                        InventarNr = (int)Daten["InventarNr"],
+                        Ausleiher = (System.Guid)Daten["AusleiherNr"],
+                        AusleihDatum = (DateTime)Daten["AusleihDatum"],
+                        RückgabeDatum = Daten["RückgabeDatum"] == DBNull.Value ? (DateTime?)null : (DateTime)Daten["RückgabeDatum"],
+                        RückgabeZustand = Daten["RückgabeZustand"] == DBNull.Value ? (string?)null : (string)Daten["RückgabeZustand"],
+                        Strafbetrag = Daten["Strafbetrag"] == DBNull.Value ? (decimal?)null : (decimal)Daten["Strafbetrag"],
+                        StrafbetragBemerkung = Daten["StrafBetragBemerkung"] == DBNull.Value ? (string?)null : (string)Daten["StrafBetragBemerkung"]
+                    };
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+
+        }
+        /// <summary>
+        /// Holt die Zustände aus dem Datenbank
+        /// </summary>
+        /// <returns></returns>
+        public Task<Zustände> HoleZuständeAsync()
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Zustände>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                Zustände Rückmeldung = new Zustände();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("HoleZustände", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
+                {
+                    Rückmeldung.Add(new Zustand
+                    {
+                        ID = (int)Daten["ID"],
+                        Bezeichnung = (string)Daten["Bezeichnung"]
+                    });
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+
+        }
+        /// <summary>
+        /// Holt die Typen aus dem Datenbank
+        /// </summary>
+        /// <returns></returns>
+        public Task<Typen> HoleTypenAsync()
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Typen>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                Typen Rückmeldung = new Typen();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("HoleTypen", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
+                {
+                    Rückmeldung.Add(new Typ
+                    {
+                        ID = (int)Daten["ID"],
+                        Bezeichnung = (string)Daten["Bezeichnung"]
+                    });
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+
+        }
+
+
+
+
+        /// <summary>
+        /// Legt eine neue Entlehnung in der Datenbank an
+        /// </summary>
+        /// <param name="EntlehnungZumAnlegen">
+        /// Entlehnungs objekt das zum anlegen benutzt werden soll,
+        /// RückgabeDatum,Zustand,strafbetrag,strafbetrag bemerkung werden zum anlegen nicht benötigt und sollten NULL sein</param>
+        /// <returns>1 für angelegt 2 für updated</returns>
         public Task<int> EntlehnungAnlegen(Entlehnung EntlehnungZumAnlegen)
         {
             //Das Holen als TAP Thread Laufen lassen
@@ -395,8 +624,8 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 Befehl.Parameters.AddWithValue("@id", EntlehnungZumAnlegen.ID);
                 Befehl.Parameters.AddWithValue("@inventarNr", EntlehnungZumAnlegen.InventarNr);
                 Befehl.Parameters.AddWithValue("@ausleiherNr", EntlehnungZumAnlegen.Ausleiher);
-                Befehl.Parameters.AddWithValue("@ausleihDatum", EntlehnungZumAnlegen.AusleihDatum.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-                Befehl.Parameters.AddWithValue("@rückgabeDatum", EntlehnungZumAnlegen.RückgabeDatum.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                Befehl.Parameters.AddWithValue("@ausleihDatum", EntlehnungZumAnlegen.AusleihDatum!.Value);
+                Befehl.Parameters.AddWithValue("@rückgabeDatum", EntlehnungZumAnlegen.RückgabeDatum!.HasValue ? EntlehnungZumAnlegen.RückgabeDatum!.Value : null);
                 Befehl.Parameters.AddWithValue("@rückgabeZustand", EntlehnungZumAnlegen.RückgabeZustand);
                 Befehl.Parameters.AddWithValue("@strafbetrag", EntlehnungZumAnlegen.Strafbetrag);
                 Befehl.Parameters.AddWithValue("@strafbetragBemerkung", EntlehnungZumAnlegen.StrafbetragBemerkung);
@@ -426,7 +655,62 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
         }
+        /// <summary>
+        /// Gibt die Aktuelle Gebühr zurück
+        /// </summary>
+        /// <param name="suchDatum">(Optional)Ein Datum von dem 
+        /// Aus die gültige Gebühr zurückgegeben werden soll</param>
+        /// <returns>Gebühr</returns>
+        public Task<Gebühr> HoleAktuelleGebührAsync(DateTime? suchDatum = null)
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Gebühr>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                var Rückmeldung = new Gebühr();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("AktuelleGebühren", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@SuchDatum", suchDatum);
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                if (Daten.Read())
+                {
+                    Rückmeldung = new Gebühr
+                    {
+                        LfdNr = (int)Daten["LfdNr"],
+                        GültigAb = (DateTime)Daten["GültigAb"],
+                        Strafgebühr = (decimal)Daten["Strafgebühr"],
+                        ErsatzgebührFaktor = (double)Daten["ErsatzgebührFaktor"],
+                        GebührenFreieTage = (int)Daten["GebührenFreieTage"]
+                    };
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
 
+        }
         //Todo (Datenbank) Mit dem aktuellen Datenbank design Artikel-> Entlehnung kan ein Artikel
         //nicht mehrere InventarNr auffassen somit ist ein artikel immer einzigartig und
         //die möglichkeit zu identifizieren ob von einem Artikel mehrere im Inventar
@@ -442,11 +726,15 @@ Befehl.Parameters.Add(rückmeldungParameter);
         //                                            | AusleihDatum|
         //                                            | RueckgabeDatum|
         //                                            +-------------+
-        //Neuer kommentar zwecks testbranch mergent
-        // nueer kommenatart vol 30
-        //florianTest
-        // Update check wegen der Sicherstellung der Funktion
-// commit 1 funktioniert
+
+        //Todo(Datenbank) Typ muss zu Artikel wandern da dieser auch für jeden InventargGegenstand gleich sein wird!
+        //Todo(InventarGegenstände) Ändern auf der ArtikelSuche seite mittels kontext menü und popout wie PersonenKarteiÖffnen
+        //Todo(Artikel) ggf(Ongün)Ändern auf der ArtikelSuche seite mittels kontext menü und popout wie PersonenKarteiÖffnen
+        //Todo(ArtikelSuche) bei nicht finden Vorschläge entweder direkt in Artikel oder in separate table aber warscheinlich in Artikel mit Typ wunsch
+        //Todo(ArtikelAnlegen) (Ongün) Zustand und Typ Listen von der Datenbank ziehen und in Dropdownlisten umsetzten
+        //Todo(Bestands/Austands) Liste ggf(Ongün)
+        //Todo(CSV) MahnungsListe
+
 
     }
 }

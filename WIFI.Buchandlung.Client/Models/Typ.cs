@@ -1,20 +1,16 @@
 ﻿namespace WIFI.Buchandlung.Client.Models
 {
     /// <summary>
-    /// Stellt eine typsichere Auflistung von Zustand Objekten bereit
+    /// Stellt eine typsichere Auflistung von Typ Objekten bereit
     /// </summary>
-    /// <remarks>Die Liste ist für die Datenbindung
-    /// vorbereitet, d.h. das CollectionChanged Ereignis
-    /// ist implementiert</remarks>
-    public class Zustände : System.Collections.Generic.List<Zustand>
+    public class Typen : System.Collections.Generic.List<Typ>
     {
 
     }
-
     /// <summary>
-    /// Beschreibt ein Zustand
+    /// Beschreibt einen Typ
     /// </summary>
-    public class Zustand : WIFI.Anwendung.Daten.DatenObjekt
+    public class Typ : WIFI.Anwendung.Daten.DatenObjekt
     {
         /// <summary>
         /// Ruft das ID ab oder legt es fest
@@ -24,6 +20,5 @@
         /// Ruft die Bezeichnung ab oder legt diese fest
         /// </summary>
         public string? Bezeichnung { get; set; }
-
     }
 }

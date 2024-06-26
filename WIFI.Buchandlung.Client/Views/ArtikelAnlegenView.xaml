@@ -5,11 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
         xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+        xmlns:tools="clr-namespace:WIFI.Buchandlung.Client.Tools"
         xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
         d:DataContext="{d:DesignInstance Type=viewmodels:ArtikelAnlegenViewModel}"
         DataContext="{Binding ArtikelAnlegenVM}"
         mc:Ignorable="d"
         Title="ArtikelAnlegenView" Height="450" Width="800">
+    <Window.Resources>
+        <tools:DecimalToString x:Key="DecimalToString"/>
+        <tools:StringToIntSelectedIndexComboBox x:Key="StringToIntSelectedIndexComboBox"/>
+            </Window.Resources>
     <Grid>
         <StackPanel
      Orientation="Horizontal"
@@ -25,23 +30,40 @@
             <ucontrol:TextBox 
          Wasserzeichen="Beschaffungspreis"
          Width="80"
-         Text="{Binding ArtikelZumAnlegen.Beschaffungspreis,UpdateSourceTrigger=PropertyChanged}"/>
+         Text="{Binding 
+                ArtikelZumAnlegen.Beschaffungspreis,
+                Converter={StaticResource ResourceKey=DecimalToString},
+                UpdateSourceTrigger=PropertyChanged}"/>
             <!--Todo Listen vom server abrufen um die int string 
             problematik in den griff zu bekommen-->
             <Label Content="Zustand:"/>
-            <ComboBox SelectedIndex="{Binding ArtikelZumAnlegen.Zustand}">
-                <ComboBoxItem Content="Neuwärtig"/>
-                <ComboBoxItem Content="Gebraucht"/>
-                <ComboBoxItem Content="Unbenutzbar"/>
-                <ComboBoxItem Content="Verloren"/>
+             <!--Todo es muss der in der Combobox ausgewählte 
+                Zustand dessen Zustand.ID in die ArtikelZumAnlegen.Zustand gebunden werden-->
+            <ComboBox ItemsSource="{Binding ZustandsListe }"
+                      DisplayMemberPath="Bezeichnung">
+           <!--
+            <ComboBox 
+                SelectedIndex="{Binding 
+                ArtikelZumAnlegen.Zustand}
+                Mode=TwoWay
+                Converter={StaticResource ResourceKey=StringToIntSelectedIndexComboBox}
+                UpdateSourceTrigger=PropertyChanged}"
+                <ComboBoxItem Content="Neuwärtig"/
+                <ComboBoxItem Content="Gebraucht"/
+                <ComboBoxItem Content="Unbenutzbar"/
+                <ComboBoxItem Content="Verloren"/
+-->
             </ComboBox>
             <Label Content="Typ:"/>
-            <ComboBox SelectedIndex="{Binding ArtikelZumAnlegen.Typ}">
-                <ComboBoxItem Content="Buch"/>
-                <ComboBoxItem Content="Spiel"/>
+            <!--Todo Ongün wie bei Zustand selbes vorgehen-->
+            <ComboBox ItemsSource="{Binding TypenListe }"
+                      DisplayMemberPath="Bezeichnung">
             </ComboBox>
             <Button Content="Anlegen"
-             Command="{Binding ArtikelAnlegenCommand }"/>
+             Command="{Binding ArtikelAnlegenCommand }"
+             CommandParameter="{Binding 
+                RelativeSource={RelativeSource Mode=FindAncestor,
+                AncestorType={x:Type Window}}}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -81,15 +81,28 @@
              Grid.Row="2"
             Grid.ColumnSpan="2">
              <StackPanel
-                Orientation="Vertical"
-           >
+                Orientation="Vertical" >
             <DataGrid
                 ItemsSource="{Binding EntlehnungenListe,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
-                    AutoGenerateColumns="False">
-                <DataGrid.Columns >
-                    <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
-                    <DataGridTextColumn Header="AusleihDatum" Binding="{Binding AusleihDatum}"/>
-                    <DataGridTextColumn Header="RückgabeDatum" Binding="{Binding RückgabeDatum}"/>
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                IsReadOnly="True"
+                ScrollViewer.CanContentScroll="True"
+                Height="250">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem
+                                Command="{Binding EntlehnungRückgabeFensterÖffnenCommand}"
+                                CommandParameter="{Binding PlacementTarget.SelectedItem,
+                               RelativeSource={RelativeSource FindAncestor,
+                               AncestorType={x:Type ContextMenu}}}"
+                                Header="Rückgabe"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                    <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/> 
+                    <DataGridTextColumn Header="AusleihDatum" Binding="{Binding AusleihDatum,StringFormat='dd.MM.yyyy HH:mm'}" />
+                    <DataGridTextColumn Header="RückgabeDatum" Binding="{Binding RückgabeDatum,StringFormat='dd.MM.yyyy HH:mm'}"/>
                     <DataGridTextColumn Header="RückgabeZustand" Binding="{Binding RückgabeZustand}"/>
                     <DataGridTextColumn Header="Strafbetrag" Binding="{Binding Strafbetrag}"/>
                     <DataGridTextColumn Header="StrafbetragBemerkung" Binding="{Binding StrafbetragBemerkung}"/>
