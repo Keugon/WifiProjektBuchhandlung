@@ -1,5 +1,10 @@
-﻿namespace WIFI.Buchandlung.Client.Models
+﻿using System.ComponentModel;
+
+namespace WIFI.Buchandlung.Client.Models
 {
+
+
+
     /// <summary>
     /// Stellt eine Typsichere auflistung von InventarGegenstand Objekten bereit
     /// </summary>

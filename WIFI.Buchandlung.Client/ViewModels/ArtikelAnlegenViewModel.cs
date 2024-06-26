@@ -34,6 +34,11 @@ namespace WIFI.Buchandlung.Client.ViewModels
         #endregion  Befehle
 
         #region ArtikelBinding
+
+
+
+
+
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -43,12 +48,13 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// </summary>
         public InventarGegenstand ArtikelZumAnlegen
         {
+
             get
             {
                 if (this._ArtikelZumAnlegen == null)
                 {
                     this._ArtikelZumAnlegen = new InventarGegenstand();
-                    this._ArtikelZumAnlegen.ID = Guid.NewGuid();                  
+                    this._ArtikelZumAnlegen.ID = Guid.NewGuid();
                 }
                 return this._ArtikelZumAnlegen;
             }
@@ -58,6 +64,38 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Zustand _SelectedZustand = null!;
+        /// <summary>
+        /// Ruft den Ausgewählten Zustand ab oder diesen in 
+        /// </summary>
+        public Zustand SelectedZustand
+        {
+
+            get => this._SelectedZustand;
+            set
+            {
+                this.ArtikelZumAnlegen.Zustand = value.ID.ToString();
+            }
+        }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Typ _SelectedTyp = null!;
+        /// <summary>
+        /// Ruft den ausgewählten Typ oder legt fest
+        /// </summary>
+        public Typ SelectedTyp
+        {
+            get => this._SelectedTyp;
+            set
+            {
+                this.ArtikelZumAnlegen.Typ = value.ID.ToString();
+            }
+        }
+
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -86,6 +124,36 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Typen _Typen = null!;
+
+        /// <summary>
+        /// Ruft die Typen der
+        /// Artikel ab oder legt diese fest
+        /// </summary>
+        public Typen TypenListe
+        {
+            get
+            {
+                if (this._Typen == null)
+                {
+                    this._Typen
+                        = this.DatenManager!.SqlServerController
+                        .HoleTypenAsync().Result;
+                    System.Diagnostics.Debug.WriteLine("Typenliste geholt");
+                }
+                return this._Typen;
+            }
+            set
+            {
+                this._Typen = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         #endregion ArtikelBinding
 
