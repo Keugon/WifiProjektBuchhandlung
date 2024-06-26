@@ -103,11 +103,15 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
+        public Befehl ArtikelModusCommand => new Befehl(p => ArtikelModusWählen(p as string));
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche());
         /// <summary>
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
-        public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche());
+        public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche(ArtikelSucheModus));
         /// <summary>
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
@@ -147,6 +151,23 @@ namespace WIFI.Buchandlung.Client.ViewModels
             set
             {
                 this._ArtikelBezeichnungSuche = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private int _ArtikelSucheModus = 0;
+        /// <summary>
+        /// Ruft den gewählten Such Modus ab oder legt diesen fest
+        /// </summary>
+        public int ArtikelSucheModus
+        {
+            get => this._ArtikelSucheModus;
+           
+            set
+            {
+                this._ArtikelSucheModus = value;
                 OnPropertyChanged();
             }
         }
@@ -321,9 +342,31 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
         }
         /// <summary>
+        /// Wird beim Checken eines RadioButtons aufgerufen 
+        /// unt überträgt den CommandParam wert als Integer an
+        /// die Eigenschaft ArtikelSucheModus
+        /// </summary>
+        /// <param name="radioButtonValue">String im CommandParam</param>
+        public void ArtikelModusWählen(string? radioButtonValue)
+        {
+            switch (Convert.ToInt32(radioButtonValue))
+            {
+                case 0:
+                    this.ArtikelSucheModus = 0;
+                    break;
+                case 1:
+                    this.ArtikelSucheModus = 1;
+                    break;
+                case 2:
+                    this.ArtikelSucheModus = 2;
+                    break;
+
+            }
+        }
+        /// <summary>
         /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
         /// </summary>
-        public void ArtikelSuche()
+        public void ArtikelSuche(int artikelSuchModus)
         {
             var tempArtikelListe = new ArtikelListe();
             try
