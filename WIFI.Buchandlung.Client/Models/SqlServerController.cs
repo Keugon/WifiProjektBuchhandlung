@@ -162,7 +162,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 Befehl.CommandType = System.Data.CommandType.StoredProcedure;
                 //Damit wir SQL Injection sicher sind..
                 Befehl.Parameters.AddWithValue("@ArtikelGUID", artikelGuid);
-                Befehl.Parameters.AddWithValue("@SuchModus", artikelSuchModus);
+                Befehl.Parameters.AddWithValue("@SuchParameter", artikelSuchModus);
                 //Damit das RDBMS die sql Anweisung nicht jedes Mals
                 //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
                 Befehl.Prepare();
