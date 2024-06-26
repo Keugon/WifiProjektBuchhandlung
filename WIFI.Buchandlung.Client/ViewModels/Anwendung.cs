@@ -1,6 +1,9 @@
 ﻿using WIFI.Buchandlung.Client.Models;
 using WIFI.Buchandlung.Client.Views;
 using WIFI.Windows;
+using Microsoft.Win32;
+using System.Text;
+using System.IO;
 
 namespace WIFI.Buchandlung.Client.ViewModels
 {
@@ -100,11 +103,15 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
+        public Befehl ArtikelModusCommand => new Befehl(p => ArtikelModusWählen(p as string));
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
         public Befehl PersonenSucheCommand => new Befehl(p => PersonenSuche());
         /// <summary>
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
-        public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche());
+        public Befehl ArtikelSucheCommand => new Befehl(p => ArtikelSuche(ArtikelSucheModus));
         /// <summary>
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
@@ -121,6 +128,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
         public Befehl InventarGegenstandvonArtikelAnlegenCommand => new Befehl(p => ArtikelAnlegenÖffnen((p as Artikel)!));
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
+        public Befehl SpeichernInCSVCommand => new Befehl(p => SpeichernInCSV(Mahnungen));
         #endregion Commands
 
         #region Bindings            
@@ -140,6 +151,23 @@ namespace WIFI.Buchandlung.Client.ViewModels
             set
             {
                 this._ArtikelBezeichnungSuche = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private int _ArtikelSucheModus = 0;
+        /// <summary>
+        /// Ruft den gewählten Such Modus ab oder legt diesen fest
+        /// </summary>
+        public int ArtikelSucheModus
+        {
+            get => this._ArtikelSucheModus;
+           
+            set
+            {
+                this._ArtikelSucheModus = value;
                 OnPropertyChanged();
             }
         }
@@ -210,7 +238,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 this._ArtikelListe = value;
                 OnPropertyChanged();
             }
-        }            
+        }
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -225,6 +253,25 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 this._PersonAnlegenVM = this.Kontext.Produziere<PersonAnlegenViewModel>();
                 this._PersonAnlegenVM.DatenManager = this.DatenManager;
                 return this._PersonAnlegenVM;
+            }
+        }
+        /// <summary>
+        /// Ruft die Liste an Entlehnungen die überfällig(Gebühr.GebührenFreieTage) sind ab
+        /// </summary>
+        public Entlehnungen Mahnungen
+        {
+            get
+            {
+                try
+                {
+                    return this.DatenManager.SqlServerController.HoleÜberfälligeEntlehnungenAsync().Result;
+                }
+                catch (Exception ex)
+                {
+                    OnFehlerAufgetreten(ex);
+                    //Falls die Abfrage scheitert
+                    return new Entlehnungen();
+                }
             }
         }
         /// <summary>
@@ -289,12 +336,37 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 case nameof(PersonenSuche):
                     AktuelleView = new Views.PersonenSuche();
                     break;
+                case nameof(MahnungenView):
+                    AktuelleView = new Views.MahnungenView();
+                    break;
+            }
+        }
+        /// <summary>
+        /// Wird beim Checken eines RadioButtons aufgerufen 
+        /// unt überträgt den CommandParam wert als Integer an
+        /// die Eigenschaft ArtikelSucheModus
+        /// </summary>
+        /// <param name="radioButtonValue">String im CommandParam</param>
+        public void ArtikelModusWählen(string? radioButtonValue)
+        {
+            switch (Convert.ToInt32(radioButtonValue))
+            {
+                case 0:
+                    this.ArtikelSucheModus = 0;
+                    break;
+                case 1:
+                    this.ArtikelSucheModus = 1;
+                    break;
+                case 2:
+                    this.ArtikelSucheModus = 2;
+                    break;
+
             }
         }
         /// <summary>
         /// Startet eine suche in der Datenbank nach Personen die den Suchbegriff enthalten
         /// </summary>
-        public void ArtikelSuche()
+        public void ArtikelSuche(int artikelSuchModus)
         {
             var tempArtikelListe = new ArtikelListe();
             try
@@ -404,6 +476,44 @@ namespace WIFI.Buchandlung.Client.ViewModels
             artikelAnlegenViewM.ArtikelZumAnlegen.Bezeichnung = artikel.Bezeichnung;
             artikelAnlegenViewM.ArtikelZumAnlegen.Beschaffungspreis = artikel.Beschaffungspreis;
             ArtikelAnlegenFenster.Show();
+
+        }
+        /// <summary>
+        /// Speichert das mitgegebene Objekt in eine CSV datei
+        /// </summary>
+        /// <param name="entlehnungenZumSpeichern">Entlehnungen Objekt das in eine CSV Datei geschrieben werden soll</param>
+        public void SpeichernInCSV(Entlehnungen entlehnungenZumSpeichern)
+        {
+            string speicherPfad;
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV file (*.csv)|*.csv";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                speicherPfad = saveFileDialog.FileName;
+                var csvInhalt = new StringBuilder();
+                //Kopfzeile
+                csvInhalt.AppendLine("InventarNr,AusleihDatum,Vorname,Nachname,TeleNr,Email,PLZ,Ort,Straße,AusweisNr");
+                //Objekt inhalt in csv schreiben
+                foreach (Entlehnung entlehnung in entlehnungenZumSpeichern)
+                {
+                    var zeile = string
+                            .Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}",
+                            entlehnung.InventarNr,
+                            entlehnung.AusleihDatum,
+                            entlehnung.AusleiherDaten!.Vorname,
+                            entlehnung.AusleiherDaten.Nachname,
+                            entlehnung.AusleiherDaten.Telefonnummer,
+                            entlehnung.AusleiherDaten.Email,
+                            entlehnung.AusleiherDaten.Plz,
+                            entlehnung.AusleiherDaten.Ort,
+                            entlehnung.AusleiherDaten.Straße,
+                            entlehnung.AusleiherDaten.AusweisNr
+                            );
+                    csvInhalt.AppendLine(zeile);
+                }
+                File.WriteAllText(speicherPfad,csvInhalt.ToString());
+            }
 
         }
         #endregion Methoden

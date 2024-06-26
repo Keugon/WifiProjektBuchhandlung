@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="WIFI.Buchandlung.Client.Views.MahnungenView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
+xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
+xmlns:models="clr-namespace:WIFI.Buchandlung.Client.Models"
+xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
+xmlns:tools="clr-namespace:WIFI.Buchandlung.Client.Tools"
+d:DataContext="{d:DesignInstance Type=viewmodels:Anwendung}"
+mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Row="0">
+             <Label Content="Mahnungen"/>
+        <Button Content="Drucken"
+                Command="{Binding SpeichernInCSVCommand}"/>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1">
+       <!--Listview ausgeliehenes-->
+        <ScrollViewer
+             Grid.Row="2"
+            Grid.ColumnSpan="2">
+            <StackPanel
+                Orientation="Vertical" >
+                <DataGrid
+                ItemsSource="{Binding Mahnungen,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                IsReadOnly="True"
+                ScrollViewer.CanContentScroll="True"
+                Height="250"
+                    FontSize="8pt">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="InventarNr" Binding="{Binding InventarNr}"/>
+                        <DataGridTextColumn Header="AusleihDatum" Binding="{Binding AusleihDatum,StringFormat='dd.MM.yyyy HH:mm'}" />
+                        <DataGridTextColumn Header="Vorname" Binding="{Binding AusleiherDaten.Vorname}"/>
+                        <DataGridTextColumn Header="Nachname" Binding="{Binding AusleiherDaten.Nachname}"/>
+                        <DataGridTextColumn Header="TeleNr" Binding="{Binding AusleiherDaten.Telefonnummer}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding AusleiherDaten.Email}"/>
+                        <DataGridTextColumn Header="PLZ" Binding="{Binding AusleiherDaten.Plz}"/>
+                        <DataGridTextColumn Header="Ort" Binding="{Binding AusleiherDaten.Ort}"/>
+                        <DataGridTextColumn Header="Straße" Binding="{Binding AusleiherDaten.Straße}"/>
+                        <DataGridTextColumn Header="AusweisNr" Binding="{Binding AusleiherDaten.AusweisNr}"/>
+                        </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</UserControl>

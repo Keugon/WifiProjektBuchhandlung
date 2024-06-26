@@ -10,19 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WIFI.Buchandlung.Client.Views
 {
     /// <summary>
-    /// Interaktionslogik für EntlehnungRückgabe.xaml
+    /// Interaktionslogik für MahnungenView.xaml
     /// </summary>
-    public partial class EntlehnungRückgabe : Window
+    public partial class MahnungenView : UserControl
     {
         /// <summary>
-        /// EntlehnungRückgabe
+        /// MahnungenView
         /// </summary>
-        public EntlehnungRückgabe()
+        public MahnungenView()
         {
             InitializeComponent();
         }

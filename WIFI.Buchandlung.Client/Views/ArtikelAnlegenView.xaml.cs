@@ -7,6 +7,9 @@ namespace WIFI.Buchandlung.Client.Views
     /// </summary>
     public partial class ArtikelAnlegenView : Window
     {
+        /// <summary>
+        /// ArtikelAnlegenView
+        /// </summary>
         public ArtikelAnlegenView()
         {
             InitializeComponent();
