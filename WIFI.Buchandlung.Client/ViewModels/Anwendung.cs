@@ -164,7 +164,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         public int ArtikelSucheModus
         {
             get => this._ArtikelSucheModus;
-           
+
             set
             {
                 this._ArtikelSucheModus = value;
@@ -380,13 +380,12 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 }
                 foreach (Artikel artikel in tempArtikelListe)
                 {
-                    artikel.InventarGegenstände = this.DatenManager.SqlServerController.HoleInventarGegenständeAsync(artikel.ID).Result;
+                    artikel.InventarGegenstände = this.DatenManager.SqlServerController.HoleInventarGegenständeAsync(artikel.ID, artikelSuchModus).Result;
                     //hole entlehnung für die InventarNr
                     foreach (InventarGegenstand inventarGegenstand in artikel.InventarGegenstände)
                     {
                         inventarGegenstand.Entlehnung = this.DatenManager.SqlServerController.HoleEntlehnungAsync(inventarGegenstand.InventarNr).Result;
                     }
-
                 }
                 this.ArtikelListe = tempArtikelListe;
             }
@@ -512,7 +511,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                             );
                     csvInhalt.AppendLine(zeile);
                 }
-                File.WriteAllText(speicherPfad,csvInhalt.ToString());
+                File.WriteAllText(speicherPfad, csvInhalt.ToString());
             }
 
         }

@@ -42,7 +42,7 @@
                          Command="{Binding ArtikelModusCommand}"
                          CommandParameter="0"
                          IsChecked="True"/>
-            <RadioButton Content="Nur vorhanden"
+            <RadioButton Content="Nur vorhandene"
                          GroupName="ArtikelModus"
                          Command="{Binding ArtikelModusCommand}"
                          CommandParameter="1"/>
