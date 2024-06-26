@@ -1,7 +1,7 @@
 ﻿namespace WIFI.Buchandlung.Client.Models
 {
     /// <summary>
-    /// Stellt eine typsichere Auflistung von Typ Objekten bereit
+    /// Stellt eine typsichere Auflistung von Typ Objekten bereit.
     /// </summary>
     public class Typen : System.Collections.Generic.List<Typ>
     {
