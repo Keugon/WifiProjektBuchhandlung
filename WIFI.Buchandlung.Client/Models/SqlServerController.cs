@@ -1,4 +1,7 @@
-﻿namespace WIFI.Buchandlung.Client.Models
+﻿using Microsoft.VisualBasic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace WIFI.Buchandlung.Client.Models
 {
     /// <summary>
     /// Stellt einen Dienst zum Lesen und Schreiben
@@ -142,10 +145,69 @@ Befehl.Parameters.Add(rückmeldungParameter);
                 return Rückmeldung;
             });
         }
+
+        #region Holt die Zustände aus der Datenbank 
+
         /// <summary>
-        /// Neuen Artikel in der Datenbank anlegen
+        /// Gibt die Zustände der Artikel zurück
         /// </summary>
-        public Task<int> ArtikelAnlegen(Artikel artikelZumAnlegen)
+        public Task<Zustände> HoleZuständeAsync()
+        {
+            // Das Holen als TAP Thread laufen lassen
+            return System.Threading.Tasks.Task<Zustände>.Run(() =>
+            {
+            this.Kontext.Log.StartMelden();
+            // Für das Ergebnis ...
+            Zustände Rückmeldung = new Zustände();
+            // Erstens  - ein Verbindungsobjekt
+            using var Verbindung = new Microsoft.Data.SqlClient
+                .SqlConnection(this.Kontext.Verbindungszeichenfolge);
+
+            // Zweitens - ein Befehlsobjekt
+            //            (Reicht für INSERT, UPDATE und DELETE)
+            using var Befehl = new Microsoft.Data.SqlClient
+                .SqlCommand("HoleZustände", Verbindung);
+            // Mitteilen, dass wir keine SQL direkt haben
+            Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+            // Damit das RDBMS die Sql Anweisung nicht jedes Mal 
+            // analysiert, nur einmal und cachen("Ausführungsplan ="1")
+            Befehl.Prepare();
+            //Grundsatz "Öffne Spät-schließe früh"
+            Verbindung.Open();
+                // Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                
+                // Drittens - ein Datenobjekt für SELECT
+                using var Daten = Befehl
+                    .ExecuteReader(System.Data.CommandBehavior
+                        .CloseConnection);
+
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
+                {
+                    Rückmeldung.Add(new Zustand
+                    {
+                        ID = (int)Daten["ID"],
+                        Bezeichnung = (string)Daten["Bezeichnung"]
+                    });
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+
+        }   
+                #endregion Holt die Zustände aus der Datenbank 
+
+
+
+                /// <summary>
+                /// Neuen Artikel in der Datenbank anlegen
+                /// </summary>
+                public Task<int> ArtikelAnlegen(Artikel artikelZumAnlegen)
         {
             //Das Holen als TAP Thread Laufen lassen
             return System.Threading.Tasks.Task<int>.Run(() =>

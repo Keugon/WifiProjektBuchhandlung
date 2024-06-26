@@ -46,6 +46,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 }
                 return this._ArtikelZumAnlegen;
             }
+
+            private 
+
+
         }
         #endregion ArtikelBinding
 

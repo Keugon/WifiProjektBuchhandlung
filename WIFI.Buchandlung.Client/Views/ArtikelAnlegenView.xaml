@@ -16,7 +16,7 @@
      HorizontalAlignment="Left"
      VerticalAlignment="Top">
             <Label 
-         Content="Artikel Anlagen"/>
+         Content="Artikel Anlegen"/>
 
             <ucontrol:TextBox 
          Wasserzeichen="Artikel Bezeichnung"
