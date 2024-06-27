@@ -10,6 +10,9 @@
     <Compile Update="Views\ArtikelAnlegenView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\ArtikelEditierenView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ArtikelSuche.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +34,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\ArtikelAnlegenView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ArtikelEditierenView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ArtikelSuche.xaml">

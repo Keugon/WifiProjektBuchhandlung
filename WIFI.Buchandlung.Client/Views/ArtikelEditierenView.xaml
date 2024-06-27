@@ -1,0 +1,48 @@
+﻿<Window x:Class="WIFI.Buchandlung.Client.Views.ArtikelEditierenView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
+        xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
+        mc:Ignorable="d"
+        DataContext="Binding "
+        Title="ArtikelEditierenView" Height="450" Width="800">
+    <Grid>
+        <StackPanel
+      Orientation="Vertical"
+      HorizontalAlignment="Left"
+      VerticalAlignment="Top">
+            <Label 
+          Content="Bezeichnung" Height="24" Width="115"
+        
+         />
+            <Label 
+ Content="Beschaffungspreis" Height="26" Width="115"
+        
+/>
+
+
+        </StackPanel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </Grid>
+</Window>

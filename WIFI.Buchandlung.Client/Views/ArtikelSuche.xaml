@@ -78,6 +78,14 @@
                             RelativeSource={RelativeSource FindAncestor,
                             AncestorType={x:Type ContextMenu}}}"
                         Header="Neuen InventarGegenstand Anlegen"/>
+                    <MenuItem
+                        Command="{Binding ArtikelEditierenCommand}"
+                        CommandParameter="{Binding PlacementTarget.SelectedItem,
+                            RelativeSource={RelativeSource FindAncestor,
+                            AncestorType={x:Type ContextMenu}}}"
+                        
+                        Header="Artikel bearbeiten/ändern"
+                        />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns >

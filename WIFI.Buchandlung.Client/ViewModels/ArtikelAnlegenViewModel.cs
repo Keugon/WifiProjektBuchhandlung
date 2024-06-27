@@ -31,6 +31,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 return false;
             });
         //Bug ggf (ongün) Button kan angeklickt werden ohne inhalt in den Boxen
+
+
         #endregion  Befehle
 
         #region ArtikelBinding
@@ -167,7 +169,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
 
         #region Methoden
         /// <summary>
-        /// Legt einen neuen Artigel in der Datenbank an
+        /// Legt einen neuen Artikel in der Datenbank an
         /// </summary>
         public void ArtikelnAnlegen(System.Windows.Window currentWindow)
         {
@@ -197,6 +199,22 @@ namespace WIFI.Buchandlung.Client.ViewModels
             //fenster schließen
             currentWindow.Close();
         }
+
+        /// <summary>
+        /// Editiert den Artikel in der Datenbank
+        /// </summary>
+        public void ArtikelEditieren(System.Windows.Window currentWindow)
+        { 
+        
+        
+        
+        
+        
+        }
+
+
+
+
         #endregion Methoden
     }
 }

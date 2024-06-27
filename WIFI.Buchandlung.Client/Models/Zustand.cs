@@ -15,7 +15,6 @@
     public class Zustand : WIFI.Anwendung.Daten.DatenObjekt
     {
         /// <summary>
-
         /// Die Nummerische Zuordnung des Zustands
         /// </summary>
         public int? ID { get; set; }

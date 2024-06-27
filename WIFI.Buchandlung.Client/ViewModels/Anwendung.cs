@@ -132,6 +132,11 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
         public Befehl SpeichernInCSVCommand => new Befehl(p => SpeichernInCSV(Mahnungen));
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
+        public Befehl ArtikelEditierenCommand => new Befehl(p => ArtikelEditierungsFensterÖffnen((p as Artikel)!));
+        
         #endregion Commands
 
         #region Bindings            
@@ -514,6 +519,20 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 }
                 File.WriteAllText(speicherPfad,csvInhalt.ToString());
             }
+
+        }
+        /// <summary>
+        /// Öffnet das Fenster zum Editieren eines bereits 
+        /// gegebenen Artikels 
+        /// </summary>
+        /// <param name="artikelzumEditieren"></param>
+        /// /// Der Artikel der von der Liste mittels
+        ///  /// Kontextmenü fürs Editieren gewählt wurde
+        public void ArtikelEditierungsFensterÖffnen(Artikel artikelzumEditieren)
+        {
+            var ArtikelEditierungsFenster = new ArtikelEditierenView();
+            //SingleTon Viewmodell
+            ArtikelEditierungsFenster.Show();
 
         }
         #endregion Methoden
