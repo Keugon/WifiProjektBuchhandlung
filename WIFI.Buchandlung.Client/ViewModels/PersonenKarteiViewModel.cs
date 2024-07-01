@@ -147,7 +147,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             InventarGegenstand artikelZumAusleihen,
             Entlehnung entlehnungZumAnlegen)
         {
-            //Todo es darf nur möglich sein Artikel deren
+            //es darf nur möglich sein Artikel deren
             //InventarNr nicht bereits ausgeliehen sind auszuleihen!
             //artikel Bezeichnung nach InventarNr abrufen
             //wenn nicht vorhanden Meldung Falsche InventarNr und Return; 
@@ -159,8 +159,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     suchParameter: "",
                     inventarNr: artikelZumAusleihen.InventarNr)
                 .Result[0].Bezeichnung;
-
-            }
+                            }
             catch (Exception ex)
             {
                 OnFehlerAufgetreten(ex);
@@ -297,9 +296,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
             try
             {
                 AktuellerGebührenSatz = this.DatenManager!.SqlServerController.HoleAktuelleGebührAsync().Result;
-                strafTagesSatz = AktuellerGebührenSatz.Strafgebühr;
-                ErsatzgebührFaktor = AktuellerGebührenSatz.ErsatzgebührFaktor;
-                GebührenFreieTage = AktuellerGebührenSatz.GebührenFreieTage;
+                strafTagesSatz = AktuellerGebührenSatz.Strafgebühr!.Value;
+                ErsatzgebührFaktor = AktuellerGebührenSatz.ErsatzgebührFaktor!.Value;
+                GebührenFreieTage = AktuellerGebührenSatz.GebührenFreieTage!.Value;
             }
             catch (Exception ex)
             {

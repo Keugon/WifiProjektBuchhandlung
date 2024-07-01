@@ -132,9 +132,65 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
         public Befehl SpeichernInCSVCommand => new Befehl(p => SpeichernInCSV(Mahnungen));
+        //Todo Dieser befehl muss UI sicher werden!
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
+        public Befehl GebührEintragenCommand => new Befehl(p => GebührEintragen(AktuelleGebühr));
         #endregion Commands
 
-        #region Bindings            
+        #region Bindings         
+        #region Gebühren Bindings
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Gebühren _GebührenListe = null!;
+        /// <summary>
+        /// Ruft liste der Gebührensätze ab
+        /// </summary>
+        public Gebühren GebührenListe
+        {
+            get
+            {
+                if (this._GebührenListe == null)
+                {
+                    this._GebührenListe = this.DatenManager.SqlServerController.HoleAlleGebührAsync().Result;
+                }
+                return this._GebührenListe;
+            }
+            set
+            {
+                this._GebührenListe = value;
+                OnPropertyChanged();
+            }
+
+        }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Gebühr _AktuelleGebühr = null!;
+        /// <summary>
+        /// Ruft die das Gebühr objekt zum hinzufügen oder Ändern eines 
+        /// Gebühreneintrages ab oder legt diesen fest
+        /// </summary>
+        public Gebühr AktuelleGebühr
+        {
+            get
+            {
+                if (this._AktuelleGebühr == null)
+                {
+                    this._AktuelleGebühr = new Gebühr();
+                    this._AktuelleGebühr.GültigAb = DateTime.Today;
+                }
+                return this._AktuelleGebühr;
+            }
+            set
+            {
+                this._AktuelleGebühr = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion Gebühren Bindings
         #region Artikel/Personen Suche Bindings
         /// <summary>
         /// Internes Feld für die Eigenschaft
@@ -213,18 +269,6 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 this._PersonenListe = value;
                 OnPropertyChanged();
             }
-        }
-        /// <summary>
-        /// Ruft liste der Gebührensätze ab
-        /// </summary>
-        public Gebühren GebührenListe
-        {
-            get
-            {
-                Gebühren geb =this.DatenManager.SqlServerController.HoleAlleGebührAsync().Result;
-                return geb;
-            }
-
         }
 
         /// <summary>
@@ -530,6 +574,18 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 File.WriteAllText(speicherPfad, csvInhalt.ToString());
             }
 
+        }
+        /// <summary>
+        /// Trägt das AktuelleGebühren 
+        /// Objekt in die Datenbank ein oder Ändert ein vorhandenes
+        /// </summary>
+        public void GebührEintragen(Gebühr gebührZumEintragenOderÄndern)
+        {
+            this.DatenManager.SqlServerController.GebührAnlegen(gebührZumEintragenOderÄndern);
+            //Durch das NUllen der Liste wird auf der
+            //Oberfläche wieder der GET trigger
+            //ausgelöst und dieser holt die DB daten
+            this.GebührenListe = null!;
         }
         #endregion Methoden
     }

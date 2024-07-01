@@ -20,22 +20,22 @@ namespace WIFI.Buchandlung.Client.Models
         /// <summary>
         /// Ruft die Laufende Nummer des Eintrags in der DB ab oder legt diese fest
         /// </summary>
-        public int LfdNr { get; set; }
+        public int? LfdNr { get; set; }
         /// <summary>
         /// Ruft das Datum ab wann diese Gebühr benutzt werden soll ab oder legt diese fest
         /// </summary>
-        public DateTime GültigAb { get; set; }
+        public DateTime? GültigAb { get; set; }
         /// <summary>
         /// Ruft den Tagesstrafsatz ab oder legt diese fest
         /// </summary>
-        public decimal Strafgebühr { get; set; }
+        public decimal? Strafgebühr { get; set; }
         /// <summary>
         /// Ruft den Ersatzfaktor ab der für eine Neubeschaffungs verrechnet wird ab oder legt diese fest
         /// </summary>
-        public double ErsatzgebührFaktor { get; set; }
+        public double? ErsatzgebührFaktor { get; set; }
         /// <summary>
         /// Ruft die anzahl der Gebührenfreien Tagen ab oder legt diese fest
         /// </summary>
-        public int GebührenFreieTage { get; set; }
+        public int? GebührenFreieTage { get; set; }
     }
 }

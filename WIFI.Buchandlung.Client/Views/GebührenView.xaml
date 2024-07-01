@@ -16,7 +16,30 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
+        <!--StackPanel Gebühren Hinzufügen/Ändern-->
+        <StackPanel
+            Orientation="Horizontal">
+            
+            <DatePicker IsTodayHighlighted="True"
+                        FirstDayOfWeek="Monday"
+                        SelectedDate="{Binding AktuelleGebühr.GültigAb}"/>
+            <ucontrol:TextBox 
+                Wasserzeichen="Tagesstrafsatz"
+                Width="80"
+                Text="{Binding AktuelleGebühr.Strafgebühr}"/>
+            <ucontrol:TextBox 
+                Wasserzeichen="Ersazgebühren Faktor"
+                Width="80"
+                Text="{Binding AktuelleGebühr.ErsatzgebührFaktor}"/>
+            <ucontrol:TextBox 
+                Wasserzeichen="Gebührenfreie Tage"
+                Width="80"
+                Text="{Binding AktuelleGebühr.GebührenFreieTage}"/>
+            <Button 
+                Content="Add/Change"
+                Command="{Binding GebührEintragenCommand}"/>
+        </StackPanel>
+        <!--Stackpanel DataGrid-->
         <StackPanel
             Grid.Row="1">
             <!--Listview Gebühren-->
