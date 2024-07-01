@@ -775,7 +775,60 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
 
         }
-        
+        /// <summary>
+        /// Gibt die eine Liste von Gebühren zurück
+        /// </summary>
+        /// <returns>Gebühren Objekt</returns>
+        public Task<Gebühren> HoleAlleGebührAsync()
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<Gebühr>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                var Rückmeldung = new Gebühren();
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("HoleGebühren", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                while (Daten.Read())
+                {
+                    Rückmeldung.Add(new Gebühr
+                    {
+                        LfdNr = (int)Daten["LfdNr"],
+                        GültigAb = (DateTime)Daten["GültigAb"],
+                        Strafgebühr = (decimal)Daten["Strafgebühr"],
+                        ErsatzgebührFaktor = (double)Daten["ErsatzgebührFaktor"],
+                        GebührenFreieTage = (int)Daten["GebührenFreieTage"]
+                    });
+                }
+                /*Kein return nur daten
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                */
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+
+        }
+
         /// <summary>
         /// Legt eine neue Gebühr in der Datenbank an
         /// </summary>

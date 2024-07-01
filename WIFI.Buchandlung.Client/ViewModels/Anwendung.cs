@@ -215,6 +215,19 @@ namespace WIFI.Buchandlung.Client.ViewModels
             }
         }
         /// <summary>
+        /// Ruft liste der Gebührensätze ab
+        /// </summary>
+        public Gebühren GebührenListe
+        {
+            get
+            {
+                Gebühren geb =this.DatenManager.SqlServerController.HoleAlleGebührAsync().Result;
+                return geb;
+            }
+
+        }
+
+        /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
         private ArtikelListe _ArtikelListe = null!;
@@ -338,6 +351,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     break;
                 case nameof(MahnungenView):
                     AktuelleView = new Views.MahnungenView();
+                    break;
+                case nameof(GebührenView):
+                    AktuelleView = new Views.GebührenView();
                     break;
             }
         }
