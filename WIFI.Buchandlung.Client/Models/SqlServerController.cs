@@ -144,7 +144,7 @@ Befehl.Parameters.Add(rückmeldungParameter);
         /// InventarGegenstände geholt werden sollen</param>
         /// <param name="artikelSuchModus">SuchModus um die Ausgabe zu spezifizieren</param>
         /// <returns>Liste von InventarGegenstände</returns>
-        public Task<InventarGegenstände> HoleInventarGegenständeAsync(Guid artikelGuid,int artikelSuchModus = 0)
+        public Task<InventarGegenstände> HoleInventarGegenständeAsync(Guid artikelGuid, int artikelSuchModus = 0)
         {
             //Todo ggf Refactor auf eine Überladene Methode anstatt optionalen parameter
             //Das Holen als TAP Thread Laufen lassen
@@ -775,30 +775,62 @@ Befehl.Parameters.Add(rückmeldungParameter);
             });
 
         }
-        //Todo (Datenbank) Mit dem aktuellen Datenbank design Artikel-> Entlehnung kan ein Artikel
-        //nicht mehrere InventarNr auffassen somit ist ein artikel immer einzigartig und
-        //die möglichkeit zu identifizieren ob von einem Artikel mehrere im Inventar
-        //vorhanden sind ist schwieriger. Dies zu ändern bräuchte ein Datenbank redesign
-        //und aller abläufe ebenfalls!
-        //Es wäre dan ca. 
-        //+-------------+       +-------------+       +-------------+
-        //|   Artikel   |       |   Inventar  |       | Entlehnungen|
-        //+-------------+       +-------------+       +-------------+
-        //| ArtikelID   |1----->| InventarNr  |1----->| EntleihID   |
-        //| Bezeichnung |       | ArtikelID   |       | InventarNr  |
-        //+-------------+       +-------------+       | PersonID    |
-        //                                            | AusleihDatum|
-        //                                            | RueckgabeDatum|
-        //                                            +-------------+
-
+        
+        /// <summary>
+        /// Legt eine neue Gebühr in der Datenbank an
+        /// </summary>
+        /// <param name="GebührZumAnlegen">Gebühr Objekt das 
+        /// Angelegt oder geUpdated werden soll</param>
+        /// <returns>1 für angelegt 2 für updated</returns>
+        public Task<int> GebührAnlegen(Gebühr GebührZumAnlegen)
+        {
+            //Das Holen als TAP Thread Laufen lassen
+            return System.Threading.Tasks.Task<int>.Run(() =>
+            {
+                this.Kontext.Log.StartMelden();
+                //Für das Ergebnis
+                int Rückmeldung = 0;
+                //Erstens - ein Verbindungsobjekt 
+                using var Verbindung = new Microsoft.Data.SqlClient.SqlConnection(this.Kontext.Verbindungszeichenfolge);
+                //Zweitens - ein Befehlsobjekt
+                //(Reicht für Insert, Update und Delet)
+                using var Befehl = new Microsoft.Data.SqlClient.SqlCommand("GebührSpeichern", Verbindung);
+                //Mitteilen das wir kein SQL direkt haben
+                Befehl.CommandType = System.Data.CommandType.StoredProcedure;
+                //Damit wir SQL Injection sicher sind..
+                Befehl.Parameters.AddWithValue("@LfdNr", GebührZumAnlegen.LfdNr);
+                Befehl.Parameters.AddWithValue("@GültigAb", GebührZumAnlegen.GültigAb);
+                Befehl.Parameters.AddWithValue("@TagesStrafSatz", GebührZumAnlegen.Strafgebühr);
+                Befehl.Parameters.AddWithValue("@ErsatzGebührFaktor", GebührZumAnlegen.ErsatzgebührFaktor);
+                Befehl.Parameters.AddWithValue("@GebührenFreieTage", GebührZumAnlegen.GebührenFreieTage);
+                //Rückmeldung
+                var rückmeldungParameter = new Microsoft.Data.SqlClient.SqlParameter("@Rückmeldung", System.Data.SqlDbType.Int)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                Befehl.Parameters.Add(rückmeldungParameter);
+                //Damit das RDBMS die sql Anweisung nicht jedes Mals
+                //analysiert, nur einmal und cachen ("Ausführungsplan = "1")
+                Befehl.Prepare();
+                //Grundsatz "Öffne Spät- schließe früh"
+                Verbindung.Open();
+                //Für Inser, Update und Delet
+                //Befehl.ExecuteNonQuery();
+                //Drittens - ein Datenobjekt für SELECT
+                using var Daten
+                    = Befehl.ExecuteReader(
+                        System.Data.CommandBehavior
+                        .CloseConnection);
+                //Die Daten vom Reader in unsere 
+                //Datentransferobjekte "mappen"
+                Rückmeldung = (int)rückmeldungParameter.Value;
+                this.Kontext.Log.EndeMelden();
+                return Rückmeldung;
+            });
+        }
         //Todo(Datenbank) Typ muss zu Artikel wandern da dieser auch für jeden InventargGegenstand gleich sein wird!
         //Todo(InventarGegenstände) Ändern auf der ArtikelSuche seite mittels kontext menü und popout wie PersonenKarteiÖffnen
         //Todo(Artikel) ggf(Ongün)Ändern auf der ArtikelSuche seite mittels kontext menü und popout wie PersonenKarteiÖffnen
         //Todo(ArtikelSuche) bei nicht finden Vorschläge entweder direkt in Artikel oder in separate table aber warscheinlich in Artikel mit Typ wunsch
-        //Todo(ArtikelAnlegen) (Ongün) Zustand und Typ Listen von der Datenbank ziehen und in Dropdownlisten umsetzten
-        //Todo(Bestands/Austands) Liste ggf(Ongün)
-        //Todo(CSV) MahnungsListe
-
-
     }
 }
