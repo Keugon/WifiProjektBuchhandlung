@@ -132,9 +132,77 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
         public Befehl SpeichernInCSVCommand => new Befehl(p => SpeichernInCSV(Mahnungen));
+        //Todo Dieser befehl muss UI sicher werden!
+        /// <summary>
+        /// Bindbarer aufruf der Oberfläche
+        /// </summary>
+        public Befehl GebührEintragenCommand => new Befehl(p => GebührEintragen(AktuelleGebühr), p =>
+        {
+
+            if (Tools.General.AreStringsValid(
+                AktuelleGebühr.GültigAb.ToString()!,
+                AktuelleGebühr.Strafgebühr.ToString()!,
+                AktuelleGebühr.ErsatzgebührFaktor.ToString()!,
+                AktuelleGebühr.GebührenFreieTage.ToString()!))
+            {
+                return true;
+            }
+            return false;
+        });
         #endregion Commands
 
-        #region Bindings            
+        #region Bindings         
+        #region Gebühren Bindings
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Gebühren _GebührenListe = null!;
+        /// <summary>
+        /// Ruft liste der Gebührensätze ab
+        /// </summary>
+        public Gebühren GebührenListe
+        {
+            get
+            {
+                if (this._GebührenListe == null)
+                {
+                    this._GebührenListe = this.DatenManager.SqlServerController.HoleAlleGebührAsync().Result;
+                }
+                return this._GebührenListe;
+            }
+            set
+            {
+                this._GebührenListe = value;
+                OnPropertyChanged();
+            }
+
+        }
+        /// <summary>
+        /// Internes Feld für die Eigenschaft
+        /// </summary>
+        private Gebühr _AktuelleGebühr = null!;
+        /// <summary>
+        /// Ruft die das Gebühr objekt zum hinzufügen oder Ändern eines 
+        /// Gebühreneintrages ab oder legt diesen fest
+        /// </summary>
+        public Gebühr AktuelleGebühr
+        {
+            get
+            {
+                if (this._AktuelleGebühr == null)
+                {
+                    this._AktuelleGebühr = new Gebühr();
+                    this._AktuelleGebühr.GültigAb = DateTime.Today;
+                }
+                return this._AktuelleGebühr;
+            }
+            set
+            {
+                this._AktuelleGebühr = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion Gebühren Bindings
         #region Artikel/Personen Suche Bindings
         /// <summary>
         /// Internes Feld für die Eigenschaft
@@ -164,7 +232,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
         public int ArtikelSucheModus
         {
             get => this._ArtikelSucheModus;
-           
+
             set
             {
                 this._ArtikelSucheModus = value;
@@ -214,6 +282,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 OnPropertyChanged();
             }
         }
+
         /// <summary>
         /// Internes Feld für die Eigenschaft
         /// </summary>
@@ -339,6 +408,9 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 case nameof(MahnungenView):
                     AktuelleView = new Views.MahnungenView();
                     break;
+                case nameof(GebührenView):
+                    AktuelleView = new Views.GebührenView();
+                    break;
             }
         }
         /// <summary>
@@ -380,13 +452,12 @@ namespace WIFI.Buchandlung.Client.ViewModels
                 }
                 foreach (Artikel artikel in tempArtikelListe)
                 {
-                    artikel.InventarGegenstände = this.DatenManager.SqlServerController.HoleInventarGegenständeAsync(artikel.ID).Result;
+                    artikel.InventarGegenstände = this.DatenManager.SqlServerController.HoleInventarGegenständeAsync(artikel.ID, artikelSuchModus).Result;
                     //hole entlehnung für die InventarNr
                     foreach (InventarGegenstand inventarGegenstand in artikel.InventarGegenstände)
                     {
-                        inventarGegenstand.Entlehnung = this.DatenManager.SqlServerController.HoleEntlehnungAsync(inventarGegenstand.InventarNr).Result;
+                        inventarGegenstand.Entlehnung = this.DatenManager.SqlServerController.HoleEntlehnungAsync(inventarGegenstand.InventarNr!.Value).Result;
                     }
-
                 }
                 this.ArtikelListe = tempArtikelListe;
             }
@@ -512,9 +583,21 @@ namespace WIFI.Buchandlung.Client.ViewModels
                             );
                     csvInhalt.AppendLine(zeile);
                 }
-                File.WriteAllText(speicherPfad,csvInhalt.ToString());
+                File.WriteAllText(speicherPfad, csvInhalt.ToString());
             }
 
+        }
+        /// <summary>
+        /// Trägt das AktuelleGebühren 
+        /// Objekt in die Datenbank ein oder Ändert ein vorhandenes
+        /// </summary>
+        public void GebührEintragen(Gebühr gebührZumEintragenOderÄndern)
+        {
+            this.DatenManager.SqlServerController.GebührAnlegen(gebührZumEintragenOderÄndern);
+            //Durch das NUllen der Liste wird auf der
+            //Oberfläche wieder der GET trigger
+            //ausgelöst und dieser holt die DB daten
+            this.GebührenListe = null!;
         }
         #endregion Methoden
     }

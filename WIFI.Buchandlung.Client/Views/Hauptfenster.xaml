@@ -32,6 +32,9 @@
             <Button Content="Mahnungen"
                     Command="{Binding MenüPunktAnzeigenCommand}"
                     CommandParameter="MahnungenView"/>
+            <Button Content="Gebühren"
+        Command="{Binding MenüPunktAnzeigenCommand}"
+        CommandParameter="GebührenView"/>
 
         </StackPanel>
         <ContentControl

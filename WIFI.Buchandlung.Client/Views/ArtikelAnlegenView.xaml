@@ -17,43 +17,39 @@
             </Window.Resources>
     <Grid>
         <StackPanel
-     Orientation="Horizontal"
-     HorizontalAlignment="Left"
-     VerticalAlignment="Top">
+             Orientation="Horizontal"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Top">
             <Label 
-         Content="Artikel Anlegen"/>
-
+                Content="Artikel Anlegen"/>
             <ucontrol:TextBox 
-         Wasserzeichen="Artikel Bezeichnung"
-         Width="80"
-         Text="{Binding ArtikelZumAnlegen.Bezeichnung,UpdateSourceTrigger=PropertyChanged}"/>
+                 Wasserzeichen="Artikel Bezeichnung"
+                 Width="80"
+                 Text="{Binding ArtikelZumAnlegen.Bezeichnung,UpdateSourceTrigger=PropertyChanged}"/>
             <ucontrol:TextBox 
-         Wasserzeichen="Beschaffungspreis"
-         Width="80"
-         Text="{Binding 
-                ArtikelZumAnlegen.Beschaffungspreis,
-                Converter={StaticResource ResourceKey=DecimalToString},
-                UpdateSourceTrigger=PropertyChanged}"/>
+                 Wasserzeichen="Beschaffungspreis"
+                 Width="80"
+                 Text="{Binding 
+                        ArtikelZumAnlegen.Beschaffungspreis,
+                        Converter={StaticResource ResourceKey=DecimalToString},
+                        UpdateSourceTrigger=PropertyChanged}"/>
             <!--Todo Listen vom server abrufen um die int string 
             problematik in den griff zu bekommen-->
             <Label Content="Zustand:"/>
             <ComboBox ItemsSource="{Binding ZustandsListe }"
                       DisplayMemberPath="Bezeichnung"
-                      SelectedIndex="{Binding ArtikelZumAnlegen.Zustand, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedZustand}">
-                -->
+                
             </ComboBox>
             <Label Content="Typ:"/>
             <ComboBox ItemsSource="{Binding TypenListe }"
                       DisplayMemberPath="Bezeichnung"
-                SelectedIndex="{Binding ArtikelZumAnlegen.Typ, Mode=TwoWay}"
-            SelectedItem="{Binding SelectedTyp}">
+                      SelectedItem="{Binding SelectedTyp}">
             </ComboBox>
-            <Button Content="Anlegen"
-             Command="{Binding ArtikelAnlegenCommand }"
-             CommandParameter="{Binding 
-                RelativeSource={RelativeSource Mode=FindAncestor,
-                AncestorType={x:Type Window}}}"/>
+            <Button 
+                Content="Anlegen"
+                Command="{Binding ArtikelAnlegenCommand }"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
         </StackPanel>
     </Grid>
 </Window>

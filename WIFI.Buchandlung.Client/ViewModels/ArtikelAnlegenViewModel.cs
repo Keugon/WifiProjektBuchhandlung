@@ -175,12 +175,12 @@ namespace WIFI.Buchandlung.Client.ViewModels
             {
                 //Todo faking Selected Index +1 bis
                 //Listen vom Server geladen werden 
-                int ArtikelZustand = int.Parse(ArtikelZumAnlegen.Zustand!);
-                ArtikelZustand += 1;
-                ArtikelZumAnlegen.Zustand = ArtikelZustand.ToString();
-                int ArtikelTyp = int.Parse(ArtikelZumAnlegen.Typ!);
-                ArtikelTyp += 1;
-                ArtikelZumAnlegen.Typ = ArtikelTyp.ToString();
+                //int ArtikelZustand = int.Parse(ArtikelZumAnlegen.Zustand!);
+                //ArtikelZustand += 1;
+                //ArtikelZumAnlegen.Zustand = ArtikelZustand.ToString();
+                //int ArtikelTyp = int.Parse(ArtikelZumAnlegen.Typ!);
+                //ArtikelTyp += 1;
+                //ArtikelZumAnlegen.Typ = ArtikelTyp.ToString();
                 int rückmeldung = this.DatenManager!.SqlServerController
                     .InventarGegenstandAnlegen(ArtikelZumAnlegen).Result;
                 System.Diagnostics.Debug.WriteLine($"Rückmeldung aus dem Artikel Anlegen:{rückmeldung}");

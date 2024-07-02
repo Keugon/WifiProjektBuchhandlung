@@ -4,12 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WIFI.Buchandlung.Client.Views"
+        xmlns:tools="clr-namespace:WIFI.Buchandlung.Client.Tools"
         xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
         xmlns:ucontrol="clr-namespace:WIFI.Windows.Controls;assembly=WIFI.Windows"
         d:DataContext="{d:DesignInstance Type=viewmodels:PersonenKarteiViewModel}"
         DataContext="{Binding PersonenKarteiVW}"
         mc:Ignorable="d"
         Title="PersonenKarteiView" Height="300" Width="710">
+    <Window.Resources>
+        <tools:IntToString x:Key="IntToString"/>
+    </Window.Resources>
     <Grid
         >
         <Grid.RowDefinitions>
@@ -46,7 +50,7 @@
                 Command="{Binding ArtikelAusleihenCommand}"/>
             <ucontrol:TextBox
                 Wasserzeichen="InventarNr"
-                Text="{Binding ArtikelZumAusleihen.InventarNr}"
+                Text="{Binding ArtikelZumAusleihen.InventarNr,Converter={StaticResource ResourceKey=IntToString}, UpdateSourceTrigger=PropertyChanged}"
                 Width="80"/>
         </StackPanel>
         
