@@ -136,7 +136,19 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
-        public Befehl GebührEintragenCommand => new Befehl(p => GebührEintragen(AktuelleGebühr));
+        public Befehl GebührEintragenCommand => new Befehl(p => GebührEintragen(AktuelleGebühr), p =>
+        {
+
+            if (Tools.General.AreStringsValid(
+                AktuelleGebühr.GültigAb.ToString()!,
+                AktuelleGebühr.Strafgebühr.ToString()!,
+                AktuelleGebühr.ErsatzgebührFaktor.ToString()!,
+                AktuelleGebühr.GebührenFreieTage.ToString()!))
+            {
+                return true;
+            }
+            return false;
+        });
         #endregion Commands
 
         #region Bindings         

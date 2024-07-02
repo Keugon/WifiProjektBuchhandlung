@@ -1,35 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Views">
+    <Position X="0.541" Y="0.5" Height="0.461" Width="4.648" />
+  </Comment>
+  <Comment CommentText="ViewModels">
+    <Position X="7.248" Y="0.5" Height="0.461" Width="5.915" />
+  </Comment>
+  <Comment CommentText="Models">
+    <Position X="15.25" Y="0.5" Height="0.461" Width="8.684" />
+  </Comment>
   <Class Name="WIFI.Buchandlung.Client.Models.ArtikelListe" Collapsed="true">
-    <Position X="6.75" Y="0.5" Width="1.5" />
+    <Position X="17.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Artikel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.Models.Artikel">
-    <Position X="6.75" Y="1.5" Width="1.5" />
+    <Position X="17.25" Y="3" Width="1.5" />
+    <InheritanceLine Type="WIFI.Anwendung.Daten.GuidDatenObjekt" FixedFromPoint="true">
+      <Path>
+        <Point X="16.75" Y="2.312" />
+        <Point X="16.95" Y="2.312" />
+        <Point X="16.95" Y="2.7" />
+        <Point X="18" Y="2.7" />
+        <Point X="18" Y="3" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABA=</HashCode>
       <FileName>Models\Artikel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.Models.Personen" Collapsed="true">
-    <Position X="10.5" Y="0.5" Width="1.5" />
+    <Position X="19" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Person.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.Models.Person">
-    <Position X="10.5" Y="1.5" Width="1.5" />
+    <Position X="19" Y="3" Width="1.5" />
+    <InheritanceLine Type="WIFI.Anwendung.Daten.GuidDatenObjekt" FixedFromPoint="true">
+      <Path>
+        <Point X="16.75" Y="2.312" />
+        <Point X="16.95" Y="2.312" />
+        <Point X="16.95" Y="2.7" />
+        <Point X="19.75" Y="2.7" />
+        <Point X="19.75" Y="3" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>CAACAAAAACAAAAAAAAAAAAAAAACAAABgAAAAAgAAAAA=</HashCode>
       <FileName>Models\Person.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.ViewModels.PersonenKarteiViewModel">
-    <Position X="2.75" Y="3.5" Width="1.5" />
+    <Position X="9" Y="4.5" Width="2" />
     <Members>
       <Field Name="_AktuellePerson" Hidden="true" />
       <Field Name="_ArtikelZumAusleihen" Hidden="true" />
@@ -42,7 +69,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.ViewModels.PersonAnlegenViewModel">
-    <Position X="2.75" Y="0.5" Width="1.5" />
+    <Position X="9" Y="2" Width="2" />
     <Members>
       <Field Name="_PersonZumAnlegen" Hidden="true" />
     </Members>
@@ -52,7 +79,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.ViewModels.Anwendung">
-    <Position X="1" Y="0.5" Width="1.5" />
+    <Position X="7.25" Y="2" Width="1.5" />
     <Members>
       <Field Name="_AktuelleView" Hidden="true" />
       <Field Name="_ArtikelBezeichnungSuche" Hidden="true" />
@@ -62,41 +89,46 @@
       <Field Name="_PersonBezeichnungSuche" Hidden="true" />
       <Field Name="_PersonenListe" Hidden="true" />
     </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAQASIAkQgAQEAIAEIAAAKAIkQAgEQCAE4=</HashCode>
+      <HashCode>AACAIAAAAABQATKIkQgAQEAMAMJCAAKAI0SAgEQCAE4=</HashCode>
       <FileName>ViewModels\Anwendung.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WIFI.Buchandlung.Client.Tools.General">
-    <Position X="12.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Tools\General.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="WIFI.Buchandlung.Client.Models.SqlServerController">
-    <Position X="4.75" Y="2" Width="1.5" />
+    <Position X="19" Y="6" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAwABAAAAAEgAAEIAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <HashCode>AAAAAACAwABQAAQAEgAAMIAAAAAAAAAAgAAAAAAQAAA=</HashCode>
       <FileName>Models\SqlServerController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.Models.Entlehnungen" Collapsed="true">
-    <Position X="8.75" Y="0.5" Width="1.5" />
+    <Position X="20.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Entlehnung.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.Models.Entlehnung">
-    <Position X="8.75" Y="1.5" Width="1.5" />
+    <Position X="20.75" Y="3" Width="1.5" />
+    <InheritanceLine Type="WIFI.Anwendung.Daten.GuidDatenObjekt" FixedFromPoint="true">
+      <Path>
+        <Point X="16.75" Y="2.312" />
+        <Point X="16.95" Y="2.312" />
+        <Point X="16.95" Y="2.7" />
+        <Point X="21.5" Y="2.7" />
+        <Point X="21.5" Y="3" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>CAEAAAAAAAAAAAAAAAAAAAAAAAAIAAEAACAAAAABAAI=</HashCode>
+      <HashCode>GAEAAAAAAAAAAAAAAAAAAAAAAAAIAAEAACAAAAABAAI=</HashCode>
       <FileName>Models\Entlehnung.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.DatenManager">
-    <Position X="4.75" Y="0.5" Width="1.5" />
+    <Position X="17.25" Y="6" Width="1.5" />
     <Members>
       <Field Name="_SqlServerController" Hidden="true" />
     </Members>
@@ -106,21 +138,110 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.ViewModels.ArtikelAnlegenViewModel">
-    <Position X="4.75" Y="5.75" Width="1.5" />
+    <Position X="11.25" Y="2" Width="2" />
     <Members>
       <Field Name="_ArtikelZumAnlegen" Hidden="true" />
     </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAgAAAAAAAQAAAAAAAIAAAAAAAAI=</HashCode>
+      <HashCode>AAAAAARAAIAIAQIQAgAAAAAAAQAAQAAAAIAAAAAABAI=</HashCode>
       <FileName>ViewModels\ArtikelAnlegenViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WIFI.Buchandlung.Client.Models.Gebühr">
-    <Position X="6.75" Y="5.75" Width="1.5" />
+    <Position X="22.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAQIAAAAAAAAAAAgAAAAAAAAAAAAAACA=</HashCode>
       <FileName>Models\Gebühr.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Models.Gebühren" Collapsed="true">
+    <Position X="22.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Gebühr.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Anwendung.Daten.GuidDatenObjekt">
+    <Position X="15.25" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WIFI.Anwendung.AppObjekt" Collapsed="true">
+    <Position X="15.25" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Views.ArtikelAnlegenView" Collapsed="true">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ArtikelAnlegenView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Views.ArtikelSuche" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ArtikelSuche.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Views.EntlehnungRückgabe" Collapsed="true">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EntlehnungRückgabe.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Views.GebührenView" Collapsed="true">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\GebührenView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Views.Hauptfenster" Collapsed="true">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Hauptfenster.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Views.MahnungenView" Collapsed="true">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MahnungenView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Views.PersonAnlegenView" Collapsed="true">
+    <Position X="4" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\PersonAnlegenView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Views.PersonenKarteiView" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\PersonenKarteiView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Buchandlung.Client.Views.PersonenSuche" Collapsed="true">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\PersonenSuche.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WIFI.Windows.ViewModel" Collapsed="true">
+    <Position X="13.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WIFI.Anwendung.Daten.DatenObjekt">
+    <Position X="15.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

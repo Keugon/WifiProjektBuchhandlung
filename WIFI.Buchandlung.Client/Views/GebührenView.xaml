@@ -22,19 +22,19 @@
             
             <DatePicker IsTodayHighlighted="True"
                         FirstDayOfWeek="Monday"
-                        SelectedDate="{Binding AktuelleGebühr.GültigAb}"/>
+                        SelectedDate="{Binding AktuelleGebühr.GültigAb,UpdateSourceTrigger=PropertyChanged}"/>
             <ucontrol:TextBox 
                 Wasserzeichen="Tagesstrafsatz"
                 Width="80"
-                Text="{Binding AktuelleGebühr.Strafgebühr}"/>
+                Text="{Binding AktuelleGebühr.Strafgebühr,UpdateSourceTrigger=PropertyChanged}"/>
             <ucontrol:TextBox 
                 Wasserzeichen="Ersazgebühren Faktor"
                 Width="80"
-                Text="{Binding AktuelleGebühr.ErsatzgebührFaktor}"/>
+                Text="{Binding AktuelleGebühr.ErsatzgebührFaktor,UpdateSourceTrigger=PropertyChanged}"/>
             <ucontrol:TextBox 
                 Wasserzeichen="Gebührenfreie Tage"
                 Width="80"
-                Text="{Binding AktuelleGebühr.GebührenFreieTage}"/>
+                Text="{Binding AktuelleGebühr.GebührenFreieTage,UpdateSourceTrigger=PropertyChanged}"/>
             <Button 
                 Content="Add/Change"
                 Command="{Binding GebührEintragenCommand}"/>
