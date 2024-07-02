@@ -20,7 +20,7 @@ namespace WIFI.Buchandlung.Client.Models
         /// <summary>
         /// Ruft die Inventar Nummer ab oder legt diese Fest
         /// </summary>
-        public int InventarNr { get; set; }
+        public int? InventarNr { get; set; }
         //Todo Typ und Zustand sind hier String zwecks der RückgabeFensterÖffnen
         //vom server aber beim hinsenden eigentlich String fehler in der logic? 
 

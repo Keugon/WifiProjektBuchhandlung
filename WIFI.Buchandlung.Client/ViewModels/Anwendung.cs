@@ -444,7 +444,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     //hole entlehnung für die InventarNr
                     foreach (InventarGegenstand inventarGegenstand in artikel.InventarGegenstände)
                     {
-                        inventarGegenstand.Entlehnung = this.DatenManager.SqlServerController.HoleEntlehnungAsync(inventarGegenstand.InventarNr).Result;
+                        inventarGegenstand.Entlehnung = this.DatenManager.SqlServerController.HoleEntlehnungAsync(inventarGegenstand.InventarNr!.Value).Result;
                     }
                 }
                 this.ArtikelListe = tempArtikelListe;

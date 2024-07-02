@@ -137,6 +137,7 @@ namespace WIFI.Buchandlung.Client.Tools
         /// <returns></returns>
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            //Todo Issue if nullable objekt should retourn NULL
             int retourn = 0;
             return int.TryParse((string)value!, out retourn) ? retourn : 0;
         }

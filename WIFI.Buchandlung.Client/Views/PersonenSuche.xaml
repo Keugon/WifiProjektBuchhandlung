@@ -35,10 +35,8 @@
             mit Getter bereit stehen public alleine reicht nicht-->
             <StackPanel
                 Orientation="Vertical">
-                <Label Content="Diese daten sind Sampels nur zur Funktions darstellung nicht vom SQL Server"/>
                 <DataGrid
                     ItemsSource="{Binding PersonenListe}"
-                    SelectedItem="{Binding SelectedPerson}"
                     AutoGenerateColumns="False">
                     <DataGrid.ContextMenu>
                         <ContextMenu>

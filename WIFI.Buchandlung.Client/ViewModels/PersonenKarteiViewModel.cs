@@ -23,12 +23,20 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// <summary>
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
-        public Befehl ArtikelAusleihenCommand
-            => new Befehl(p =>
+        public Befehl ArtikelAusleihenCommand => new Befehl(p =>
             Ausleihen(
                 artikelZumAusleihen: ArtikelZumAusleihen,
                 entlehnungZumAnlegen: EntlehnungZumAnlegen
-                ));
+                ), p =>
+                {
+
+                    if (Tools.General.AreStringsValid(
+                        ArtikelZumAusleihen.InventarNr!.ToString()!))
+                    {
+                        return true;
+                    }
+                    return false;
+                });
         /// <summary>
         /// Bindbarer aufruf der Oberfläche
         /// </summary>
@@ -38,8 +46,8 @@ namespace WIFI.Buchandlung.Client.ViewModels
         /// </summary>
         public Befehl EntlehnungRückgabeCommand => new Befehl(p => Rückgabe((p as System.Windows.Window)!));
         #endregion Befehle
-        #region Bindings
 
+        #region Bindings
         /// <summary>
         /// Internes feld für die Eigenschaft
         /// </summary>
@@ -159,7 +167,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
                     suchParameter: "",
                     inventarNr: artikelZumAusleihen.InventarNr)
                 .Result[0].Bezeichnung;
-                            }
+            }
             catch (Exception ex)
             {
                 OnFehlerAufgetreten(ex);
@@ -175,7 +183,7 @@ namespace WIFI.Buchandlung.Client.ViewModels
             {
                 Entlehnung zumAusleihen = this.DatenManager!.SqlServerController
                                 .HoleEntlehnungAsync(
-                                    inventarNr: artikelZumAusleihen.InventarNr
+                                    inventarNr: artikelZumAusleihen.InventarNr!.Value
                                     ).Result;
                 if (zumAusleihen.RückgabeDatum == null)
                 {
