@@ -19,13 +19,11 @@
                 Orientation="Horizontal"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
-                <Label
-                    Content="Person:"/>
                 <ucontrol:TextBox 
-                    Wasserzeichen="Person Suche" 
-                    Width="80"
+                    Wasserzeichen="Personen Name" 
+                    Width="90"
                     Text="{Binding PersonBezeichungSuche}"/>
-                <Button Content="Personen Suche Starten"
+                <Button Content="Personen Suchen"
                         Command="{Binding PersonenSucheCommand}"/>
                 <Button Content="Person Anlegen"
                         Command="{Binding PersonAnlegenCommand}"/>

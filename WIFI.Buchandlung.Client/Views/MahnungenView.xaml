@@ -16,12 +16,16 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <Label 
+            Content="Mahnungs Liste:"
+            FontSize="20"/>
         <StackPanel
             Orientation="Horizontal"
-            Grid.Row="0">
-             <Label Content="Mahnungen"/>
-        <Button Content="Drucken"
-                Command="{Binding SpeichernInCSVCommand}"/>
+            Grid.Row="0"
+            HorizontalAlignment="Right">
+        <Button Content="Als CSV speichern"
+                Command="{Binding SpeichernInCSVCommand}"
+                ToolTip="Speicher die Liste mittels Speichern unter Formular"/>
         </StackPanel>
         <StackPanel
             Grid.Row="1">

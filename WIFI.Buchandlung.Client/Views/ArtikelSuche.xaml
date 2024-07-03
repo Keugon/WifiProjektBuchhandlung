@@ -24,26 +24,24 @@
          Orientation="Horizontal"
          HorizontalAlignment="Left"
          VerticalAlignment="Top">
-                <Label
-                    Content="Artikel:"/>
                 <ucontrol:TextBox
                     Text="{Binding ArtikelBezeichungSuche}"
-                     Wasserzeichen="Artikel Suche" 
-                     Width="80"/>
-                <Button Content="Artikel Suche Starten"
+                     Wasserzeichen="Artikel Bezeichnung" 
+                     Width="100"/>
+                <Button Content="Artikel Suchen"
                         Command="{Binding ArtikelSucheCommand}"/>
                 <Button Content="Artikel Anlegen"
          Command="{Binding ArtikelAnlegenCommand}"/>
-            <RadioButton Content="Alle Anzeigen"
+            <RadioButton Content="Alle"
                          GroupName="ArtikelModus"
                          Command="{Binding ArtikelModusCommand}"
                          CommandParameter="0"
                          IsChecked="True"/>
-            <RadioButton Content="Nur vorhandene"
+            <RadioButton Content="Vorhandene"
                          GroupName="ArtikelModus"
                          Command="{Binding ArtikelModusCommand}"
                          CommandParameter="1"/>
-            <RadioButton Content="Ausgeschiedene Anzeigen bzw wünsche"
+            <RadioButton Content="Ausgeschiedene"
                          GroupName="ArtikelModus"
                          Command="{Binding ArtikelModusCommand}"
                          CommandParameter="2"/>

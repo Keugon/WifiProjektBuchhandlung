@@ -597,6 +597,10 @@ namespace WIFI.Buchandlung.Client.ViewModels
             //Durch das NUllen der Liste wird auf der
             //Oberfläche wieder der GET trigger
             //ausgelöst und dieser holt die DB daten
+            //Ohne sleep ist das eintragen nicht schnell
+            //genug und das holen (refresh) der liste zeigt
+            //noch den alt stand an!
+            System.Threading.Thread.Sleep(500);
             this.GebührenListe = null!;
         }
         #endregion Methoden
