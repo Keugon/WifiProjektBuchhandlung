@@ -22,7 +22,8 @@
             
             <DatePicker IsTodayHighlighted="True"
                         FirstDayOfWeek="Monday"
-                        SelectedDate="{Binding AktuelleGebühr.GültigAb,UpdateSourceTrigger=PropertyChanged}"/>
+                        SelectedDate="{Binding AktuelleGebühr.GültigAb,UpdateSourceTrigger=PropertyChanged}"
+                        />
             <ucontrol:TextBox 
                 Wasserzeichen="Tagesstrafsatz"
                 Width="80"
@@ -36,8 +37,9 @@
                 Width="80"
                 Text="{Binding AktuelleGebühr.GebührenFreieTage,Converter={StaticResource ResourceKey=IntToString},UpdateSourceTrigger=PropertyChanged}"/>
             <Button 
-                Content="Add/Change"
-                Command="{Binding GebührEintragenCommand}"/>
+                Content="Eintragen"
+                Command="{Binding GebührEintragenCommand}"
+                ToolTip="Träg die eigegebenen Werte als neuen Gebührensatz ein!"/>
         </StackPanel>
         <!--Stackpanel DataGrid-->
         <StackPanel

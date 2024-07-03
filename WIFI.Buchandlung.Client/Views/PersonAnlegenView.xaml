@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:PersonAnlegenViewModel}"
         DataContext="{Binding PersonAnlegenVM}"
         mc:Ignorable="d"
-        Title="PersonAnlegenView" Height="450" Width="800">
+        Title="PersonAnlegenView" Height="170" Width="350">
     <Grid>
         <StackPanel
             Orientation="Vertical">

@@ -10,5 +10,6 @@
             <tools:DecimalToString x:Key="DecimalToString"/>
             <tools:StringToIntSelectedIndexComboBox x:Key="StringToIntSelectedIndexComboBox"/>
         </ResourceDictionary>
+       
     </Application.Resources>
 </Application>

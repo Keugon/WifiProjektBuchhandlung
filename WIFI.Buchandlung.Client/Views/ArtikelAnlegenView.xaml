@@ -10,42 +10,74 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:ArtikelAnlegenViewModel}"
         DataContext="{Binding ArtikelAnlegenVM}"
         mc:Ignorable="d"
-        Title="ArtikelAnlegenView" Height="450" Width="800">
-     <Grid>
-        <StackPanel
-             Orientation="Horizontal"
-             HorizontalAlignment="Left"
-             VerticalAlignment="Top">
+        Title="ArtikelAnlegenView" Height="220" Width="240">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        
             <Label 
-                Content="Artikel Anlegen"/>
-            <ucontrol:TextBox 
+                Content="Artikel Anlegen"
+                FontSize="16"
+                Grid.Row="0"/>
+            <StackPanel
+                Orientation="Horizontal"
+                Grid.Row="1">
+                <ucontrol:TextBox 
                  Wasserzeichen="Artikel Bezeichnung"
-                 Width="80"
+                 Width="100"
                  Text="{Binding ArtikelZumAnlegen.Bezeichnung,UpdateSourceTrigger=PropertyChanged}"/>
-            <ucontrol:TextBox 
+                <ucontrol:TextBox 
                  Wasserzeichen="Beschaffungspreis"
-                 Width="80"
+                 Width="100"
                  Text="{Binding 
                         ArtikelZumAnlegen.Beschaffungspreis,
                         Converter={StaticResource ResourceKey=DecimalToString},
                         UpdateSourceTrigger=PropertyChanged}"/>
-            <!--Todo Listen vom server abrufen um die int string 
-            problematik in den griff zu bekommen-->
-            <Label Content="Zustand:"/>
-            <ComboBox ItemsSource="{Binding ZustandsListe }"
-                      DisplayMemberPath="Bezeichnung"
-                      SelectedItem="{Binding SelectedZustand}">
-                
-            </ComboBox>
-            <Label Content="Typ:"/>
-            <ComboBox ItemsSource="{Binding TypenListe }"
-                      DisplayMemberPath="Bezeichnung"
-                      SelectedItem="{Binding SelectedTyp}">
-            </ComboBox>
+            </StackPanel>
+            <!--Listen vom server abrufen um die int string 
+                problematik in den griff zu bekommen-->
+            <StackPanel
+                Orientation="Horizontal"
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                >
+                <Label Content="Zustand:"
+                       FontSize="14"/>
+                <ComboBox 
+                    ItemsSource="{Binding ZustandsListe }"
+                    DisplayMemberPath="Bezeichnung"
+                    SelectedItem="{Binding SelectedZustand}"
+                    Width="100">
+                </ComboBox>
+            </StackPanel>
+            <StackPanel
+                Orientation="Horizontal"
+                Grid.Row="3"
+                HorizontalAlignment="Right">
+                <Label Content="Typ:"
+                       FontSize="14"/>
+                <ComboBox 
+                    ItemsSource="{Binding TypenListe }"
+                    DisplayMemberPath="Bezeichnung"
+                    SelectedItem="{Binding SelectedTyp}"
+                    Width="100">
+                </ComboBox>
+            </StackPanel>
+
             <Button 
                 Content="Anlegen"
                 Command="{Binding ArtikelAnlegenCommand }"
-                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-        </StackPanel>
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                Grid.Row="4"/>
+        
     </Grid>
 </Window>
