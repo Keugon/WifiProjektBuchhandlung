@@ -11,11 +11,7 @@
         DataContext="{Binding PersonenKarteiVW}"
         mc:Ignorable="d"
         Title="PersonenKarteiView" Height="300" Width="710">
-    <Window.Resources>
-        <tools:IntToString x:Key="IntToString"/>
-    </Window.Resources>
-    <Grid
-        >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>

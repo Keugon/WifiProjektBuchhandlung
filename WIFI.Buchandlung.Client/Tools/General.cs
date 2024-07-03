@@ -58,7 +58,6 @@ namespace WIFI.Buchandlung.Client.Tools
 
             }
             return value!;
-
         }
         /// <summary>
         /// Keine Rückwandlung!
@@ -104,6 +103,10 @@ namespace WIFI.Buchandlung.Client.Tools
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             decimal retourn = 0;
+            if (string.IsNullOrEmpty(value?.ToString()))
+            {
+                return null!;
+            }
             return decimal.TryParse((string)value!, out retourn) ? retourn : 0m;
         }
     }
@@ -139,6 +142,10 @@ namespace WIFI.Buchandlung.Client.Tools
         {
             //Todo Issue if nullable objekt should retourn NULL
             int retourn = 0;
+            if (string.IsNullOrEmpty(value!.ToString()))
+            {
+                return null!;
+            }
             return int.TryParse((string)value!, out retourn) ? retourn : 0;
         }
     }
@@ -162,7 +169,7 @@ namespace WIFI.Buchandlung.Client.Tools
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             int retourn;
-            
+
             return int.TryParse((string)value!, out retourn) ? retourn : -1;//Combobox if nothing is choosn -1 eg null
         }
         /// <summary>

@@ -26,15 +26,15 @@
             <ucontrol:TextBox 
                 Wasserzeichen="Tagesstrafsatz"
                 Width="80"
-                Text="{Binding AktuelleGebühr.Strafgebühr,UpdateSourceTrigger=PropertyChanged}"/>
+                Text="{Binding AktuelleGebühr.Strafgebühr,Converter={StaticResource ResourceKey=IntToString},UpdateSourceTrigger=PropertyChanged}"/>
             <ucontrol:TextBox 
                 Wasserzeichen="Ersazgebühren Faktor"
                 Width="80"
-                Text="{Binding AktuelleGebühr.ErsatzgebührFaktor,UpdateSourceTrigger=PropertyChanged}"/>
+                Text="{Binding AktuelleGebühr.ErsatzgebührFaktor,Converter={StaticResource ResourceKey=IntToString},UpdateSourceTrigger=PropertyChanged}"/>
             <ucontrol:TextBox 
                 Wasserzeichen="Gebührenfreie Tage"
                 Width="80"
-                Text="{Binding AktuelleGebühr.GebührenFreieTage,UpdateSourceTrigger=PropertyChanged}"/>
+                Text="{Binding AktuelleGebühr.GebührenFreieTage,Converter={StaticResource ResourceKey=IntToString},UpdateSourceTrigger=PropertyChanged}"/>
             <Button 
                 Content="Add/Change"
                 Command="{Binding GebührEintragenCommand}"/>

@@ -6,6 +6,9 @@
     <Application.Resources>
         <ResourceDictionary>
             <tools:AusleihZuRückgabeDatum x:Key="AusleihZuRückgabeDatum"/>
+            <tools:IntToString x:Key="IntToString"/>
+            <tools:DecimalToString x:Key="DecimalToString"/>
+            <tools:StringToIntSelectedIndexComboBox x:Key="StringToIntSelectedIndexComboBox"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

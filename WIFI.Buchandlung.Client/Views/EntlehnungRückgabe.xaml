@@ -11,10 +11,6 @@
         DataContext="{Binding PersonenKarteiVW}"
         mc:Ignorable="d"
         Title="EntlehnungRückgabe" Height="250" Width="400">
-    <Window.Resources>
-        <tools:DecimalToString x:Key="DecimalToString"/>
-        <tools:StringToIntSelectedIndexComboBox x:Key="StringToIntSelectedIndexComboBox"/>
-    </Window.Resources>
     <Grid>
         <!--Todo diese View als usercontrol in der 
         PersonenKarteiView bei notwendigkeit einblenden-->

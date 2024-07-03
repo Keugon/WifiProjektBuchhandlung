@@ -13,8 +13,7 @@
     <Grid>
         <StackPanel
             Orientation="Vertical">
-            <Label Content="ich mag züge"/>
-            <!--Stackpanel Name-->
+                        <!--Stackpanel Name-->
             <StackPanel
                 Orientation="Horizontal">
                  <ucontrol:TextBox
@@ -31,7 +30,7 @@
                 Orientation="Horizontal">
                  <ucontrol:TextBox
                     Wasserzeichen="PLZ"
-                    Text="{Binding PersonZumAnlegen.Plz, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding PersonZumAnlegen.Plz,Converter={StaticResource ResourceKey=IntToString}, UpdateSourceTrigger=PropertyChanged}"
                     Width="80"/>
                 <ucontrol:TextBox
                     Wasserzeichen="Ort"

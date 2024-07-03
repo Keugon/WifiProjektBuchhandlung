@@ -12,9 +12,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="700"
              >
-    <UserControl.Resources>
-        <tools:AusleihZuRückgabeDatum x:Key="AusleihZuRückgabeDatum"/>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
