@@ -58,9 +58,9 @@
                          FontSize="12pt">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="LaufNr" Binding="{Binding LfdNr}"/>
-                            <DataGridTextColumn Header="Gültig Ab" Binding="{Binding GültigAb,StringFormat='dd.MM.yyyy HH:mm'}" />
-                            <DataGridTextColumn Header="Tagesstrafsatz" Binding="{Binding Strafgebühr}"/>
-                            <DataGridTextColumn Header="Ersazgebühren Faktor" Binding="{Binding ErsatzgebührFaktor}"/>
+                            <DataGridTextColumn Header="Gültig Ab" Binding="{Binding GültigAb,StringFormat='dd.MM.yyyy'}" />
+                            <DataGridTextColumn Header="Tagesstrafsatz" Binding="{Binding Strafgebühr,StringFormat={}{0}€}"/>
+                            <DataGridTextColumn Header="Ersazgebühren Faktor" Binding="{Binding ErsatzgebührFaktor, StringFormat={}{0}*}"/>
                             <DataGridTextColumn Header="Gebührenfreie Tage" Binding="{Binding GebührenFreieTage}"/>
                         </DataGrid.Columns>
                     </DataGrid>

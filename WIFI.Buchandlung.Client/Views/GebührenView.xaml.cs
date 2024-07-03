@@ -20,6 +20,9 @@ namespace WIFI.Buchandlung.Client.Views
     /// </summary>
     public partial class GebührenView : UserControl
     {
+        /// <summary>
+        /// GebührenView
+        /// </summary>
         public GebührenView()
         {
             InitializeComponent();

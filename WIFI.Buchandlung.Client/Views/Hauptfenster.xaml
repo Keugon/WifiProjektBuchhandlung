@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:WIFI.Buchandlung.Client.ViewModels"
         d:DataContext="{d:DesignInstance Type=viewmodels:Anwendung}"
         mc:Ignorable="d"
-        Title="Hauptfenster" Height="450" Width="800">
+        Title="Hauptfenster" Height="425" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -18,6 +18,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!--Row0-->
+        <!--TopTitel-->
+        <Label 
+            Content="Verleih Software Projekt"
+            FontStyle="Italic"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            FontSize="30"
+            HorizontalAlignment="Center"/>
         <!--Row1-->
         <StackPanel 
             Orientation="Vertical"

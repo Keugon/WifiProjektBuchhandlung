@@ -69,9 +69,9 @@
         <!--row2-->
         <StackPanel 
             Orientation="Horizontal"
-             Grid.Row="2"
- Grid.Column="0"
- Grid.ColumnSpan="2">
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
             <Label Content="Email"/>
             <Label Content="{Binding AktuellePerson.Email}"/>
         </StackPanel>
@@ -79,7 +79,7 @@
 <!--Listview ausgeliehenes-->
         <ScrollViewer
              Grid.Row="2"
-            Grid.ColumnSpan="2">
+             Grid.ColumnSpan="2">
              <StackPanel
                 Orientation="Vertical" >
             <DataGrid
@@ -94,8 +94,8 @@
                             <MenuItem
                                 Command="{Binding EntlehnungRückgabeFensterÖffnenCommand}"
                                 CommandParameter="{Binding PlacementTarget.SelectedItem,
-                               RelativeSource={RelativeSource FindAncestor,
-                               AncestorType={x:Type ContextMenu}}}"
+                                                   RelativeSource={RelativeSource FindAncestor,
+                                                   AncestorType={x:Type ContextMenu}}}"
                                 Header="Rückgabe"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
@@ -104,7 +104,7 @@
                     <DataGridTextColumn Header="AusleihDatum" Binding="{Binding AusleihDatum,StringFormat='dd.MM.yyyy HH:mm'}" />
                     <DataGridTextColumn Header="RückgabeDatum" Binding="{Binding RückgabeDatum,StringFormat='dd.MM.yyyy HH:mm'}"/>
                     <DataGridTextColumn Header="RückgabeZustand" Binding="{Binding RückgabeZustand}"/>
-                    <DataGridTextColumn Header="Strafbetrag" Binding="{Binding Strafbetrag}"/>
+                    <DataGridTextColumn Header="Strafbetrag" Binding="{Binding Strafbetrag,StringFormat={}{0:N2}€}"/>
                     <DataGridTextColumn Header="StrafbetragBemerkung" Binding="{Binding StrafbetragBemerkung}"/>
                 </DataGrid.Columns>
             </DataGrid>
